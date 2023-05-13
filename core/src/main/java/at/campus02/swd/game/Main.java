@@ -30,10 +30,24 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
+		/*gameObjects.add(new Sign());
+        Sign sign = new Sign();
+        gameObjects.add(sign);
+        sign.setPosition(30,30);*/
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
+
+
+
+        for (float i = -viewport.getMaxWorldWidth()/2; i < viewport.getMaxWorldWidth()/2; i= i+32) {
+            for (float j = -viewport.getMaxWorldHeight()/2; j < viewport.getMaxWorldHeight()/2; j = j+32) {
+                Sign sign = new Sign();
+                gameObjects.add(sign);
+                sign.setPosition(i,j);
+            }
+
+        }
 	}
 
 	private void act(float delta) {
