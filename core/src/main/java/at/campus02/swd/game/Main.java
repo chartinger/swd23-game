@@ -21,7 +21,7 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f,  480.0f, 1280.0f,  720.0f);
+	private ExtendViewport viewport = new ExtendViewport(640.0f,  640.0f, 640.0f,  640.0f);
 	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
@@ -41,12 +41,15 @@ public class Main extends ApplicationAdapter {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
 
-        // our first tile
-        tile = new Tile();
-		gameObjects.add(new Sign());
-        tile.setPosition(0, 0);
-
-        gameObjects.add(tile);
+        int tileSize = 64;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                int tileX = i * tileSize;
+                int tileY = j * tileSize;
+                tile = new Tile();
+                gameObjects.add(tile);
+                tile.setPosition(tileX,tileY);
+            }}
 
 
 
