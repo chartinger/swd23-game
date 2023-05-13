@@ -1,3 +1,3 @@
-#Project Member
+# Project Member
 - Daniel Sattler
 - Paul Lehner
