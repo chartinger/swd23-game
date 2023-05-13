@@ -1,16 +1,16 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -22,19 +22,53 @@ public class Main extends ApplicationAdapter {
 
 	private Array<GameObject> gameObjects = new Array<>();
 
+
 	private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
+    private Sign sign;
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
+
+
+        batch = new SpriteBatch();
+        sign = new Sign();
+		gameObjects.add(sign);
+        sign.setPosition(100,100);
+
+        Background background = new Background();
+        //gameObjects.addAll(background);
+        background.fillBackground();
+
+        int xlength = background.getLength(); // beginn bei 240
+        int xStart = -background.getLength(); // beginn bei -240
+        int ylength = -background.getLength(); // beginn bei 240
+        int yStart = background.getLength(); // beginn bei 240
+        int pictureSide = background.getPictureSide();
+        TileFactory factory = new TileFactory();
+        background.fillBackground();
+
+        for (int xAxis = xStart; xAxis < xlength; xAxis += pictureSide) {
+            for (int yAxis = yStart; yAxis > ylength; yAxis -= pictureSide) {
+
+                Tile tile = factory.create();
+                tile.setPosition(xAxis,yAxis);
+                gameObjects.add(tile);
+
+            }
+
+        }
+
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
+
 	}
+
+
 
 	private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
