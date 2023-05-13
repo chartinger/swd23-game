@@ -17,7 +17,7 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
 	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
@@ -48,7 +48,7 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
+		font.draw(batch, "Hello Game", -300, -300);
 		batch.end();
 	}
 
