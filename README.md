@@ -9,11 +9,18 @@ This project was generated with a template including simple application launcher
 - `core`: Main module with the application logic shared by all platforms.
 - `lwjgl3`: Primary desktop platform using LWJGL3.
 - `àssets`: Pictures and sounds.
+
+
+## Getting started
+
+Some usefull classes and important functions:
+
 - `GameObjects`: Objects we are working with during the game
 - `main`: Logic of the game.  Relevant functions as mentioned below
-  - `draw`: "Draws" the current gamestate on the screen
-  - `render`: clears the screen before drawing it again.
-  - `setPosition`: setting position of a sprite and giving it to `GameObjects`
+    - `draw`: "Draws" the current gamestate on the screen
+    - `render`: clears the screen before drawing it again.
+    - `setPosition`: setting position of a sprite and giving it to `GameObjects`
+
 
 ## Gradle
 
@@ -37,3 +44,5 @@ Useful Gradle tasks and flags:
 
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+
+
