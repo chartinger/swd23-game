@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -20,7 +21,7 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private ExtendViewport viewport = new ExtendViewport(480.0f,  480.0f, 1280.0f,  720.0f);
 	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
@@ -35,15 +36,15 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-    //    camera = new OrthographicCamera();
-    //    camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
-    //    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
-    //    camera.update();
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
+        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        camera.update();
 
         // our first tile
         tile = new Tile();
 		gameObjects.add(new Sign());
-        tile.setPosition(176, -240);
+        tile.setPosition(0, 0);
 
         gameObjects.add(tile);
 
@@ -61,29 +62,58 @@ public class Main extends ApplicationAdapter {
 	}
 
 	private void draw() {
-		batch.setProjectionMatrix(viewport.getCamera().combined);
-        //batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		for(GameObject gameObject : gameObjects) {
-			gameObject.draw(batch);
-		}
-		font.draw(batch, "Hello Game", -220, -220);
-		batch.end();
+
+        //Aktualisiert die Kameraeinstellungen.
+        camera.update();
+
+        // Setzt die Projektionsmatrix des Batches auf die kombinierten Kamera- und Viewport-Einstellungen
+        batch.setProjectionMatrix(camera.combined);
+
+        // Beginnt das Zeichnen mit dem Batch
+        batch.begin();
+
+        // Zeichnet jedes Spielobjekt mit dem Batch
+        for (GameObject gameObject : gameObjects) {
+            gameObject.draw(batch);
+        }
+
+        // Zeichnet den Text "Hello Game" relativ zur Viewportgröße mit dem Batch
+        //String text = "Hello Game";
+        //GlyphLayout layout = new GlyphLayout();
+        //layout.setText(font, text);
+        //float textWidth = layout.width;
+        //float textX = viewport.getWorldWidth() / 2 - textWidth / 2;
+        //float textY = viewport.getWorldHeight() / 2;
+        //font.draw(batch, text, textX, textY);
+        batch.end();
 	}
 
 	@Override
 	public void render() {
+
+        // Zeichnet die Hintergrundfarbe.
 		Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //camera.update();
+        //Aktualisiert die Kameraeinstellungen.
+        camera.update();
 
+        //Ermittelt die vergangene Zeit seit dem letzten Frame in Sekunden und speichert sie in der Variable delta.
 		float delta = Gdx.graphics.getDeltaTime();
+
+        //Addiert die vergangene Zeit zum Akkumulator, um die Gesamtzeit zu verfolgen.
 		deltaAccumulator += delta;
+
+        //Führt die Spiellogik in regelmäßigen Intervallen basierend auf logicFrameTime aus, um eine konstante Aktualisierungsrate zu erreichen.
 		while(deltaAccumulator > logicFrameTime) {
+
+            //Subtrahiert das Aktualisierungsintervall vom Akkumulator, um die verbrauchte Zeit abzuziehen.
 			deltaAccumulator -= logicFrameTime;
+            //Führt die Spiellogik basierend auf dem Aktualisierungsintervall aus.
 			act(logicFrameTime);
 		}
+
+        //Ruft die Methode draw() auf, um die Spielobjekte zu zeichnen.
 		draw();
 	}
 
@@ -94,6 +124,9 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height){
-		viewport.update(width,height);
+        viewport.update(width, height, true);
+        camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
+        camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+        camera.update();
 	}
 }
