@@ -28,7 +28,7 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
-    private TileFactory tileFactory = new TileFactory();
+    private final TileFactory tileFactory = new TileFactory(640, 640, 64);
 
 	@Override
 	public void create() {
