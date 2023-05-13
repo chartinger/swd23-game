@@ -4,14 +4,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Sign implements GameObject {
+public class Tile implements GameObject {
     private Texture image;
     private Sprite sprite;
 
-    public Sign() {
-        image = new Texture("sign.png");
+    public Tile(String textureFile) {
+        image = new Texture(textureFile);
         sprite = new Sprite(image);
     }
+
     @Override
     public void act(float delta) {
 
