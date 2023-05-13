@@ -1,9 +1,11 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.Tile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -26,15 +28,44 @@ public class Main extends ApplicationAdapter {
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
+    private Sign sign;
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
+
+        setTileBackground();
+
+		/**
+        batch = new SpriteBatch();
+        sign = new Sign();
+		gameObjects.add(sign);
+        sign.setPosition(100,100);
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
-		Gdx.input.setInputProcessor(this.gameInput);
+		Gdx.input.setInputProcessor(this.gameInput);**/
+
 	}
+
+    private void setTileBackground(){
+
+        int xCounter = 0;
+        int yCounter = 0;
+
+
+
+        for (int column = 0; column < 10; column++) {
+
+            Tile tile = new Tile(new Texture("mapTile_022.png"));
+            gameObjects.add(tile);
+            xCounter += 10;
+            yCounter += 30;
+            tile.setPosition(xCounter, yCounter);
+
+        }
+
+
+    }
+
 
 	private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
