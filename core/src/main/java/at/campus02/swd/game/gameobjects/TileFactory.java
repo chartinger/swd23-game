@@ -1,10 +1,10 @@
 package at.campus02.swd.game.gameobjects;
 
 public class TileFactory {
-    private final TilePositioner tilePositioner;
+    private final GameObjectPositioner gameObjectPositioner;
 
-    public TileFactory(TilePositioner tilePositioner) {
-        this.tilePositioner = tilePositioner;
+    public TileFactory(GameObjectPositioner gameObjectPositioner) {
+        this.gameObjectPositioner = gameObjectPositioner;
     }
 
     /**
@@ -47,7 +47,7 @@ public class TileFactory {
 
         String textureFile = String.format("tiles/mapTile_%03d.png", textureId);
         Tile tile = new Tile(textureFile);
-        tile.setPosition(tilePositioner.translateToX(column), tilePositioner.translateToY(line));
+        tile.setPosition(gameObjectPositioner.translateToX(column), gameObjectPositioner.translateToY(line));
         return tile;
     }
 }

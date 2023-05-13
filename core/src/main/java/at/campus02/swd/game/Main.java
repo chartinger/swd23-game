@@ -26,9 +26,9 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
-    private final TilePositioner tilePositioner = new TilePositioner(640, 640, 64);
-    private final TileFactory tileFactory = new TileFactory(tilePositioner);
-    private final PlayerFactory playerFactory = new PlayerFactory(tilePositioner);
+    private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
+    private final TileFactory tileFactory = new TileFactory(gameObjectPositioner);
+    private final PlayerFactory playerFactory = new PlayerFactory(gameObjectPositioner);
 
 	@Override
 	public void create() {
