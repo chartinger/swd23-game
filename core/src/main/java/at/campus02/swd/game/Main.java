@@ -27,10 +27,20 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
+    private Sign sign;
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+
+        // How to add an object
+        sign = new Sign();
 		gameObjects.add(new Sign());
+        sign.setPosition(30, 30);
+        gameObjects.add(sign);
+
+
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
