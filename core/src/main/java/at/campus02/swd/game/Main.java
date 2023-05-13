@@ -17,25 +17,26 @@ import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
+ */
 public class Main extends ApplicationAdapter {
-	private SpriteBatch batch;
+    private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(640.0f,  640.0f, 640.0f,  640.0f);
-	private GameInput gameInput = new GameInput();
+    private ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
+    private GameInput gameInput = new GameInput();
 
-	private Array<GameObject> gameObjects = new Array<>();
+    private Array<GameObject> gameObjects = new Array<>();
 
-	private final float updatesPerSecond = 60;
-	private final float logicFrameTime = 1 / updatesPerSecond;
-	private float deltaAccumulator = 0;
-	private BitmapFont font;
+    private final float updatesPerSecond = 60;
+    private final float logicFrameTime = 1 / updatesPerSecond;
+    private float deltaAccumulator = 0;
+    private BitmapFont font;
     private OrthographicCamera camera;
-    private Tile tile;
 
-	@Override
-	public void create() {
-		batch = new SpriteBatch();
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
@@ -46,25 +47,25 @@ public class Main extends ApplicationAdapter {
             for (int j = 0; j < 10; j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                tile = new Tile();
+                Tile tile = new Tile();
                 gameObjects.add(tile);
-                tile.setPosition(tileX,tileY);
-            }}
+                tile.setPosition(tileX, tileY);
+            }
+        }
 
 
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        Gdx.input.setInputProcessor(this.gameInput);
+    }
 
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		Gdx.input.setInputProcessor(this.gameInput);
-	}
+    private void act(float delta) {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.act(delta);
+        }
+    }
 
-	private void act(float delta) {
-		for(GameObject gameObject : gameObjects) {
-			gameObject.act(delta);
-		}
-	}
-
-	private void draw() {
+    private void draw() {
 
         //Aktualisiert die Kameraeinstellungen.
         camera.update();
@@ -89,47 +90,47 @@ public class Main extends ApplicationAdapter {
         //float textY = viewport.getWorldHeight() / 2;
         //font.draw(batch, text, textX, textY);
         batch.end();
-	}
+    }
 
-	@Override
-	public void render() {
+    @Override
+    public void render() {
 
         // Zeichnet die Hintergrundfarbe.
-		Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //Aktualisiert die Kameraeinstellungen.
         camera.update();
 
         //Ermittelt die vergangene Zeit seit dem letzten Frame in Sekunden und speichert sie in der Variable delta.
-		float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getDeltaTime();
 
         //Addiert die vergangene Zeit zum Akkumulator, um die Gesamtzeit zu verfolgen.
-		deltaAccumulator += delta;
+        deltaAccumulator += delta;
 
         //Führt die Spiellogik in regelmäßigen Intervallen basierend auf logicFrameTime aus, um eine konstante Aktualisierungsrate zu erreichen.
-		while(deltaAccumulator > logicFrameTime) {
+        while (deltaAccumulator > logicFrameTime) {
 
             //Subtrahiert das Aktualisierungsintervall vom Akkumulator, um die verbrauchte Zeit abzuziehen.
-			deltaAccumulator -= logicFrameTime;
+            deltaAccumulator -= logicFrameTime;
             //Führt die Spiellogik basierend auf dem Aktualisierungsintervall aus.
-			act(logicFrameTime);
-		}
+            act(logicFrameTime);
+        }
 
         //Ruft die Methode draw() auf, um die Spielobjekte zu zeichnen.
-		draw();
-	}
+        draw();
+    }
 
-	@Override
-	public void dispose() {
-		batch.dispose();
-	}
+    @Override
+    public void dispose() {
+        batch.dispose();
+    }
 
-	@Override
-	public void resize(int width, int height){
+    @Override
+    public void resize(int width, int height) {
         viewport.update(width, height, true);
         camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
-	}
+    }
 }
