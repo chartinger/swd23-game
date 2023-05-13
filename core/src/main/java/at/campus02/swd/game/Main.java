@@ -34,7 +34,9 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(tileFactory.create(TileType.CENTER));
+        for (int x = 0; x <= 9; x++)
+            for (int y = 0; y <= 9; y++)
+		        gameObjects.add(tileFactory.create(TileType.CENTER, x, y));
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);

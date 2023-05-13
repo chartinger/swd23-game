@@ -1,7 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
 public class TileFactory {
-    public Tile create(TileType type) {
+    public Tile create(TileType type, int x, int y) {
         int textureId;
         switch (type) {
             case LEFT_TOP:
@@ -36,6 +36,12 @@ public class TileFactory {
         }
 
         String textureFile = String.format("tiles/mapTile_%03d.png", textureId);
-        return new Tile(textureFile);
+        Tile tile = new Tile(textureFile);
+        int offsetX = 640 / 2;
+        int offsetY = 640 / 2 - 64;
+        int xPos = x * 64 - offsetX;
+        int yPos = y * -64 + offsetY;
+        tile.setPosition(xPos, yPos);
+        return tile;
     }
 }
