@@ -1,8 +1,6 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.gameobjects.TileFactory;
-import at.campus02.swd.game.gameobjects.TilePositioner;
-import at.campus02.swd.game.gameobjects.TileType;
+import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -12,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -31,13 +28,15 @@ public class Main extends ApplicationAdapter {
 
     private final TilePositioner tilePositioner = new TilePositioner(640, 640, 64);
     private final TileFactory tileFactory = new TileFactory(tilePositioner);
+    private final PlayerFactory playerFactory = new PlayerFactory(tilePositioner);
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-        for (int x = 0; x <= 9; x++)
-            for (int y = 0; y <= 9; y++)
+        for (int x = 0; x < 10; x++)
+            for (int y = 0; y < 10; y++)
 		        gameObjects.add(tileFactory.create(TileType.CENTER, x, y));
+        gameObjects.add(playerFactory.create(PlayerType.READY_PLAYER_ONE, 3, 2));
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
