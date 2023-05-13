@@ -1,9 +1,12 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.Tile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -26,18 +29,23 @@ public class Main extends ApplicationAdapter {
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
-
-    private Sign sign;
+    private OrthographicCamera camera;
+    private Tile tile;
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+    //    camera = new OrthographicCamera();
+    //    camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
+    //    camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
+    //    camera.update();
 
-        // How to add an object
-        sign = new Sign();
+        // our first tile
+        tile = new Tile();
 		gameObjects.add(new Sign());
-        sign.setPosition(30, 30);
-        gameObjects.add(sign);
+        tile.setPosition(176, -240);
+
+        gameObjects.add(tile);
 
 
 
@@ -54,6 +62,7 @@ public class Main extends ApplicationAdapter {
 
 	private void draw() {
 		batch.setProjectionMatrix(viewport.getCamera().combined);
+        //batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
@@ -66,6 +75,8 @@ public class Main extends ApplicationAdapter {
 	public void render() {
 		Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        //camera.update();
 
 		float delta = Gdx.graphics.getDeltaTime();
 		deltaAccumulator += delta;
