@@ -14,7 +14,7 @@ public class Sign implements GameObject {
     }
     @Override
     public void act(float delta) {
-
+        sprite.rotate(5);
     }
 
     @Override
