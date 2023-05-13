@@ -1,6 +1,7 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.gameobjects.TileFactory;
+import at.campus02.swd.game.gameobjects.TilePositioner;
 import at.campus02.swd.game.gameobjects.TileType;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -16,7 +17,7 @@ import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-	private SpriteBatch batch;
+    private SpriteBatch batch;
 
 	private final ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
 	private final GameInput gameInput = new GameInput();
@@ -28,7 +29,8 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
-    private final TileFactory tileFactory = new TileFactory(640, 640, 64);
+    private final TilePositioner tilePositioner = new TilePositioner(640, 640, 64);
+    private final TileFactory tileFactory = new TileFactory(tilePositioner);
 
 	@Override
 	public void create() {
