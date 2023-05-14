@@ -36,6 +36,10 @@ public class Main extends ApplicationAdapter {
         for (int x = 0; x < 10; x++)
             for (int y = 0; y < 10; y++)
 		        gameObjects.add(tileFactory.create(TileType.WAVY_WATER, x, y));
+        gameObjects.add(tileFactory.create(TileType.TOP_LEFT, 3, 2));
+        gameObjects.add(tileFactory.create(TileType.TOP_RIGHT, 4, 2));
+        gameObjects.add(tileFactory.create(TileType.BOTTOM_LEFT, 3, 3));
+        gameObjects.add(tileFactory.create(TileType.BOTTOM_RIGHT, 4, 3));
         gameObjects.add(playerFactory.create(PlayerType.READY_PLAYER_ONE, 3, 2));
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
