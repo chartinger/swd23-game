@@ -14,13 +14,13 @@ public class TileFactory {
     public Tile create(TileType type, int column, int line) {
         int textureId;
         switch (type) {
-            case LEFT_TOP:
+            case TOP_LEFT:
                 textureId = 6;
                 break;
             case TOP:
                 textureId = 7;
                 break;
-            case RIGHT_TOP:
+            case TOP_RIGHT:
                 textureId = 8;
                 break;
             case LEFT:
@@ -32,10 +32,10 @@ public class TileFactory {
             case RIGHT:
                 textureId = 23;
                 break;
-            case LEFT_BOTTOM:
+            case BOTTOM_LEFT:
                 textureId = 51;
                 break;
-            case RIGHT_BOTTOM:
+            case BOTTOM_RIGHT:
                 textureId = 53;
                 break;
             case BOTTOM:

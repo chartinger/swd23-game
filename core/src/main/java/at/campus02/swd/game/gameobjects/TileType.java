@@ -1,15 +1,15 @@
 package at.campus02.swd.game.gameobjects;
 
 public enum TileType {
-    LEFT_TOP,
+    TOP_LEFT,
     TOP,
-    RIGHT_TOP,
+    TOP_RIGHT,
     LEFT,
     CENTER,
     RIGHT,
-    LEFT_BOTTOM,
+    BOTTOM_LEFT,
     BOTTOM,
-    RIGHT_BOTTOM,
+    BOTTOM_RIGHT,
     SHALLOW_WATER,
     WAVY_WATER,
     WATER_LINES,
