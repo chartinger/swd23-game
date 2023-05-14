@@ -9,11 +9,10 @@ public class Tile implements GameObject {
     private Texture image;
     private Sprite sprite;
 
-    public Tile(Texture image) {
-        this.image = image;
-        this.sprite = new Sprite(image);
+    public Tile() {
+        image = new Texture("tropical/Terrain/DeepWater/Deepwater/Watermiddle4.png");
+        sprite = new Sprite(image);
     }
-
     @Override
     public void act(float delta) {
 
