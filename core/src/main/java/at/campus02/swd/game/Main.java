@@ -1,6 +1,8 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.factory.TileFactory;
 import at.campus02.swd.game.gameobjects.Tile;
+import at.campus02.swd.game.gameobjects.WaterTile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -41,13 +43,12 @@ public class Main extends ApplicationAdapter {
         camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
-
         int tileSize = 64;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                Tile tile = new Tile();
+                Tile tile = new WaterTile();
                 gameObjects.add(tile);
                 tile.setPosition(tileX, tileY);
             }
