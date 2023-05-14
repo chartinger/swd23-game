@@ -35,6 +35,7 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
         drawBackground();
         drawIsland(3, 2);
+        drawIsland(7, 6);
         drawPlayer(3, 2);
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
