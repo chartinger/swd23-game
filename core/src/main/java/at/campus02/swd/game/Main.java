@@ -68,9 +68,9 @@ public class Main extends ApplicationAdapter {
     }
 
     private <E extends Enum<E>> void createAndPlaceGameObject(GameObjectFactory<E> factory, E tileType, int column, int line) {
-        GameObject tile = factory.create(tileType);
-        gameObjectPositioner.setPosition(tile, column, line);
-        gameObjects.add(tile);
+        GameObject object = factory.create(tileType);
+        gameObjectPositioner.setPosition(object, column, line);
+        gameObjects.add(object);
     }
 
     private void act(float delta) {

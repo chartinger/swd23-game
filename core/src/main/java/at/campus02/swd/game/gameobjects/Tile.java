@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tile implements GameObject {
-    private Texture image;
-    private Sprite sprite;
+    private final Texture image;
+    private final Sprite sprite;
 
     public Tile(String textureFile) {
         image = new Texture(textureFile);
