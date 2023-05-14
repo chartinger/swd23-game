@@ -14,12 +14,16 @@ public class GameObjectPositioner {
         this.tileSize = tileSize;
     }
 
-    public int translateToX(int column) {
+    public void setPosition(GameObject tile, int column, int line) {
+        tile.setPosition(translateColumnToX(column), translateLineToY(line));
+    }
+
+    private int translateColumnToX(int column) {
         int offsetX = viewportWidth / 2;
         return column * tileSize - offsetX;
     }
 
-    public int translateToY(int line) {
+    private int translateLineToY(int line) {
         int offsetY = viewportHeight / 2;
         // (line + 1) because we need to refer to the location of the *bottom* left corner of the image
         // return the negativ value because on the cartesian coordinate system our lines grow in the negative direction

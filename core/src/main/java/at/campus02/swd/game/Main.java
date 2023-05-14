@@ -27,8 +27,8 @@ public class Main extends ApplicationAdapter {
 	private BitmapFont font;
 
     private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
-    private final TileFactory tileFactory = new TileFactory(gameObjectPositioner);
-    private final PlayerFactory playerFactory = new PlayerFactory(gameObjectPositioner);
+    private final TileFactory tileFactory = new TileFactory();
+    private final PlayerFactory playerFactory = new PlayerFactory();
 
 	@Override
 	public void create() {
@@ -43,20 +43,32 @@ public class Main extends ApplicationAdapter {
 	}
 
     private void drawBackground() {
-        for (int x = 0; x < 10; x++)
-            for (int y = 0; y < 10; y++)
-                gameObjects.add(tileFactory.create(TileType.WAVY_WATER, x, y));
+        for (int column = 0; column < 10; column++)
+            for (int line = 0; line < 10; line++)
+                createAndPlaceTile(TileType.WAVY_WATER, column, line);
     }
 
     private void drawIsland(int column, int line) {
-        gameObjects.add(tileFactory.create(TileType.TOP_LEFT, column, line));
-        gameObjects.add(tileFactory.create(TileType.TOP_RIGHT, column+1, line));
-        gameObjects.add(tileFactory.create(TileType.BOTTOM_LEFT, column, line+1));
-        gameObjects.add(tileFactory.create(TileType.BOTTOM_RIGHT, column+1, line+1));
+        createAndPlaceTile(TileType.TOP_LEFT, column, line);
+        createAndPlaceTile(TileType.TOP_RIGHT, column + 1, line);
+        createAndPlaceTile(TileType.BOTTOM_LEFT, column, line + 1);
+        createAndPlaceTile(TileType.BOTTOM_RIGHT, column + 1, line + 1);
     }
 
     private void drawPlayer(int column, int line) {
-        gameObjects.add(playerFactory.create(PlayerType.READY_PLAYER_ONE, column, line));
+        createAndPlacePlayer(PlayerType.READY_PLAYER_ONE, column, line);
+    }
+
+    private void createAndPlaceTile(TileType tileType, int column, int line) {
+        Tile tile = tileFactory.create(tileType);
+        gameObjectPositioner.setPosition(tile, column, line);
+        gameObjects.add(tile);
+    }
+
+    private void createAndPlacePlayer(PlayerType playerType, int column, int line) {
+        Player player = playerFactory.create(playerType);
+        gameObjectPositioner.setPosition(player, column, line);
+        gameObjects.add(player);
     }
 
     private void act(float delta) {

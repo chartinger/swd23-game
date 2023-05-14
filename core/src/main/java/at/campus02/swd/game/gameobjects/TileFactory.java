@@ -1,17 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
 public class TileFactory {
-    private final GameObjectPositioner gameObjectPositioner;
-
-    public TileFactory(GameObjectPositioner gameObjectPositioner) {
-        this.gameObjectPositioner = gameObjectPositioner;
-    }
-
-    /**
-     * Creates a new tile
-     * @return a new tile to be drawn at the given position on the board
-     */
-    public Tile create(TileType type, int column, int line) {
+    public Tile create(TileType type) {
         int textureId;
         switch (type) {
             case TOP_LEFT:
@@ -55,8 +45,6 @@ public class TileFactory {
         }
 
         String textureFile = String.format("tiles/mapTile_%03d.png", textureId);
-        Tile tile = new Tile(textureFile);
-        tile.setPosition(gameObjectPositioner.translateToX(column), gameObjectPositioner.translateToY(line));
-        return tile;
+        return new Tile(textureFile);
     }
 }
