@@ -41,6 +41,15 @@ public class TileFactory {
             case BOTTOM:
                 textureId = 52;
                 break;
+            case SHALLOW_WATER:
+                textureId = 188;
+                break;
+            case WAVY_WATER:
+                textureId = 187;
+                break;
+            case WATER_LINES:
+                textureId = 171;
+                break;
             default:
                 throw new IllegalArgumentException();
         }

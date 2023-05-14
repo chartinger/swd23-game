@@ -9,5 +9,8 @@ public enum TileType {
     RIGHT,
     LEFT_BOTTOM,
     BOTTOM,
-    RIGHT_BOTTOM
+    RIGHT_BOTTOM,
+    SHALLOW_WATER,
+    WAVY_WATER,
+    WATER_LINES,
 }
