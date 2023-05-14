@@ -1,6 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
-public class TileFactory {
+public class TileFactory implements GameObjectFactory<TileType> {
+    @Override
     public Tile create(TileType type) {
         int textureId;
         switch (type) {

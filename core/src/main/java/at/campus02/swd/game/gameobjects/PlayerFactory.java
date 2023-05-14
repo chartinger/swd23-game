@@ -1,6 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
-public class PlayerFactory {
+public class PlayerFactory implements GameObjectFactory<PlayerType> {
+    @Override
     public Player create(PlayerType type) {
         int textureId;
         switch (type) {

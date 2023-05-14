@@ -60,15 +60,17 @@ public class Main extends ApplicationAdapter {
     }
 
     private void createAndPlaceTile(TileType tileType, int column, int line) {
-        Tile tile = tileFactory.create(tileType);
-        gameObjectPositioner.setPosition(tile, column, line);
-        gameObjects.add(tile);
+        createAndPlaceGameObject(tileFactory, tileType, column, line);
     }
 
     private void createAndPlacePlayer(PlayerType playerType, int column, int line) {
-        Player player = playerFactory.create(playerType);
-        gameObjectPositioner.setPosition(player, column, line);
-        gameObjects.add(player);
+        createAndPlaceGameObject(playerFactory, playerType, column, line);
+    }
+
+    private <E extends Enum<E>> void createAndPlaceGameObject(GameObjectFactory<E> factory, E tileType, int column, int line) {
+        GameObject tile = factory.create(tileType);
+        gameObjectPositioner.setPosition(tile, column, line);
+        gameObjects.add(tile);
     }
 
     private void act(float delta) {
