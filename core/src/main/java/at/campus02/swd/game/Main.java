@@ -23,7 +23,7 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
 
-    private ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
+    private ExtendViewport viewport = new ExtendViewport(1440.0f, 1440.0f, 1440.0f, 1440.0f);
     private GameInput gameInput = new GameInput();
 
     private Array<GameObject> gameObjects = new Array<>();
@@ -42,9 +42,9 @@ public class Main extends ApplicationAdapter {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
 
-        int tileSize = 64;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        int tileSize = 48;
+        for (int i = 0; i < (viewport.getMinWorldHeight() / tileSize); i++) {
+            for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
                 Tile tile = new Tile();

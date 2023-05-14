@@ -10,7 +10,7 @@ public class Tile implements GameObject {
     private Sprite sprite;
 
     public Tile() {
-        image = new Texture("tiles/mapTile_027.png");
+        image = new Texture("tropical/Terrain/DeepWater/Deepwater/Watermiddle4.png");
         sprite = new Sprite(image);
     }
     @Override
