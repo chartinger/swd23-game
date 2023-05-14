@@ -33,20 +33,32 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-        for (int x = 0; x < 10; x++)
-            for (int y = 0; y < 10; y++)
-		        gameObjects.add(tileFactory.create(TileType.WAVY_WATER, x, y));
-        gameObjects.add(tileFactory.create(TileType.TOP_LEFT, 3, 2));
-        gameObjects.add(tileFactory.create(TileType.TOP_RIGHT, 4, 2));
-        gameObjects.add(tileFactory.create(TileType.BOTTOM_LEFT, 3, 3));
-        gameObjects.add(tileFactory.create(TileType.BOTTOM_RIGHT, 4, 3));
-        gameObjects.add(playerFactory.create(PlayerType.READY_PLAYER_ONE, 3, 2));
+        drawBackground();
+        drawIsland(3, 2);
+        drawPlayer(3, 2);
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 	}
 
-	private void act(float delta) {
+    private void drawBackground() {
+        for (int x = 0; x < 10; x++)
+            for (int y = 0; y < 10; y++)
+                gameObjects.add(tileFactory.create(TileType.WAVY_WATER, x, y));
+    }
+
+    private void drawIsland(int column, int line) {
+        gameObjects.add(tileFactory.create(TileType.TOP_LEFT, column, line));
+        gameObjects.add(tileFactory.create(TileType.TOP_RIGHT, column+1, line));
+        gameObjects.add(tileFactory.create(TileType.BOTTOM_LEFT, column, line+1));
+        gameObjects.add(tileFactory.create(TileType.BOTTOM_RIGHT, column+1, line+1));
+    }
+
+    private void drawPlayer(int column, int line) {
+        gameObjects.add(playerFactory.create(PlayerType.READY_PLAYER_ONE, column, line));
+    }
+
+    private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.act(delta);
 		}
