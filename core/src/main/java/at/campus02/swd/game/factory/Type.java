@@ -1,6 +1,7 @@
 package at.campus02.swd.game.factory;
 
-public enum TileType {
+public enum Type {
+    //Type for tiles
     WATER,
     ISLAND_TOP,
     ISLAND_LEFT,
@@ -11,5 +12,9 @@ public enum TileType {
     ISLAND_BOT,
     ISLAND_BOTLEFT,
     ISLAND_BOTRIGHT,
-    SIGN
+    SIGN,
+    //Type for players
+    HUMAN,
+    ENEMY,
+    FRIENDLY
 }
