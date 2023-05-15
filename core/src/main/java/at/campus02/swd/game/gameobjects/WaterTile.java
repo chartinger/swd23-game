@@ -6,6 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class WaterTile extends Tile{
 
     public WaterTile() {
-        super("tiles/tropical/Terrain/DeepWater/Deepwater/Watermiddle4.png");
+        super("tiles/tropical/Terrain/DeepWater/Deepwater/Watermiddle2.png");
     }
 }

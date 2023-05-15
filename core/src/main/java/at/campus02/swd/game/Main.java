@@ -3,6 +3,7 @@ package at.campus02.swd.game;
 import at.campus02.swd.game.factory.Factory;
 import at.campus02.swd.game.factory.TileFactory;
 import at.campus02.swd.game.factory.TileType;
+import at.campus02.swd.game.gameobjects.IslandTile;
 import at.campus02.swd.game.gameobjects.Tile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -44,17 +45,28 @@ public class Main extends ApplicationAdapter {
         camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
-        Factory tf = new TileFactory();
+        Factory tileFactory = new TileFactory();
         int tileSize = 48;
         for (int i = 0; i < (viewport.getMinWorldHeight() / tileSize); i++) {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                GameObject tile = tf.create(TileType.WATER);
-                gameObjects.add(tile);
-                tile.setPosition(tileX,tileY);
+                gameObjects.add(tileFactory.create(TileType.WATER,tileX,tileY));
             }
         }
+
+        int islandHight = 2;
+        int islandWidth = 3;
+
+        for (int row = 0; row < islandHight; row++) {
+            for (int col = 0; col < islandWidth; col++) {
+                int tileX = row;
+                int tileY = col;
+
+                gameObjects.add(tileFactory.create(TileType.ISLAND,tileX,tileY));
+
+                }
+            }
 
 
         font = new BitmapFont();
