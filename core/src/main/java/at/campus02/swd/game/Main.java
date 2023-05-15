@@ -2,6 +2,7 @@ package at.campus02.swd.game;
 
 import at.campus02.swd.game.factory.Factory;
 import at.campus02.swd.game.factory.TileFactory;
+import at.campus02.swd.game.factory.TileType;
 import at.campus02.swd.game.gameobjects.Tile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -49,7 +50,7 @@ public class Main extends ApplicationAdapter {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                GameObject tile = tf.create("Water");
+                GameObject tile = tf.create(TileType.WATER);
                 gameObjects.add(tile);
                 tile.setPosition(tileX,tileY);
             }
