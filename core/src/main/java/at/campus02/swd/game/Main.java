@@ -50,9 +50,9 @@ public class Main extends ApplicationAdapter {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                GameObject tile = tf.create(TileType.WATER);
-                gameObjects.add(tile);
-                tile.setPosition(tileX,tileY);
+
+                gameObjects.add(tf.create(TileType.WATER,tileX,tileY));
+
             }
         }
 
