@@ -1,6 +1,5 @@
 package at.campus02.swd.game.factory;
 
-import at.campus02.swd.game.factory.TileType;
 import at.campus02.swd.game.gameobjects.*;
 
 public class IslandBuilder {

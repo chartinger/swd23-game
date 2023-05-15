@@ -1,24 +1,20 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.factory.Factory;
+import at.campus02.swd.game.factory.PlayerFactory;
 import at.campus02.swd.game.factory.TileFactory;
 import at.campus02.swd.game.factory.TileType;
-import at.campus02.swd.game.gameobjects.IslandTile;
-import at.campus02.swd.game.gameobjects.Tile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /**
@@ -46,6 +42,7 @@ public class Main extends ApplicationAdapter {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
         Factory tileFactory = new TileFactory();
+        PlayerFactory player = new PlayerFactory();
         int tileSize = 48;
         for (int i = 0; i < (viewport.getMinWorldHeight() / tileSize); i++) {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
@@ -68,6 +65,9 @@ public class Main extends ApplicationAdapter {
                 }
             }
 
+        gameObjects.add(player.create(TileType.HUMAN,100,100));
+
+        gameObjects.add(tileFactory.create(TileType.SIGN, 250, 240));
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);

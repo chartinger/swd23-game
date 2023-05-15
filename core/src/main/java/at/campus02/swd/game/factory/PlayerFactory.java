@@ -6,7 +6,7 @@ import at.campus02.swd.game.gameobjects.Player;
 
 public class PlayerFactory extends Factory{
     @Override
-    protected GameObject createGameObject(Type type, int x, int y) {
+    protected GameObject createGameObject(TileType type, int x, int y) {
         GameObject player;
         switch (type){
             case HUMAN:
