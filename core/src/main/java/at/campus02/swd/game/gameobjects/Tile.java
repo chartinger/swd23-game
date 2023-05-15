@@ -9,8 +9,8 @@ public class Tile implements GameObject {
     private Texture image;
     private Sprite sprite;
 
-    public Tile() {
-        image = new Texture("tropical/Terrain/DeepWater/Deepwater/Watermiddle4.png");
+    public Tile(String path) {
+        this.image = new Texture(path);
         sprite = new Sprite(image);
     }
     @Override

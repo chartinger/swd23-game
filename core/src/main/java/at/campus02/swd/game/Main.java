@@ -1,5 +1,7 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.factory.Factory;
+import at.campus02.swd.game.factory.TileFactory;
 import at.campus02.swd.game.gameobjects.Tile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -23,7 +25,7 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
 
-    private ExtendViewport viewport = new ExtendViewport(1440.0f, 1440.0f, 1440.0f, 1440.0f);
+    private ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
     private GameInput gameInput = new GameInput();
 
     private Array<GameObject> gameObjects = new Array<>();
@@ -41,15 +43,15 @@ public class Main extends ApplicationAdapter {
         camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
-
+        Factory tf = new TileFactory();
         int tileSize = 48;
         for (int i = 0; i < (viewport.getMinWorldHeight() / tileSize); i++) {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                Tile tile = new Tile();
+                GameObject tile = tf.create("Water");
                 gameObjects.add(tile);
-                tile.setPosition(tileX, tileY);
+                tile.setPosition(tileX,tileY);
             }
         }
 
