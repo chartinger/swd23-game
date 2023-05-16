@@ -50,7 +50,7 @@ public class Main extends ApplicationAdapter {
         }
 
         IslandBuilder ib = new IslandBuilder();
-        for (GameObject o:ib.placeIsland(200,200,5,5)
+        for (GameObject o:ib.placeIsland(200,200,6,4)
              ) {
             gameObjects.add(o);
         }

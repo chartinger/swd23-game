@@ -12,8 +12,8 @@ public class IslandBuilder {
     }
 
     public ArrayList<GameObject> placeIsland(float x, float y, int islandHeight, int islandWidth) {
-        for (int row = 0; row < islandWidth; row++) {
-            for (int col = 0; col < islandHeight; col++) {
+        for (int row = 0; row < islandHeight; row++) {
+            for (int col = 0; col < islandWidth; col++) {
                 int tileX = col;
                 int tileY = row;
 
