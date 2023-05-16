@@ -11,7 +11,7 @@ public class SandMidMiddle implements GameObject {
     private Sprite sprite;
 
     public SandMidMiddle() {
-        image = new Texture("tiles/tile_18.png");
+        image = new Texture("tiles/tile_19.png");
         sprite= new Sprite(image);
     }
 

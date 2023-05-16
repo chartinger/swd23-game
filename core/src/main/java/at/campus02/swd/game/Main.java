@@ -1,5 +1,6 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.island.SandIsland;
 import at.campus02.swd.game.gameobjects.island.SandLeftUpper;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -31,28 +32,20 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
-        Sign sign = new Sign();
-        gameObjects.add(sign);
-        sign.setPosition(30,30);
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 
-        SandLeftUpper sandLeftUpper = new SandLeftUpper();
-        sandLeftUpper.setPosition(69, -69);
-        gameObjects.add(sandLeftUpper);
+
+        SandIsland sandIsland = new SandIsland(250, 250);
+        for(GameObject go : sandIsland.getGameObjectArray()){
+
+            gameObjects.add(go);
+        }
 
 
 
-        /*for (float i = -viewport.getMaxWorldWidth()/2; i < viewport.getMaxWorldWidth()/2; i= i+32) {
-            for (float j = -viewport.getMaxWorldHeight()/2; j < viewport.getMaxWorldHeight()/2; j = j+32) {
-                Sign sign = new Sign();
-                gameObjects.add(sign);
-                sign.setPosition(i,j);
-            }
-
-        }*/
 	}
 
 	private void act(float delta) {
