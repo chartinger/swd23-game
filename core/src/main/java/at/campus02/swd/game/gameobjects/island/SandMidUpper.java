@@ -11,7 +11,7 @@ public class SandMidUpper implements GameObject {
     private Sprite sprite;
 
     public SandMidUpper() {
-        image = new Texture("tiles/tile_01.png");
+        image = new Texture("tiles/tile_02.png");
         sprite= new Sprite(image);
     }
 

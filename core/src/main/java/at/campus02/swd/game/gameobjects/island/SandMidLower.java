@@ -5,13 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SandRightUpper implements GameObject {
-
+public class SandMidLower implements GameObject {
     private Texture image;
     private Sprite sprite;
 
-    public SandRightUpper() {
-        image = new Texture("tiles/tile_03.png");
+    public SandMidLower() {
+        image = new Texture("tiles/tile_18.png");
         sprite= new Sprite(image);
     }
 
@@ -28,4 +27,5 @@ public class SandRightUpper implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
 }
