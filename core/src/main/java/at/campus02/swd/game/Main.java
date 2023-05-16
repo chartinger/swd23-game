@@ -52,20 +52,20 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        int islandHeight = 2;
-        int islandWidth = 3;
+        int islandHeight = 5;
+        int islandWidth = 5;
 
         for (int row = 0; row < islandHeight; row++) {
             for (int col = 0; col < islandWidth; col++) {
-                int tileX = row;
-                int tileY = col;
+                int tileX = col;
+                int tileY = row;
 
                 gameObjects.add(tileFactory.create(Type.ISLAND,tileX,tileY));
 
                 }
             }
 
-        gameObjects.add(player.create(Type.HUMAN,100,100));
+        gameObjects.add(player.create(Type.HUMAN,500,100));
 
         gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
 

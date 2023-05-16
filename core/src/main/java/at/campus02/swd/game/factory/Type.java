@@ -1,6 +1,7 @@
 package at.campus02.swd.game.factory;
 
 public enum Type {
+    SIGN,
     WATER,
     ISLAND,
     HUMAN,
@@ -12,6 +13,5 @@ public enum Type {
     RIGHT_BOTTOM,
     RIGHT,
     LEFT,
-    MIDDLE,
-    SIGN
+    MIDDLE
 }

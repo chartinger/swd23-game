@@ -19,10 +19,10 @@ public class TileFactory extends Factory{
                 break;
             case ISLAND:
 
-                IslandBuilder islandBuilder = new IslandBuilder(3, 2, Type.LEFT_TOP, Type.TOP, Type.RIGHT_TOP,
-                    Type.LEFT_BOTTOM, Type.BOTTOM, Type.RIGHT_BOTTOM);
+                IslandBuilder islandBuilder = new IslandBuilder(5, 5, Type.LEFT_TOP, Type.TOP, Type.RIGHT_TOP,
+                    Type.LEFT_BOTTOM, Type.BOTTOM, Type.RIGHT_BOTTOM, Type.RIGHT, Type.LEFT, Type.MIDDLE);
 
-                tile = islandBuilder.createIslandTile(x, y);
+                tile = islandBuilder.createIslandTile(x, y, 5, 200, 200);
                 break;
 
             default:

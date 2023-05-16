@@ -12,6 +12,10 @@ public class IslandBuilder {
     private final Type botTileType;
     private final Type rightBotTileType;
 
+    private final Type rightTileType;
+    private final Type leftTileType;
+    private final Type middleTileType;
+
     private final TileFactory tileFactory;
 
     public IslandBuilder(
@@ -22,86 +26,53 @@ public class IslandBuilder {
         Type rightTopTileType,
         Type leftBotTileType,
         Type botTileType,
-        Type rightBotTileType
+        Type rightBotTileType,
+        Type rightType,
+        Type leftType,
+        Type middleType
     ) {
         this.islandWidth = islandWidth;
         this.islandHeight = islandHeight;
         this.leftTopTileType = leftTopTileType;
-        this.topTileType = topTileType;
         this.rightTopTileType = rightTopTileType;
+        this.topTileType = topTileType;
         this.leftBotTileType = leftBotTileType;
-        this.botTileType = botTileType;
         this.rightBotTileType = rightBotTileType;
+        this.botTileType = botTileType;
+        this.rightTileType = rightType;
+        this.leftTileType = leftType;
+        this.middleTileType = middleType;
+
+
 
         this.tileFactory = new TileFactory();
     }
 
-    public IslandTile createIslandTile(int x, int y) {
+    public IslandTile createIslandTile(int x, int y, int islandHeight, float islandPosX, float islandPosY) {
 
-        // Erstellen der 3x2 Insel
-        //for (int row = 0; row < islandHeight; row++) {
-        // for (int col = 0; col < islandWidth; col++) {
         Type tileType = getTileType(x, y);
-        String tilePath = getTilePath(tileType); // Erhalten des Dateipfads basierend auf dem Tile-Typ
+        String tilePath = getTilePath(tileType);
         IslandTile islandTile = new IslandTile(tilePath);
 
-        // Bestimmen der Größe des Tiles
-                float tileWidth = 48;
-                float tileHeight = 48;
-                float tileX = 0;
-                float tileY = 0;
-                if(x == 0 && y == 0)
-                {
-                    // Setzen der Position des Tiles in der oberen Seite der Insel
-                    tileX = tileWidth - tileWidth;
-                    tileY = tileHeight;
+        // Definieren der Größe des Tiles
+        float tileWidth = 48;
+        float tileHeight = 48;
 
-                }
-                else if (x == 0 && y == 1)
-                {
-                    // Setzen der Position des Tiles in der unteren Seite der Insel
-                    tileX = tileWidth;
-                    tileY = tileHeight;
+        // Die Position des Tiles wird auf der Basis der x- und y-Werte berechnet
+        float tileX = x * tileWidth + islandPosX;
 
-                }
-                else if (x == 0 && y == 2)
-                {
-                    // Setzen der Position des Tiles in der unteren Seite der Insel
-                    tileX = tileWidth*2;
-                    tileY = tileHeight;
+        // Da die y-Koordinate von unten nach oben zählt, invertieren wir sie
+        float tileY = (islandHeight - y - 1) * tileHeight + islandPosY;
 
-                }
-                else if (x == 1 && y == 0)
-                {
-                    // Setzen der Position des Tiles in der unteren Seite der Insel
-                    tileX = tileWidth - tileWidth;
-                    tileY = tileHeight - tileHeight;
+        // Setzen der Position des Tiles
+        islandTile.setPosition(tileX, tileY);
 
-                }
-                else if (x == 1 && y == 1)
-                {
-                    // Setzen der Position des Tiles in der unteren Seite der Insel
-                    tileX = tileWidth;
-                    tileY = tileHeight - tileHeight;
-
-                }
-                else if (x == 1 && y == 2)
-                {
-                    // Setzen der Position des Tiles in der unteren Seite der Insel
-                    tileX = tileWidth*2;
-                    tileY = tileHeight - tileHeight;
-
-                }
-
-                islandTile.setPosition(tileX + tileWidth*4, tileY + tileHeight*4);
-                //islandTile.addTile(islandTile);
-           // }
-        //}
-
-        return islandTile; // Rückgabe der erstellten Insel
+        return islandTile;
     }
 
-    private Type getTileType(int row, int col) {
+
+
+    private Type getTileType(int col, int row) {
         if (row == 0 && col == 0) {
             return Type.LEFT_TOP;
         } else if (row == 0 && col == islandWidth - 1) {
@@ -110,12 +81,16 @@ public class IslandBuilder {
             return Type.LEFT_BOTTOM;
         } else if (row == islandHeight - 1 && col == islandWidth - 1) {
             return Type.RIGHT_BOTTOM;
-        } else if (row == 0) {
+        } else if (row == 0 && (col != 0 && col != islandWidth - 1)) {
             return Type.TOP;
-        } else if (row == islandHeight - 1) {
+        } else if (row == islandHeight - 1 && (col != 0 && col != islandWidth - 1)) {
             return Type.BOTTOM;
+        } else if (col == 0 && (row != 0 && row != islandHeight - 1)) {
+            return Type.LEFT;
+        } else if (col == islandWidth - 1 && (row != 0 && row != islandHeight - 1)) {
+            return Type.RIGHT;
         } else {
-            return Type.WATER; // Default Tile-Typ für das Innere der Insel
+            return Type.MIDDLE; // Default Tile-Typ für das Innere der Insel
         }
     }
 
@@ -138,9 +113,9 @@ public class IslandBuilder {
             case LEFT:
                 return "tiles/tropical/Terrain/Desertwater/Desertwaterleft1.png";
             case MIDDLE:
-                return "tiles/tropical/Terrain/Desertwater/Desertwatermiddle1.png";
+                return "tiles/tropical/Terrain/Desert/Desert1.png";
             default:
-                return "tiles/tropical/Terrain/DeepWater/Deepwater/Watermiddle4.png"; // Pfad für den Standard-Tile-Typ (z. B. Wasser)
+                return "tiles/tropical/Terrain/Desert/Desert1.png"; // Pfad für den Standard-Tile-Typ (z. B. Wasser)
         }
 
 

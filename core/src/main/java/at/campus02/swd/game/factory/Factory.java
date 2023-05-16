@@ -7,4 +7,6 @@ public abstract class Factory {
         return createGameObject(type,x,y);
     }
     protected abstract GameObject createGameObject(Type type, int x, int y);
+
+
 }
