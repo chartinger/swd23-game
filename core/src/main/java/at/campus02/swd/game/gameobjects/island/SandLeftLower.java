@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SandRightUpper implements GameObject {
+public class SandLeftLower implements GameObject {
 
     private Texture image;
     private Sprite sprite;
 
-    public SandRightUpper() {
-        image = new Texture("tiles/tile_03.png");
+    public SandLeftLower() {
+        image = new Texture("tiles/tile_17.png");
         sprite= new Sprite(image);
     }
 
