@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class SandLMidMiddle implements GameObject {
+public class SandMidMiddle implements GameObject {
 
     private Texture image;
     private Sprite sprite;
 
-    public SandLMidMiddle() {
+    public SandMidMiddle() {
         image = new Texture("tiles/tile_18.png");
         sprite= new Sprite(image);
     }
