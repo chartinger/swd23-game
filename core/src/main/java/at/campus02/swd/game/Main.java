@@ -40,7 +40,7 @@ public class Main extends ApplicationAdapter {
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 
-
+        //water
         for (float i = -viewport.getMaxWorldWidth(); i < viewport.getMaxWorldWidth(); i= i+64) {
             for (float j = -viewport.getMaxWorldHeight(); j < viewport.getMaxWorldHeight(); j = j+64) {
                 Water1 water1 = new Water1();
@@ -48,7 +48,6 @@ public class Main extends ApplicationAdapter {
                 water1.setPosition(i,j);
             }
         }
-
 
 
         ArrayList<SandIsland> sandIslands = new ArrayList<>();
@@ -63,8 +62,6 @@ public class Main extends ApplicationAdapter {
                 gameObjects.add(go);
             }
         }
-
-
 
 
 	}

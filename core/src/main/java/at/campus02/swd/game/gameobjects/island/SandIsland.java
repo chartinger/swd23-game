@@ -25,12 +25,10 @@ public class SandIsland implements GameObject {
     SandMidMiddle sandMidMiddle = new SandMidMiddle();
 
     public SandIsland(int x, int y) {
-
         this.x = x;
         this.y = y;
 
         updateRealtivePosition();
-
 
         gameObjectArray.add(sandLeftLower);
         gameObjectArray.add(sandMidLower);
@@ -60,10 +58,6 @@ public class SandIsland implements GameObject {
     }
 
     public void updateRealtivePosition(){
-
-        System.out.println("x: "+x);
-        System.out.println("y: "+y);
-
         sandLeftLower.setPosition(x+0, y-128);
         sandMidLower.setPosition(x+64, y-128);
         sandRightLower.setPosition(x+128, y-128);
