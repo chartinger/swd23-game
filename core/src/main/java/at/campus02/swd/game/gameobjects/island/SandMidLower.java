@@ -10,7 +10,7 @@ public class SandMidLower implements GameObject {
     private Sprite sprite;
 
     public SandMidLower() {
-        image = new Texture("tiles/tile_18.png");
+        image = new Texture("tiles/tile_34.png");
         sprite= new Sprite(image);
     }
 

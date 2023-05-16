@@ -11,7 +11,7 @@ public class SandRightLower implements GameObject {
     private Sprite sprite;
 
     public SandRightLower() {
-        image = new Texture("tiles/tile_19.png");
+        image = new Texture("tiles/tile_35.png");
         sprite= new Sprite(image);
     }
 
