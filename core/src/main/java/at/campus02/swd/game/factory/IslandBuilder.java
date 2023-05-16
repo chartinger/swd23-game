@@ -5,35 +5,29 @@ import at.campus02.swd.game.gameobjects.*;
 import java.util.ArrayList;
 
 public class IslandBuilder {
-   private ArrayList<GameObject> islandTiles = new ArrayList<>();
+    private ArrayList<GameObject> islandTiles = new ArrayList<>();
 
 
-    public IslandBuilder(
-
-
-    ) {
-
-
+    public IslandBuilder() {
     }
-    public ArrayList<GameObject> placeIsland(float x, float y, int islandHeight, int islandWidth){
+
+    public ArrayList<GameObject> placeIsland(float x, float y, int islandHeight, int islandWidth) {
         for (int row = 0; row < islandWidth; row++) {
             for (int col = 0; col < islandHeight; col++) {
                 int tileX = col;
                 int tileY = row;
 
-                islandTiles.add(createIslandTile(tileX,tileY,x,y,islandHeight,islandWidth));
-
+                islandTiles.add(createIslandTile(tileX, tileY, x, y, islandHeight, islandWidth));
             }
-
-    }return islandTiles;
+        }
+        return islandTiles;
     }
 
     private GameObject createIslandTile(int x, int y, float islandPosX, float islandPosY, int islandHeight, int islandWidth) {
 
-
         Factory tileFactory = new TileFactory();
 
-        // Definieren der Größe des Tiles
+        // Definieren der Größe der Tiles
         float tileWidth = 48;
         float tileHeight = 48;
 
@@ -42,13 +36,12 @@ public class IslandBuilder {
 
         // Da die y-Koordinate von unten nach oben zählt, invertieren wir sie
         float tileY = (islandHeight - y - 1) * tileHeight + islandPosY;
-        GameObject islandTile = tileFactory.create(getTileType(x,y,islandHeight,islandWidth),(int)tileX,(int)tileY);
+        GameObject islandTile = tileFactory.create(getTileType(x, y, islandHeight, islandWidth), (int) tileX, (int) tileY);
         // Setzen der Position des Tiles
         islandTile.setPosition(tileX, tileY);
 
         return islandTile;
     }
-
 
 
     private Type getTileType(int col, int row, int islandHeight, int islandWidth) {
@@ -72,31 +65,6 @@ public class IslandBuilder {
             return Type.ISLAND_CENTER; // Default Tile-Typ für das Innere der Insel
         }
     }
-
-    //private String getTilePath(Type tileType) {
-    //    switch (tileType) {
-    //        case LEFT_TOP:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterlefttop1.png";
-    //        case TOP:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwatertop1.png";
-    //        case RIGHT_TOP:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterrighttop1.png";
-    //        case LEFT_BOTTOM:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterleftbot1.png";
-    //        case BOTTOM:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterbot1.png";
-    //        case RIGHT_BOTTOM:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterrightbot1.png";
-    //        case RIGHT:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterright1.png";
-    //        case LEFT:
-    //            return "tiles/tropical/Terrain/Desertwater/Desertwaterleft1.png";
-    //        case MIDDLE:
-    //            return "tiles/tropical/Terrain/Desert/Desert1.png";
-    //        default:
-    //            return "tiles/tropical/Terrain/Desert/Desert1.png"; // Pfad für den Standard-Tile-Typ (z. B. Wasser)
-    //    }
-    //}
 
 
 }

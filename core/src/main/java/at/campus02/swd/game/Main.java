@@ -49,32 +49,12 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-       //int islandHeight = 5;
-       //int islandWidth = 5;
-
-       //for (int row = 0; row < islandHeight; row++) {
-       //    for (int col = 0; col < islandWidth; col++) {
-       //        int tileX = col;
-       //        int tileY = row;
-
-       //        gameObjects.add(tileFactory.create(Type.ISLAND,tileX,tileY));
-
-       //        }
-       //    }
         IslandBuilder ib = new IslandBuilder();
         for (GameObject o:ib.placeIsland(200,200,5,5)
              ) {
             gameObjects.add(o);
         }
-       //for (int row = 0; row < 5; row++) {
-       //        for (int col = 0; col < 5; col++) {
-       //            int tileX = col;
-       //            int tileY = row;
 
-       //            gameObjects.add(ib.createIslandTile(tileX,tileY,200,200));
-
-       //            }
-       //        }
         gameObjects.add(player.create(Type.HUMAN,500,100));
 
         gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
