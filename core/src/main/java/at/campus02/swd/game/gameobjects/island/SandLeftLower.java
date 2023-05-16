@@ -28,4 +28,8 @@ public class SandLeftLower implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
+    public Texture getImage() {
+        return image;
+    }
 }
