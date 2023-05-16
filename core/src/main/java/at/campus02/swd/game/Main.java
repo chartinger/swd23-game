@@ -3,7 +3,7 @@ package at.campus02.swd.game;
 import at.campus02.swd.game.factory.Factory;
 import at.campus02.swd.game.factory.PlayerFactory;
 import at.campus02.swd.game.factory.TileFactory;
-import at.campus02.swd.game.factory.TileType;
+import at.campus02.swd.game.factory.Type;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -48,26 +48,26 @@ public class Main extends ApplicationAdapter {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                gameObjects.add(tileFactory.create(TileType.WATER,tileX,tileY));
+                gameObjects.add(tileFactory.create(Type.WATER,tileX,tileY));
             }
         }
 
-        int islandHight = 2;
+        int islandHeight = 2;
         int islandWidth = 3;
 
-        for (int row = 0; row < islandHight; row++) {
+        for (int row = 0; row < islandHeight; row++) {
             for (int col = 0; col < islandWidth; col++) {
                 int tileX = row;
                 int tileY = col;
 
-                gameObjects.add(tileFactory.create(TileType.ISLAND,tileX,tileY));
+                gameObjects.add(tileFactory.create(Type.ISLAND,tileX,tileY));
 
                 }
             }
 
-        gameObjects.add(player.create(TileType.HUMAN,100,100));
+        gameObjects.add(player.create(Type.HUMAN,100,100));
 
-        gameObjects.add(tileFactory.create(TileType.SIGN, 250, 240));
+        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
 
         font = new BitmapFont();
         font.setColor(Color.WHITE);

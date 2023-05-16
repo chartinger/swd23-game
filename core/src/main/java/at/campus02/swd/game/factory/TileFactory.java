@@ -6,7 +6,7 @@ import at.campus02.swd.game.gameobjects.WaterTile;
 
 public class TileFactory extends Factory{
     @Override
-    protected GameObject createGameObject(TileType type,int x, int y) {
+    protected GameObject createGameObject(Type type, int x, int y) {
         GameObject tile;
         switch (type){
             case WATER:
@@ -18,15 +18,9 @@ public class TileFactory extends Factory{
                 tile.setPosition(x,y);
                 break;
             case ISLAND:
-                TileType leftTopTileType = TileType.LEFT_TOP;
-                TileType topTileType = TileType.TOP;
-                TileType rightTopTileType = TileType.RIGHT_TOP;
-                TileType leftBotTileType = TileType.LEFT_BOTTOM;
-                TileType botTileType = TileType.BOTTOM;
-                TileType rightBotTileType = TileType.RIGHT_BOTTOM;
 
-                IslandBuilder islandBuilder = new IslandBuilder(3, 2, leftTopTileType, topTileType, rightTopTileType,
-                    leftBotTileType, botTileType, rightBotTileType);
+                IslandBuilder islandBuilder = new IslandBuilder(3, 2, Type.LEFT_TOP, Type.TOP, Type.RIGHT_TOP,
+                    Type.LEFT_BOTTOM, Type.BOTTOM, Type.RIGHT_BOTTOM);
 
                 tile = islandBuilder.createIslandTile(x, y);
                 break;

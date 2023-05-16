@@ -1,6 +1,6 @@
 package at.campus02.swd.game.factory;
 
-public enum TileType {
+public enum Type {
     WATER,
     ISLAND,
     HUMAN,

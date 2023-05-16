@@ -5,24 +5,24 @@ import at.campus02.swd.game.gameobjects.*;
 public class IslandBuilder {
     private final int islandWidth;
     private final int islandHeight;
-    private final TileType leftTopTileType;
-    private final TileType topTileType;
-    private final TileType rightTopTileType;
-    private final TileType leftBotTileType;
-    private final TileType botTileType;
-    private final TileType rightBotTileType;
+    private final Type leftTopTileType;
+    private final Type topTileType;
+    private final Type rightTopTileType;
+    private final Type leftBotTileType;
+    private final Type botTileType;
+    private final Type rightBotTileType;
 
     private final TileFactory tileFactory;
 
     public IslandBuilder(
         int islandWidth,
         int islandHeight,
-        TileType leftTopTileType,
-        TileType topTileType,
-        TileType rightTopTileType,
-        TileType leftBotTileType,
-        TileType botTileType,
-        TileType rightBotTileType
+        Type leftTopTileType,
+        Type topTileType,
+        Type rightTopTileType,
+        Type leftBotTileType,
+        Type botTileType,
+        Type rightBotTileType
     ) {
         this.islandWidth = islandWidth;
         this.islandHeight = islandHeight;
@@ -41,7 +41,7 @@ public class IslandBuilder {
         // Erstellen der 3x2 Insel
         //for (int row = 0; row < islandHeight; row++) {
         // for (int col = 0; col < islandWidth; col++) {
-        TileType tileType = getTileType(x, y);
+        Type tileType = getTileType(x, y);
         String tilePath = getTilePath(tileType); // Erhalten des Dateipfads basierend auf dem Tile-Typ
         IslandTile islandTile = new IslandTile(tilePath);
 
@@ -101,25 +101,25 @@ public class IslandBuilder {
         return islandTile; // Rückgabe der erstellten Insel
     }
 
-    private TileType getTileType(int row, int col) {
+    private Type getTileType(int row, int col) {
         if (row == 0 && col == 0) {
-            return leftTopTileType;
+            return Type.LEFT_TOP;
         } else if (row == 0 && col == islandWidth - 1) {
-            return rightTopTileType;
+            return Type.RIGHT_TOP;
         } else if (row == islandHeight - 1 && col == 0) {
-            return leftBotTileType;
+            return Type.LEFT_BOTTOM;
         } else if (row == islandHeight - 1 && col == islandWidth - 1) {
-            return rightBotTileType;
+            return Type.RIGHT_BOTTOM;
         } else if (row == 0) {
-            return topTileType;
+            return Type.TOP;
         } else if (row == islandHeight - 1) {
-            return botTileType;
+            return Type.BOTTOM;
         } else {
-            return TileType.WATER; // Default Tile-Typ für das Innere der Insel
+            return Type.WATER; // Default Tile-Typ für das Innere der Insel
         }
     }
 
-    private String getTilePath(TileType tileType) {
+    private String getTilePath(Type tileType) {
         switch (tileType) {
             case LEFT_TOP:
                 return "tiles/tropical/Terrain/Desertwater/Desertwaterlefttop1.png";
