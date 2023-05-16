@@ -61,16 +61,20 @@ public class Main extends ApplicationAdapter {
 
        //        }
        //    }
-        IslandBuilder ib = new IslandBuilder(5,5);
-        for (int row = 0; row < 5; row++) {
-                for (int col = 0; col < 5; col++) {
-                    int tileX = col;
-                    int tileY = row;
+        IslandBuilder ib = new IslandBuilder();
+        for (GameObject o:ib.placeIsland(200,200,5,5)
+             ) {
+            gameObjects.add(o);
+        }
+       //for (int row = 0; row < 5; row++) {
+       //        for (int col = 0; col < 5; col++) {
+       //            int tileX = col;
+       //            int tileY = row;
 
-                    gameObjects.add(ib.createIsland(tileX,tileY,200,200));
+       //            gameObjects.add(ib.createIslandTile(tileX,tileY,200,200));
 
-                    }
-                }
+       //            }
+       //        }
         gameObjects.add(player.create(Type.HUMAN,500,100));
 
         gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));

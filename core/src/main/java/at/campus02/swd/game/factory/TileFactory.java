@@ -45,14 +45,6 @@ public class TileFactory extends Factory{
             case ISLAND_BOTTOM_RIGHT:
                 tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterrightbot1.png");
                 break;
-        //   case ISLAND:
-
-        //       IslandBuilder islandBuilder = new IslandBuilder(5, 5, Type.LEFT_TOP, Type.TOP, Type.RIGHT_TOP,
-        //           Type.LEFT_BOTTOM, Type.BOTTOM, Type.RIGHT_BOTTOM, Type.RIGHT, Type.LEFT, Type.MIDDLE);
-
-        //       tile = islandBuilder.createIslandTile(x, y, 5, 200, 200);
-        //       break;
-
            default:
                 throw  new IllegalArgumentException("Value is invalid: "+type);
         }

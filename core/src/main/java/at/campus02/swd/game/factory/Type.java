@@ -1,10 +1,9 @@
 package at.campus02.swd.game.factory;
 
 public enum Type {
+    //TerrainTypes
     SIGN,
     WATER,
-    ISLAND,
-    HUMAN,
     ISLAND_TOP_LEFT,
     ISLAND_TOP,
     ISLAND_TOP_RIGHT,
@@ -13,5 +12,7 @@ public enum Type {
     ISLAND_BOTTOM_RIGHT,
     ISLAND_RIGHT,
     ISLAND_LEFT,
-    ISLAND_CENTER
+    ISLAND_CENTER,
+    //PlayerTypes
+    HUMAN
 }
