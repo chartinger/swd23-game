@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class IslandTile extends Tile{
 
     public IslandTile(String path) {
+
         super(path);
     }
 

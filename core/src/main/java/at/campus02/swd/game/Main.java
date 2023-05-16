@@ -1,9 +1,6 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.factory.Factory;
-import at.campus02.swd.game.factory.PlayerFactory;
-import at.campus02.swd.game.factory.TileFactory;
-import at.campus02.swd.game.factory.Type;
+import at.campus02.swd.game.factory.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -52,19 +49,28 @@ public class Main extends ApplicationAdapter {
             }
         }
 
-        int islandHeight = 5;
-        int islandWidth = 5;
+       //int islandHeight = 5;
+       //int islandWidth = 5;
 
-        for (int row = 0; row < islandHeight; row++) {
-            for (int col = 0; col < islandWidth; col++) {
-                int tileX = col;
-                int tileY = row;
+       //for (int row = 0; row < islandHeight; row++) {
+       //    for (int col = 0; col < islandWidth; col++) {
+       //        int tileX = col;
+       //        int tileY = row;
 
-                gameObjects.add(tileFactory.create(Type.ISLAND,tileX,tileY));
+       //        gameObjects.add(tileFactory.create(Type.ISLAND,tileX,tileY));
 
+       //        }
+       //    }
+        IslandBuilder ib = new IslandBuilder(5,5);
+        for (int row = 0; row < 5; row++) {
+                for (int col = 0; col < 5; col++) {
+                    int tileX = col;
+                    int tileY = row;
+
+                    gameObjects.add(ib.createIsland(tileX,tileY,200,200));
+
+                    }
                 }
-            }
-
         gameObjects.add(player.create(Type.HUMAN,500,100));
 
         gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));

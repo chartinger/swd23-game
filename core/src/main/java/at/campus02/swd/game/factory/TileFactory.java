@@ -1,6 +1,7 @@
 package at.campus02.swd.game.factory;
 
 import at.campus02.swd.game.gameobjects.GameObject;
+import at.campus02.swd.game.gameobjects.IslandTile;
 import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.gameobjects.WaterTile;
 
@@ -17,15 +18,42 @@ public class TileFactory extends Factory{
                 tile = new Sign();
                 tile.setPosition(x,y);
                 break;
-            case ISLAND:
-
-                IslandBuilder islandBuilder = new IslandBuilder(5, 5, Type.LEFT_TOP, Type.TOP, Type.RIGHT_TOP,
-                    Type.LEFT_BOTTOM, Type.BOTTOM, Type.RIGHT_BOTTOM, Type.RIGHT, Type.LEFT, Type.MIDDLE);
-
-                tile = islandBuilder.createIslandTile(x, y, 5, 200, 200);
+            case ISLAND_TOP:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwatertop1.png");
                 break;
+            case ISLAND_TOP_LEFT:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterlefttop1.png");
+                break;
+            case ISLAND_TOP_RIGHT:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterrighttop1.png");
+                break;
+            case ISLAND_CENTER:
+                tile = new IslandTile("tiles/tropical/Terrain/Desert/Desert1.png");
+                break;
+            case ISLAND_LEFT:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterleft1.png");
+                break;
+            case ISLAND_RIGHT:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterright1.png");
+                break;
+            case ISLAND_BOTTOM:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterbot1.png");
+                break;
+            case ISLAND_BOTTOM_LEFT:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterleftbot1.png");
+                break;
+            case ISLAND_BOTTOM_RIGHT:
+                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterrightbot1.png");
+                break;
+        //   case ISLAND:
 
-            default:
+        //       IslandBuilder islandBuilder = new IslandBuilder(5, 5, Type.LEFT_TOP, Type.TOP, Type.RIGHT_TOP,
+        //           Type.LEFT_BOTTOM, Type.BOTTOM, Type.RIGHT_BOTTOM, Type.RIGHT, Type.LEFT, Type.MIDDLE);
+
+        //       tile = islandBuilder.createIslandTile(x, y, 5, 200, 200);
+        //       break;
+
+           default:
                 throw  new IllegalArgumentException("Value is invalid: "+type);
         }
 
