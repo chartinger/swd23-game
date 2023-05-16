@@ -1,5 +1,6 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.island.SandLeftUpper;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,7 +18,7 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private ExtendViewport viewport = new ExtendViewport(1920.0f, 1080.0f, 1920.0f, 1080.0f);
 	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
@@ -30,24 +31,28 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		/*gameObjects.add(new Sign());
+		gameObjects.add(new Sign());
         Sign sign = new Sign();
         gameObjects.add(sign);
-        sign.setPosition(30,30);*/
+        sign.setPosition(30,30);
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 
+        SandLeftUpper sandLeftUpper = new SandLeftUpper();
+        sandLeftUpper.setPosition(69, -69);
+        gameObjects.add(sandLeftUpper);
 
 
-        for (float i = -viewport.getMaxWorldWidth()/2; i < viewport.getMaxWorldWidth()/2; i= i+32) {
+
+        /*for (float i = -viewport.getMaxWorldWidth()/2; i < viewport.getMaxWorldWidth()/2; i= i+32) {
             for (float j = -viewport.getMaxWorldHeight()/2; j < viewport.getMaxWorldHeight()/2; j = j+32) {
                 Sign sign = new Sign();
                 gameObjects.add(sign);
                 sign.setPosition(i,j);
             }
 
-        }
+        }*/
 	}
 
 	private void act(float delta) {

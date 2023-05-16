@@ -1,17 +1,20 @@
-package at.campus02.swd.game.gameobjects;
+package at.campus02.swd.game.gameobjects.island;
 
+import at.campus02.swd.game.gameobjects.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Sign implements GameObject {
+public class SandRightUpper implements GameObject {
+
     private Texture image;
     private Sprite sprite;
 
-    public Sign() {
-        image = new Texture("sign.png");
-        sprite = new Sprite(image);
+    public SandRightUpper() {
+        image = new Texture("tiles/tile_01.png");
+        sprite= new Sprite(image);
     }
+
     @Override
     public void act(float delta) {
     }
