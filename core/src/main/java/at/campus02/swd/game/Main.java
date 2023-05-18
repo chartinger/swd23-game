@@ -32,11 +32,12 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
         drawBackground();
         drawIsland(3, 2);
         drawIsland(7, 6);
         drawPlayer(3, 2);
+
+        batch = new SpriteBatch();
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
