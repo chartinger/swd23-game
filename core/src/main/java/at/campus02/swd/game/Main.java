@@ -45,7 +45,7 @@ public class Main extends ApplicationAdapter {
     private void drawBackground() {
         for (int column = 0; column < 10; column++)
             for (int line = 0; line < 10; line++)
-                createAndPlaceTile(TileType.WAVY_WATER, column, line);
+                createAndPlaceTile(TileType.WATER, column, line);
     }
 
     private void drawIsland(int column, int line) {
