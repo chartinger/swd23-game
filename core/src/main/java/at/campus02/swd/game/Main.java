@@ -45,32 +45,32 @@ public class Main extends ApplicationAdapter {
 
     private void drawBackground() {
         for (int column = 0; column < 10; column++)
-            for (int line = 0; line < 10; line++)
-                createAndPlaceTile(TileType.WATER, column, line);
+            for (int row = 0; row < 10; row++)
+                createAndPlaceTile(TileType.WATER, column, row);
     }
 
-    private void drawIsland(int column, int line) {
-        createAndPlaceTile(TileType.TOP_LEFT, column, line);
-        createAndPlaceTile(TileType.TOP_RIGHT, column + 1, line);
-        createAndPlaceTile(TileType.BOTTOM_LEFT, column, line + 1);
-        createAndPlaceTile(TileType.BOTTOM_RIGHT, column + 1, line + 1);
+    private void drawIsland(int column, int row) {
+        createAndPlaceTile(TileType.TOP_LEFT, column, row);
+        createAndPlaceTile(TileType.TOP_RIGHT, column + 1, row);
+        createAndPlaceTile(TileType.BOTTOM_LEFT, column, row + 1);
+        createAndPlaceTile(TileType.BOTTOM_RIGHT, column + 1, row + 1);
     }
 
-    private void drawPlayer(int column, int line) {
-        createAndPlacePlayer(PlayerType.READY_PLAYER_ONE, column, line);
+    private void drawPlayer(int column, int row) {
+        createAndPlacePlayer(PlayerType.READY_PLAYER_ONE, column, row);
     }
 
-    private void createAndPlaceTile(TileType tileType, int column, int line) {
-        createAndPlaceGameObject(tileFactory, tileType, column, line);
+    private void createAndPlaceTile(TileType tileType, int column, int row) {
+        createAndPlaceGameObject(tileFactory, tileType, column, row);
     }
 
-    private void createAndPlacePlayer(PlayerType playerType, int column, int line) {
-        createAndPlaceGameObject(playerFactory, playerType, column, line);
+    private void createAndPlacePlayer(PlayerType playerType, int column, int row) {
+        createAndPlaceGameObject(playerFactory, playerType, column, row);
     }
 
-    private <E extends Enum<E>> void createAndPlaceGameObject(GameObjectFactory<E> factory, E tileType, int column, int line) {
+    private <E extends Enum<E>> void createAndPlaceGameObject(GameObjectFactory<E> factory, E tileType, int column, int row) {
         GameObject object = factory.create(tileType);
-        gameObjectPositioner.setPosition(object, column, line);
+        gameObjectPositioner.setPosition(object, column, row);
         gameObjects.add(object);
     }
 

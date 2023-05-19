@@ -1,7 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
 /**
- * Translates lines and columns of the board to the cartesian coordinates used when drawing the tile.
+ * Translates rows and columns of the board to the cartesian coordinates used when drawing the tile.
  */
 public class GameObjectPositioner {
     private final int viewportWidth;
@@ -14,8 +14,8 @@ public class GameObjectPositioner {
         this.gameObjectSize = gameObjectSize;
     }
 
-    public void setPosition(GameObject gameObject, int column, int line) {
-        gameObject.setPosition(translateColumnToX(column), translateLineToY(line));
+    public void setPosition(GameObject gameObject, int column, int row) {
+        gameObject.setPosition(translateColumnToX(column), translateRowToY(row));
     }
 
     private float translateColumnToX(int column) {
@@ -23,10 +23,10 @@ public class GameObjectPositioner {
         return column * gameObjectSize - offsetX;
     }
 
-    private float translateLineToY(int line) {
+    private float translateRowToY(int row) {
         float offsetY = viewportHeight / 2f;
-        // (line + 1) because we need to refer to the location of the *bottom* left corner of the image
-        // return the negativ value because on the cartesian coordinate system our lines grow in the negative direction
-        return -((line + 1) * gameObjectSize - offsetY);
+        // (row + 1) because we need to refer to the location of the *bottom* left corner of the image
+        // return the negativ value because on the cartesian coordinate system our rows grow in the negative direction
+        return -((row + 1) * gameObjectSize - offsetY);
     }
 }
