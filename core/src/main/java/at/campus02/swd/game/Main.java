@@ -1,9 +1,16 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.entities.Entity;
+import at.campus02.swd.game.gameobjects.factories.EntityFactory;
+import at.campus02.swd.game.gameobjects.factories.TileFactory;
 import at.campus02.swd.game.gameobjects.island.SandIsland;
 import at.campus02.swd.game.gameobjects.island.SandLeftUpper;
+import at.campus02.swd.game.gameobjects.maps.GameMap;
+import at.campus02.swd.game.gameobjects.tile.Tile;
+import at.campus02.swd.game.gameobjects.tile.WaterTile;
 import at.campus02.swd.game.gameobjects.water.Water1;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -40,27 +47,16 @@ public class Main extends ApplicationAdapter {
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 
-        //water
-        for (float i = -viewport.getMaxWorldWidth(); i < viewport.getMaxWorldWidth(); i= i+64) {
-            for (float j = -viewport.getMaxWorldHeight(); j < viewport.getMaxWorldHeight(); j = j+64) {
-                Water1 water1 = new Water1();
-                gameObjects.add(water1);
-                water1.setPosition(i,j);
-            }
+
+
+
+        GameMap map1 = new GameMap();
+
+        for(GameObject go : map1.getTerrainObjects()){
+            gameObjects.add(go);
         }
-
-
-        ArrayList<SandIsland> sandIslands = new ArrayList<>();
-        sandIslands.add(new SandIsland(250, 250));
-        sandIslands.add(new SandIsland(130,0));
-        sandIslands.add(new SandIsland(-400,70));
-        sandIslands.add(new SandIsland(699,-123));
-        sandIslands.add(new SandIsland(-333,-300));
-
-        for(SandIsland sandIsland : sandIslands){
-            for(GameObject go : sandIsland.getGameObjectArray()){
-                gameObjects.add(go);
-            }
+        for(GameObject go : map1.getEntityObjects()){
+            gameObjects.add(go);
         }
 
 
@@ -95,7 +91,7 @@ public class Main extends ApplicationAdapter {
 		draw();
 	}
 
-	@Override
+    @Override
 	public void dispose() {
 		batch.dispose();
 	}
