@@ -32,10 +32,10 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void create() {
-        drawBackground();
-        drawIsland(3, 2);
-        drawIsland(7, 6);
+        drawDeathLayer();
+        drawPlayingField();
         drawPlayer(3, 2);
+        drawFinish(7, 8);
 
         batch = new SpriteBatch();
 		font = new BitmapFont();
@@ -43,21 +43,26 @@ public class Main extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(this.gameInput);
 	}
 
-    private void drawBackground() {
-        for (int column = 0; column < 10; column++)
-            for (int row = 0; row < 10; row++)
-                createAndPlaceTile(TileType.WATER, column, row);
+    private void drawPlayingField() {
+        fillLayerWithTile(TileType.CENTER);
     }
 
-    private void drawIsland(int column, int row) {
-        createAndPlaceTile(TileType.TOP_LEFT, column, row);
-        createAndPlaceTile(TileType.TOP_RIGHT, column + 1, row);
-        createAndPlaceTile(TileType.BOTTOM_LEFT, column, row + 1);
-        createAndPlaceTile(TileType.BOTTOM_RIGHT, column + 1, row + 1);
+    private void drawDeathLayer() {
+        fillLayerWithTile(TileType.WATER);
+    }
+
+    private void fillLayerWithTile(TileType center) {
+        for (int column = 0; column < 10; column++)
+            for (int row = 0; row < 10; row++)
+                createAndPlaceTile(center, column, row);
     }
 
     private void drawPlayer(int column, int row) {
         createAndPlacePlayer(PlayerType.READY_PLAYER_ONE, column, row);
+    }
+
+    private void drawFinish(int column, int row) {
+        createAndPlaceTile(TileType.FINISH, column, row);
     }
 
     private void createAndPlaceTile(TileType tileType, int column, int row) {
