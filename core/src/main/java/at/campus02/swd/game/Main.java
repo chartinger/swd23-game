@@ -1,5 +1,8 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.playerobjects.Background;
+import at.campus02.swd.game.playerobjects.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -9,16 +12,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-	private GameInput gameInput = new GameInput();
+	private final ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private final GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
 
@@ -27,10 +28,25 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
+    public Player playerOne;
+
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
+
+		/*sign = new Sign();
+        gameObjects.add(new Sign());
+        sign.setPosition(30,30);
+        gameObjects.add(sign);*/
+
+        Background background = new Background();
+        gameObjects = background.Create(gameObjects);
+
+        playerOne = new Player();
+        gameInput.player = playerOne;
+        gameObjects.add(playerOne);
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
