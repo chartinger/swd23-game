@@ -31,8 +31,6 @@ public class Main extends ApplicationAdapter {
     private GameObject player;
 
 
-
-
     @Override
     public void create() {
         batch = new SpriteBatch();

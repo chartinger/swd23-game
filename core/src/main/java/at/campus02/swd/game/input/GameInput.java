@@ -6,6 +6,7 @@ public class GameInput extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         System.out.println(keycode);
+
         return true;
     }
 }
