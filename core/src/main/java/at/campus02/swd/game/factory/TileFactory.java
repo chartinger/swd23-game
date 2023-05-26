@@ -37,7 +37,6 @@ public class TileFactory extends Factory{
             default:
                 throw  new IllegalArgumentException("Wert ungültig: "+type);
         }
-
         return tile;
     }
 
