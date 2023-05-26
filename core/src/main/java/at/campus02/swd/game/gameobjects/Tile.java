@@ -8,9 +8,11 @@ public class Tile implements GameObject {
     private final Texture image;
     private final Sprite sprite;
 
-    public Tile(String textureFile) {
+    public Tile(String textureFile, boolean isRotated) {
         image = new Texture(textureFile);
         sprite = new Sprite(image);
+        if (isRotated)
+            sprite.rotate(180);
     }
 
     @Override

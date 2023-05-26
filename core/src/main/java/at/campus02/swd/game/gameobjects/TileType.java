@@ -11,4 +11,5 @@ public enum TileType {
     BOTTOM,
     BOTTOM_RIGHT,
     WATER,
+    FINISH,
 }
