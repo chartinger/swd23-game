@@ -87,7 +87,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f);
+        Gdx.gl.glClearColor(0.52f, 0.80f, 0.92f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         float delta = Gdx.graphics.getDeltaTime();

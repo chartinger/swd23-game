@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class MeadowBuilder {
     private ArrayList<GameObject> meadowTiles = new ArrayList<>();
 
-
     public MeadowBuilder() {
     }
 
@@ -24,13 +23,9 @@ public class MeadowBuilder {
 
         Factory tileFactory = new TileFactory();
 
-        float tileWidth = 64;
-        float tileHeight = 64;
+        float tileX = x * 64 + tilePosX;
 
-        float tileX = x * tileWidth + tilePosX;
-
-
-        float tileY = (tileMeadowHeight - y - 1) * tileHeight + tilePosY;
+        float tileY = (tileMeadowHeight - y - 1) * 64 + tilePosY;
         GameObject meadowTile = tileFactory.create(getTileType(x, y, tileMeadowHeight, tileMeadowWidth), (int) tileX, (int) tileY);
 
         meadowTile.setPosition(tileX, tileY);
