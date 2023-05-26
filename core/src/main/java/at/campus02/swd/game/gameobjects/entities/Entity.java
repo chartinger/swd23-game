@@ -7,19 +7,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Entity implements GameObject{
     private Sprite sprite;
-    protected int x;
-    protected int y;
-    protected int speed;
-
 
     public Entity(String spritePath) {
         this.sprite = new Sprite(new Texture(spritePath));
     }
     public Entity(String spritePath, int x, int y) {
         this.sprite = new Sprite(new Texture(spritePath));
-        this.x = x;
-        this.y = y;
-        speed = 0;
     }
 
     @Override
@@ -36,12 +29,6 @@ public abstract class Entity implements GameObject{
         sprite.draw(batch);
     }
 
-    public int getPositionX(){
-        return x;
-    }
-    public int getPositionY(){
-        return y;
-    }
     public abstract void update();
 
 }

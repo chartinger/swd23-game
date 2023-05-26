@@ -1,16 +1,7 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.gameobjects.entities.Entity;
-import at.campus02.swd.game.gameobjects.factories.EntityFactory;
-import at.campus02.swd.game.gameobjects.factories.TileFactory;
-import at.campus02.swd.game.gameobjects.island.SandIsland;
-import at.campus02.swd.game.gameobjects.island.SandLeftUpper;
 import at.campus02.swd.game.gameobjects.maps.GameMap;
-import at.campus02.swd.game.gameobjects.tile.Tile;
-import at.campus02.swd.game.gameobjects.tile.WaterTile;
-import at.campus02.swd.game.gameobjects.water.Water1;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,10 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
-
-import java.util.ArrayList;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {

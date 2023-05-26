@@ -1,14 +1,9 @@
 package at.campus02.swd.game.gameobjects.factories;
 
-import at.campus02.swd.game.Main;
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.entities.Enemy;
 import at.campus02.swd.game.gameobjects.entities.Entity;
 import at.campus02.swd.game.gameobjects.entities.Player;
-import at.campus02.swd.game.gameobjects.tile.GrassTile;
-import at.campus02.swd.game.gameobjects.tile.SandTile;
-import at.campus02.swd.game.gameobjects.tile.Tile;
-import at.campus02.swd.game.gameobjects.tile.WaterTile;
 import com.badlogic.gdx.utils.Array;
 
 public class EntityFactory implements Factory{

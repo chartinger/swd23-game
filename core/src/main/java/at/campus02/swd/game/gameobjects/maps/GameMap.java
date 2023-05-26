@@ -2,7 +2,6 @@ package at.campus02.swd.game.gameobjects.maps;
 
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.entities.Entity;
-import at.campus02.swd.game.gameobjects.entities.Player;
 import at.campus02.swd.game.gameobjects.factories.EntityFactory;
 import at.campus02.swd.game.gameobjects.factories.TileFactory;
 import at.campus02.swd.game.gameobjects.tile.Tile;
@@ -42,7 +41,7 @@ public class GameMap{
     }
 
     private void water(){
-        //water
+
         for (float i = -width; i < width; i= i+64) {
             for (float j = -height; j < height; j = j+64) {
                 Tile wt = tileFactory.create("water-left");
@@ -53,7 +52,6 @@ public class GameMap{
     }
 
     private void littleIsland(int x, int y){
-
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -100,7 +98,7 @@ public class GameMap{
             }
         }
 
-        //must create twice otherwise accessoirs will be overrite the tiles
+        //must create twice otherwise accessoirs will overrite the tiles
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 Tile wt;
@@ -151,8 +149,7 @@ public class GameMap{
 
     private void fortifiedGrasIsland(int x, int y){
 
-
-        //grasIsland
+        //grassIsland
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 Tile wt;

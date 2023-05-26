@@ -1,11 +1,9 @@
 package at.campus02.swd.game.gameobjects.factories;
 
-import at.campus02.swd.game.Main;
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.tile.*;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.ArrayList;
 
 public class TileFactory implements Factory{
 
@@ -55,7 +53,6 @@ public class TileFactory implements Factory{
                         return "tiles/mapTile_188.png";
                     case "bright":
                         return "tiles/tile_73.png";
-
                 }
             case "sand":
                 switch(types[1]){
@@ -80,7 +77,7 @@ public class TileFactory implements Factory{
                     //middle piece
                     case "middlePiece":
                         return "tiles/tile_18.png";
-                        //accessoire
+                    //accessoires
                     case "boat":
                         return "tiles/tile_81.png";
                     case "dump":
@@ -151,7 +148,6 @@ public class TileFactory implements Factory{
                         return "tiles/tile_76.png";
                     case "leftRightDoor":
                         return "tiles/tile_60.png";
-
                 }
 
             default:

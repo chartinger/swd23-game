@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public interface Factory {
 
 
-    public GameObject create(String type);
+    GameObject create(String type);
 
-    public void initialize();
+    void initialize();
 
-    public Array<GameObject> getObjects();
+    Array<GameObject> getObjects();
 }
