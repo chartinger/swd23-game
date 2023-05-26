@@ -56,6 +56,7 @@ public class Main extends ApplicationAdapter {
             }
         }
         playerOne = new PlayerOne();
+        gameInput.player = playerOne;
         playerOne.setPosition(0,0);
         gameObjects.add(playerOne);
 
