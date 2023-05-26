@@ -13,11 +13,21 @@ public class TileFactory extends Factory{
      *
      * @return: Returns created Tile
      */
-    @Override
-    public Tile create() {
+
+    public Tile createGras() {
         Tile tile =  new Tile(new Texture("tiles/mapTile_022.png"));
         return tile;
     }
 
+    public Tile createWasser() {
+        Tile tile =  new Tile(new Texture("tiles/mapTile_188.png"));
+        return tile;
+    }
 
+
+    @Override
+    public Tile create() {
+        Tile tile =  new Tile(new Texture("tiles/mapTile_188.png"));
+        return tile;
+    }
 }

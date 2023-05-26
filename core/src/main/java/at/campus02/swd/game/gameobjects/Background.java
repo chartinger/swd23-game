@@ -1,53 +1,49 @@
 package at.campus02.swd.game.gameobjects;
 
-import java.time.temporal.Temporal;
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.badlogic.gdx.utils.Array;
 
 public class Background {
 
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private static final int X_LENGTH = 240; // beginn bei 240
+    private static final int X_START = -240; // beginn bei -240
+    private static final int Y_LENGTH = -240; // beginn bei -240
+    private static final int Y_START = 240; // beginn bei 240
+    private static final int PICTURE_SIZE = 64; // ist 64
 
-    private static int ONE_SIDE_LENGTH = 240;
-    private static int IMAGE_SIZE = 64;
 
     /**
      * Fills the ArrayList<Tile> tiles
      *
      */
 
-    // WIE LANG MUSS ARRAY LIST SEIN???
-    // BACKGROUND MUSS WISSEN WIE VIEL TILES ER BRAUCHT
 
-    private void createLayout(){
-        /**
-         * layoutForTiles => Integer --> Index of Tile
-         * layoutForTiles => Integer[][] --> x and y positions on grid
-         */
+    public void fillBackground(Array<GameObject> gameObjects){
 
-        HashMap<Integer, Integer[][] > layoutForTiles = new HashMap<>();
+        TileFactory factory = new TileFactory();
+
+        for (int xAxis = X_START; xAxis < X_LENGTH; xAxis += PICTURE_SIZE) {
+            for (int yAxis = Y_START; yAxis > Y_LENGTH; yAxis -= PICTURE_SIZE) {
+
+                if (yAxis > 50){
+
+                    Tile tile = factory.createWasser();
+                    tile.setPosition(xAxis,yAxis);
+                    gameObjects.add(tile);
+
+                } else {
+
+                    Tile tile = factory.createGras();
+                    tile.setPosition(xAxis,yAxis);
+                    gameObjects.add(tile);
+
+                }}
+        }
 
     }
 
-    public int getLength(){
-        return ONE_SIDE_LENGTH;
-    }
-
-    public int getPictureSide(){
-        return IMAGE_SIZE;
-    }
 
 
-    private Integer[][] createGrid(){
-
-        int elements = ONE_SIDE_LENGTH/IMAGE_SIZE;
-
-        Integer[][] grid = new Integer[elements][elements];
-
-        return grid;
-    }
-
-    public ArrayList<Tile> fillBackground() {
+    /*public ArrayList<Tile> fillBackground() {
 
         TileFactory factory = new TileFactory();
 
@@ -58,7 +54,9 @@ public class Background {
         }
 
         return tiles;
-    }
+    }*/
+
+
 
    /* public void setPosition(Background background){
 
@@ -76,11 +74,5 @@ public class Background {
 
     }*/
 
-    public ArrayList<Tile> getTiles() {
-        return tiles;
-    }
 
-    public Background() {
-        createGrid();
-    }
 }

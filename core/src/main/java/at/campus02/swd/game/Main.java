@@ -32,34 +32,22 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 
-
         batch = new SpriteBatch();
+
+        /** Tiles werden hier erstellt und platziert  **/
+        Background background = new Background();
+        background.fillBackground(gameObjects);
+
+        /**  Hier wird ein Spieler von einer Factory erzeugt und platziert **/
+        PlayerFactory playerFactory = new PlayerFactory();
+        Player player = playerFactory.create();
+        gameObjects.add(player);
+        player.setPosition(100,130);
+
         sign = new Sign();
-		gameObjects.add(sign);
+        gameObjects.add(sign);
         sign.setPosition(100,100);
 
-        Background background = new Background();
-        //gameObjects.addAll(background);
-        background.fillBackground();
-
-        int xlength = background.getLength(); // beginn bei 240
-        int xStart = -background.getLength(); // beginn bei -240
-        int ylength = -background.getLength(); // beginn bei 240
-        int yStart = background.getLength(); // beginn bei 240
-        int pictureSide = background.getPictureSide();
-        TileFactory factory = new TileFactory();
-        background.fillBackground();
-
-        for (int xAxis = xStart; xAxis < xlength; xAxis += pictureSide) {
-            for (int yAxis = yStart; yAxis > ylength; yAxis -= pictureSide) {
-
-                Tile tile = factory.create();
-                tile.setPosition(xAxis,yAxis);
-                gameObjects.add(tile);
-
-            }
-
-        }
 
 
 		font = new BitmapFont();
@@ -82,7 +70,7 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
+		font.draw(batch, "Krasses Gras", -220, -220);
 		batch.end();
 	}
 
