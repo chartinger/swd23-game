@@ -1,5 +1,6 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.maps.GameMap;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -10,14 +11,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private ExtendViewport viewport = new ExtendViewport(1920.0f, 1080.0f, 1920.0f, 1080.0f);
 	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
@@ -30,10 +30,24 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
+
+
+
+
+        GameMap map1 = new GameMap();
+
+        for(GameObject go : map1.getTerrainObjects()){
+            gameObjects.add(go);
+        }
+        for(GameObject go : map1.getEntityObjects()){
+            gameObjects.add(go);
+        }
+
+
 	}
 
 	private void act(float delta) {
@@ -48,7 +62,6 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
 		batch.end();
 	}
 
@@ -66,7 +79,7 @@ public class Main extends ApplicationAdapter {
 		draw();
 	}
 
-	@Override
+    @Override
 	public void dispose() {
 		batch.dispose();
 	}
