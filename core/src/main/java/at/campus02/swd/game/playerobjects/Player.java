@@ -5,16 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class PlayerOne implements GameObject {
+public class Player implements GameObject {
     private Texture image;
     private Sprite sprite;
 
     private float x = 0;
     private float y = 0;
 
-    public PlayerOne() {
+    public Player() {
         image = new Texture("sprites/Ships/ship (6).png");
         sprite = new Sprite(image);
+        this.setPosition(0,0);
     }
 
 

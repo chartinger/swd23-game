@@ -1,7 +1,8 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.gameobjects.*;
-import at.campus02.swd.game.playerobjects.PlayerOne;
+import at.campus02.swd.game.playerobjects.Background;
+import at.campus02.swd.game.playerobjects.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -17,8 +18,8 @@ import at.campus02.swd.game.input.GameInput;
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-	private GameInput gameInput = new GameInput();
+	private final ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private final GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
 
@@ -27,67 +28,24 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
-    private Sign sign;
-
-    private Tile tile;
-    private PlayerOne playerOne;
-    private Cliff cliff;
-    private Gras gras;
-    private Corals corals;
-    private Rock rock;
+    public Player playerOne;
 
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+
 		/*sign = new Sign();
         gameObjects.add(new Sign());
         sign.setPosition(30,30);
         gameObjects.add(sign);*/
-        for (int i = -240; i < 240; i+=64){
-            for(int j = 240; j >-240;j-=64){
-                tile = new Tile();
-                gras = new Gras();
-                cliff = new Cliff();
 
-                    tile.setPosition(i,j-64);
-                    gameObjects.add(tile);
+        Background background = new Background();
+        gameObjects = background.Create(gameObjects);
 
-            }
-        }
-        playerOne = new PlayerOne();
+        playerOne = new Player();
         gameInput.player = playerOne;
-        playerOne.setPosition(0,0);
         gameObjects.add(playerOne);
-
-        for(int x = - 240; x < 240; x +=64){
-        gras = new Gras();
-        gras.setPosition(178,x);
-        gameObjects.add(gras);
-        }
-
-
-        rock = new Rock();
-        rock.setPosition(40,-128);
-        gameObjects.add(rock);
-
-        corals = new Corals();
-        corals.setPosition(-30,-192);
-        gameObjects.add(corals);
-
-        for(int x = - 240; x < 240; x +=64){
-        cliff = new Cliff();
-        cliff.setPosition(-240,x);
-        gameObjects.add(cliff);
-        }
-
-        for(int x = - 240; x < 240; x +=64){
-            cliff = new Cliff();
-            cliff.setPosition(-240,x);
-            gameObjects.add(cliff);
-        }
-
-
 
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);

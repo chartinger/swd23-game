@@ -1,10 +1,10 @@
 package at.campus02.swd.game.input;
-import at.campus02.swd.game.playerobjects.PlayerOne;
+import at.campus02.swd.game.playerobjects.Player;
 import com.badlogic.gdx.InputAdapter;
 
 public class GameInput extends InputAdapter {
 
-    public PlayerOne player;
+    public Player player;
 
     private final float stepSize = 10.0F;
     @Override
