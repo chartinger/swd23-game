@@ -3,12 +3,14 @@ package at.campus02.swd.game;
 import at.campus02.swd.game.factory.*;
 import at.campus02.swd.game.gameobjects.AssetRepository;
 import at.campus02.swd.game.gameobjects.Player;
+import at.campus02.swd.game.observer.UIPositionObserver;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -32,6 +34,7 @@ public class Main extends ApplicationAdapter {
     private float deltaAccumulator = 0;
     private BitmapFont font;
     private OrthographicCamera camera;
+    private static String onScreenPos;
 
     @Override
     public void create() {
@@ -67,6 +70,7 @@ public class Main extends ApplicationAdapter {
 
 
         font = new BitmapFont();
+
         font.setColor(Color.WHITE);
         Gdx.input.setInputProcessor(this.gameInput);
         AssetRepository.INSTANCE.dispose();
@@ -93,15 +97,16 @@ public class Main extends ApplicationAdapter {
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(batch);
         }
+        UIPositionObserver uiPositionObserver = new UIPositionObserver();
+        uiPositionObserver.updatePosition(player.getSprite().getX(),player.getSprite().getY(),player.getSprite().getRotation());
+        onScreenPos = uiPositionObserver.getPos();
 
-        // Zeichnet den Text "Hello Game" relativ zur Viewportgröße mit dem Batch
-        //String text = "Hello Game";
-        //GlyphLayout layout = new GlyphLayout();
-        //layout.setText(font, text);
-        //float textWidth = layout.width;
-        //float textX = viewport.getWorldWidth() / 2 - textWidth / 2;
-        //float textY = viewport.getWorldHeight() / 2;
-        //font.draw(batch, text, textX, textY);
+       GlyphLayout layout = new GlyphLayout();
+       layout.setText(font, onScreenPos);
+       float textWidth = layout.width;
+       float textX = 0;
+       float textY = viewport.getWorldHeight();
+       font.draw(batch, onScreenPos, textX, textY);
         batch.end();
     }
 
