@@ -2,6 +2,7 @@ package at.campus02.swd.game;
 
 import at.campus02.swd.game.factory.*;
 import at.campus02.swd.game.gameobjects.AssetRepository;
+import at.campus02.swd.game.gameobjects.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -20,9 +21,9 @@ import at.campus02.swd.game.input.GameInput;
  */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
-
     private ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
-    private GameInput gameInput = new GameInput();
+    private Player player;
+    private GameInput gameInput;
 
     private Array<GameObject> gameObjects = new Array<>();
 
@@ -41,7 +42,7 @@ public class Main extends ApplicationAdapter {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
         Factory tileFactory = new TileFactory();
-        PlayerFactory player = new PlayerFactory();
+        PlayerFactory playerFactory = new PlayerFactory();
         int tileSize = 48;
         for (int i = 0; i < (viewport.getMinWorldHeight() / tileSize); i++) {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
@@ -57,7 +58,10 @@ public class Main extends ApplicationAdapter {
             gameObjects.add(o);
         }
 
-        gameObjects.add(player.create(Type.HUMAN,500,100));
+        player = (Player) playerFactory.create(Type.HUMAN,500,100);
+        gameObjects.add(player);
+
+        gameInput = new GameInput(player);
 
         gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
 

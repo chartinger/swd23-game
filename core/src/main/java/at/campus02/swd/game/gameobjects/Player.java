@@ -13,6 +13,10 @@ public class Player implements GameObject{
         sprite = new Sprite(image);
     }
 
+    public Sprite getSprite() {
+        return sprite;
+    }
+
     @Override
     public void act(float delta) {
 
