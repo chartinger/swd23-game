@@ -1,5 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.Objects;
 
 public class TileFactory implements GameObjectFactory<TileType> {
@@ -13,9 +15,25 @@ public class TileFactory implements GameObjectFactory<TileType> {
     public static final int BACKGROUND_ID = 187;
     public static final int FINISH_ID = 95;
 
+    private final AssetRepository assetRepository;
+
+    public TileFactory(AssetRepository assetRepository) {
+        this.assetRepository = assetRepository;
+        for (TileType tileType : TileType.values()) {
+            this.assetRepository.loadTexture(getTextureFilename(getTextureId(tileType)));
+        }
+    }
+
     @Override
     public Tile create(TileType type) {
-        int textureId = switch (Objects.requireNonNull(type)) {
+        int textureId = getTextureId(type);
+        String textureFile = getTextureFilename(textureId);
+        Texture texture = assetRepository.getTexture(textureFile);
+        return new Tile(texture, isRotated(textureId));
+    }
+
+    private static int getTextureId(TileType type) {
+        return switch (Objects.requireNonNull(type)) {
             case TOP_LEFT -> TOP_LEFT_ID;
             case TOP -> TOP_ID;
             case TOP_RIGHT -> TOP_RIGHT_ID;
@@ -28,9 +46,10 @@ public class TileFactory implements GameObjectFactory<TileType> {
             case WATER -> BACKGROUND_ID;
             case FINISH -> FINISH_ID;
         };
+    }
 
-        String textureFile = String.format("tiles/mapTile_%03d.png", actualTextureId(textureId));
-        return new Tile(textureFile, isRotated(textureId));
+    private static String getTextureFilename(int textureId) {
+        return String.format("tiles/mapTile_%03d.png", actualTextureId(textureId));
     }
 
     private static int actualTextureId(int textureId) {

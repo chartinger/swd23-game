@@ -27,11 +27,14 @@ public class Main extends ApplicationAdapter {
 	private BitmapFont font;
 
     private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
-    private final TileFactory tileFactory = new TileFactory();
-    private final PlayerFactory playerFactory = new PlayerFactory();
+    private TileFactory tileFactory;
+    private PlayerFactory playerFactory;
 
 	@Override
 	public void create() {
+        tileFactory = new TileFactory(AssetRepository.INSTANCE);
+        playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
+
         drawDeathLayer();
         drawPlayingField();
         drawPlayer(3, 2);

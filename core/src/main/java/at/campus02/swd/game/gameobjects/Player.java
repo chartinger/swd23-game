@@ -8,8 +8,8 @@ public class Player implements GameObject {
     private final Texture image;
     private final Sprite sprite;
 
-    public Player(String textureFile) {
-        image = new Texture(textureFile);
+    public Player(Texture texture) {
+        image = texture;
         sprite = new Sprite(image);
     }
 
