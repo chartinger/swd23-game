@@ -14,5 +14,6 @@ public enum Type {
     ISLAND_LEFT,
     ISLAND_CENTER,
     //PlayerTypes
-    HUMAN
+    HUMAN,
+    ENEMY
 }

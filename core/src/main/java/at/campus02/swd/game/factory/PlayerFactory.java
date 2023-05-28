@@ -2,6 +2,7 @@ package at.campus02.swd.game.factory;
 
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.Player;
+import com.badlogic.gdx.graphics.Texture;
 
 
 public class PlayerFactory extends Factory{
@@ -11,6 +12,9 @@ public class PlayerFactory extends Factory{
         switch (type){
             case HUMAN:
                 player = new Player("sprites/Ships/ship (1).png");
+                break;
+            case ENEMY:
+                player = new Player("sprites/Ships/ship (14).png");
                 break;
             default:
                 throw  new IllegalArgumentException("Value is invalid: "+type);
