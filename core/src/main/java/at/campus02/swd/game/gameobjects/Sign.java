@@ -22,6 +22,10 @@ public class Sign implements GameObject {
         sprite.setPosition(x, y);
     }
 
+    public void setRotation(float angle)    {
+        sprite.setRotation(angle);
+    }
+
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
