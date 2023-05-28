@@ -1,5 +1,6 @@
 package at.campus02.swd.game.gameobjects;
 
+import at.campus02.swd.game.factory.Type;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -7,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player implements GameObject{
     private Texture image;
     private Sprite sprite;
-    public Player(String path) {
-        this.image = new Texture(path);
+    public Player(Type type) {
+        this.image = AssetRepository.INSTANCE.getTexture(type);
         sprite = new Sprite(image);
     }
 

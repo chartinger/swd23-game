@@ -11,10 +11,10 @@ public class PlayerFactory extends Factory{
         GameObject player;
         switch (type){
             case HUMAN:
-                player = new Player("sprites/Ships/ship (1).png");
+                player = new Player(Type.HUMAN);
                 break;
             case ENEMY:
-                player = new Player("sprites/Ships/ship (14).png");
+                player = new Player(Type.ENEMY);
                 break;
             default:
                 throw  new IllegalArgumentException("Value is invalid: "+type);

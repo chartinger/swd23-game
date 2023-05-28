@@ -1,5 +1,6 @@
 package at.campus02.swd.game.gameobjects;
 
+import at.campus02.swd.game.factory.Type;
 import at.campus02.swd.game.gameobjects.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -9,8 +10,8 @@ public class Tile implements GameObject {
     private Texture image;
     private Sprite sprite;
 
-    public Tile(String path) {
-        this.image = new Texture(path);
+    public Tile(Type type) {
+        this.image = AssetRepository.INSTANCE.getTexture(type);
         sprite = new Sprite(image);
     }
     @Override

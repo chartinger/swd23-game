@@ -19,31 +19,31 @@ public class TileFactory extends Factory{
                 tile.setPosition(x,y);
                 break;
             case ISLAND_TOP:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwatertop1.png");
+                tile = new IslandTile(Type.ISLAND_TOP);
                 break;
             case ISLAND_TOP_LEFT:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterlefttop1.png");
+                tile = new IslandTile(Type.ISLAND_TOP_LEFT);
                 break;
             case ISLAND_TOP_RIGHT:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterrighttop1.png");
+                tile = new IslandTile(Type.ISLAND_TOP_RIGHT);
                 break;
             case ISLAND_CENTER:
-                tile = new IslandTile("tiles/tropical/Terrain/Desert/Desert1.png");
+                tile = new IslandTile(Type.ISLAND_CENTER);
                 break;
             case ISLAND_LEFT:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterleft1.png");
+                tile = new IslandTile(Type.ISLAND_LEFT);
                 break;
             case ISLAND_RIGHT:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterright1.png");
+                tile = new IslandTile(Type.ISLAND_RIGHT);
                 break;
             case ISLAND_BOTTOM:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterbot1.png");
+                tile = new IslandTile(Type.ISLAND_BOTTOM);
                 break;
             case ISLAND_BOTTOM_LEFT:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterleftbot1.png");
+                tile = new IslandTile(Type.ISLAND_BOTTOM_LEFT);
                 break;
             case ISLAND_BOTTOM_RIGHT:
-                tile = new IslandTile("tiles/tropical/Terrain/Desertwater/Desertwaterrightbot1.png");
+                tile = new IslandTile(Type.ISLAND_BOTTOM_RIGHT);
                 break;
            default:
                 throw  new IllegalArgumentException("Value is invalid: "+type);
