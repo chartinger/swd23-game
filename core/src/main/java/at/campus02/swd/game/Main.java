@@ -51,13 +51,14 @@ public class Main extends ApplicationAdapter {
                 gameObjects.add(tileFactory.create(Type.WATER,tileX,tileY));
             }
         }
-        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
+
         IslandBuilder ib = new IslandBuilder();
         for (GameObject o:ib.placeIsland(200,200,6,4)
              ) {
             gameObjects.add(o);
         }
-        gameObjects.add(playerFactory.create(Type.ENEMY,320,100));
+        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
+        gameObjects.add(playerFactory.create(Type.ENEMY,320,80));
         player = (Player) playerFactory.create(Type.HUMAN,500,100);
         gameObjects.add(player);
         gameInput = new GameInput(player);
