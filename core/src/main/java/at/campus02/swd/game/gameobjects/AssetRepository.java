@@ -29,5 +29,8 @@ public enum AssetRepository {
         Texture texture = textures.get(type);
         return texture;
     }
+    public void dispose() {
+        textures.clear();
+    }
 
 }
