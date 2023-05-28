@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Movement {
     private ArrayList<PositionObserver> observer = new ArrayList<>();
 
+
     public void registerObserver(PositionObserver positionObserver) {
         this.observer.add(positionObserver);
     }
@@ -15,7 +16,7 @@ public class Movement {
     }
 
 
-    public void setPosition(int x, int y, float rotation) {
+    public void setPosition(float x, float y, float rotation) {
         for (PositionObserver positionObserver : observer) {
             positionObserver.updatePosition(x,y, rotation);
         }
