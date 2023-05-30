@@ -59,9 +59,9 @@ public class Main extends ApplicationAdapter {
 
 
     private void placeTiles() {
-        int numTilesX = 20;
-        int numTilesY = 20;
-        float tileSize = 16.0f;
+        int numTilesX = 6;
+        int numTilesY = 6;
+        float tileSize = 76.0f;
 
         for (int x = 0; x < numTilesX; x++) {
             for (int y = 0; y < numTilesY; y++) {
