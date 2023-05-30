@@ -1,26 +1,36 @@
 package at.campus02.swd.game.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class TileFactory {
-    private Texture[] tileTextures;
+public class TileFactory implements GameObject{
 
-    public TileFactory() {
-        tileTextures = new Texture[10];
-        loadTextures();
-    }
+        private Texture image;
+        private Sprite sprite;
 
-    private void loadTextures() {
-        for (int i = 0; i < tileTextures.length; i++) {
-            tileTextures[i] = new Texture("tiles/mapTile_090.png");
+        public TileFactory() {
+            image = new Texture("tiles/mapTile_003.png");
+            sprite = new Sprite(image);
+        }
+
+
+        @Override
+        public void act(float delta) {
 
         }
-    }
-
-    public Tile createTile(int index) {
-        if (index >= 0 && index < tileTextures.length) {
-            return new Tile(tileTextures[index]);
+        @Override
+        public void setPosition(float x, float y) {
+            sprite.setPosition(x,y);
         }
-        return null;
-    }
+
+
+
+    @Override
+        public void draw(SpriteBatch batch) {
+            sprite.draw(batch);
+        }
+
+
 }
+

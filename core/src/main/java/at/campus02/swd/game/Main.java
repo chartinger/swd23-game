@@ -48,9 +48,9 @@ public class Main extends ApplicationAdapter {
     }
 
     private void createTileBackground() {
-        int numTilesX = 50;
-        int numTilesY = 50;
-        float tileSize = 64.0f;
+        int numTilesX = 100;
+        int numTilesY = 100;
+        float tileSize = 32.0f;
 
         float worldWidth = numTilesX * tileSize;
         float worldHeight = numTilesY * tileSize;
@@ -59,13 +59,13 @@ public class Main extends ApplicationAdapter {
 
 
     private void placeTiles() {
-        int numTilesX = 10;
-        int numTilesY = 10;
-        float tileSize = 32.0f;
+        int numTilesX = 20;
+        int numTilesY = 20;
+        float tileSize = 16.0f;
 
         for (int x = 0; x < numTilesX; x++) {
             for (int y = 0; y < numTilesY; y++) {
-                Tile tile = tileFactory.createTile(1);
+                Tile tile = new Tile();
                 if (tile != null) {
                     float tilePosX = x * tileSize;
                     float tilePosY = y * tileSize;
@@ -120,13 +120,18 @@ public class Main extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-       // tileFactory.dispose();
-       // playerFactory.dispose();
+        // tileFactory.dispose();
+        // playerFactory.dispose();
         font.dispose();
     }
 
-    @Override
+
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        float aspectRatio = (float) width / height;
+        float worldWidth = 600.0f;
+        float worldHeight = worldWidth / aspectRatio;
+
+        viewport.setWorldSize(worldWidth, worldHeight);
+        viewport.update(width, height, true);
     }
 }

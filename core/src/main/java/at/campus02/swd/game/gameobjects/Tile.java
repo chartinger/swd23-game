@@ -8,8 +8,8 @@ public class Tile implements GameObject {
     private Texture texture;
     private Sprite sprite;
 
-    public Tile(Texture texture) {
-        this.texture = texture;
+    public Tile() {
+        texture = new Texture("tiles/mapTile_003.png");
         sprite = new Sprite(texture);
     }
 

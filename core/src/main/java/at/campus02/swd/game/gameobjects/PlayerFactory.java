@@ -6,7 +6,7 @@ public class PlayerFactory {
     private Texture playerTexture;
 
     public PlayerFactory() {
-        playerTexture = new Texture("tiles/tile_92.png");
+        playerTexture = new Texture("sprites/mapTile_035.png");
     }
 
     public Player createPlayer() {
