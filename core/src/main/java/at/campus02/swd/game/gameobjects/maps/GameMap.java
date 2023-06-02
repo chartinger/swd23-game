@@ -2,6 +2,7 @@ package at.campus02.swd.game.gameobjects.maps;
 
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.entities.Entity;
+import at.campus02.swd.game.gameobjects.entities.Player;
 import at.campus02.swd.game.gameobjects.factories.EntityFactory;
 import at.campus02.swd.game.gameobjects.factories.TileFactory;
 import at.campus02.swd.game.gameobjects.tile.Tile;
@@ -16,6 +17,8 @@ public class GameMap{
 
     private TileFactory tileFactory;
     private EntityFactory entityFactory;
+
+    private Entity player1;
 
     private int width;
     private int height;
@@ -257,6 +260,7 @@ public class GameMap{
     }
 
     private void spawnPlayer(){
+        /*
         Entity player1 = entityFactory.create("player-green");
         Entity player2 = entityFactory.create("player-blue");
         Entity player3 = entityFactory.create("player-red");
@@ -266,6 +270,10 @@ public class GameMap{
         entityObjects.add(player1);
         entityObjects.add(player2);
         entityObjects.add(player3);
+        */
+        player1 = entityFactory.create("player-green");
+        player1.setPosition(-700,-200);
+        entityObjects.add(player1);
     }
 
     private void spawnEnemies(){
@@ -290,5 +298,8 @@ public class GameMap{
 
     public ArrayList<GameObject> getStructureObjects(){
         return structureObjects;
+    }
+    public Entity getPlayer1(){
+        return player1;
     }
 }

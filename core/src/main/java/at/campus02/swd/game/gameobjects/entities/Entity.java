@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public abstract class Entity implements GameObject{
     private Sprite sprite;
 
+    protected int health;
+    protected int speed;
+
     public Entity(String spritePath) {
         this.sprite = new Sprite(new Texture(spritePath));
     }
@@ -30,5 +33,15 @@ public abstract class Entity implements GameObject{
     }
 
     public abstract void update();
+
+    public float getX(){
+        return sprite.getX();
+    }
+    public float getY(){
+        return sprite.getY();
+    }
+    public int getSpeed(){
+        return speed;
+    }
 
 }

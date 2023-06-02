@@ -1,7 +1,11 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.entities.Entity;
+import at.campus02.swd.game.gameobjects.entities.Player;
+import at.campus02.swd.game.gameobjects.factories.EntityFactory;
 import at.campus02.swd.game.gameobjects.maps.GameMap;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -27,6 +31,8 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
+    private GameMap gameMap;
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
@@ -38,15 +44,14 @@ public class Main extends ApplicationAdapter {
 
 
 
-        GameMap map1 = new GameMap();
+        gameMap = new GameMap();
 
-        for(GameObject go : map1.getTerrainObjects()){
+        for(GameObject go : gameMap.getTerrainObjects()){
             gameObjects.add(go);
         }
-        for(GameObject go : map1.getEntityObjects()){
+        for(GameObject go : gameMap.getEntityObjects()){
             gameObjects.add(go);
         }
-
 
 	}
 
@@ -76,7 +81,9 @@ public class Main extends ApplicationAdapter {
 			deltaAccumulator -= logicFrameTime;
 			act(logicFrameTime);
 		}
+        gameMap.getPlayer1().update();
 		draw();
+
 	}
 
     @Override
