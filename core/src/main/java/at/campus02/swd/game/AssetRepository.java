@@ -2,9 +2,10 @@ package at.campus02.swd.game;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class Asset {
+public class AssetRepository {
 
         //water textures
+
         private Texture waterRight = new Texture("tiles/mapTile_171.png");
         private Texture waterLeft = new Texture("tiles/mapTile_187.png");
         private Texture waterStill= new Texture("tiles/mapTile_188.png");
@@ -65,21 +66,5 @@ public class Asset {
         //door
         private Texture castleBottomTopDoor = new Texture("tiles/tile_76.png");
         private Texture castleLeftRightDoor = new Texture("tiles/tile_60.png");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
