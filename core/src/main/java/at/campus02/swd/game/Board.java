@@ -8,7 +8,6 @@ public class Board {
     PlayerFactory playerFactory;
     TileFactory tileFactory;
 
-//    Tile[][] floor = new Tile[10][10];
     Player player;
     int playerX;
     int playerY;
@@ -48,9 +47,6 @@ public class Board {
 
     public Array<GameObject> getGameObjects() {
         Array<GameObject> gameObjects = new Array<>();
-//        for(Tile[] column : floor)
-//            for(Tile tile : column)
-//                gameObjects.add(tile);
         gameObjects.add(finish);
         gameObjects.add(player);
         return gameObjects;
@@ -65,6 +61,9 @@ public class Board {
 
         playerX = newCol;
         playerY = newRow;
+
+        if (playerX == finishX && playerY == finishY)
+            System.out.println("You have won the game!!!!");
 
         refresh();
     }
