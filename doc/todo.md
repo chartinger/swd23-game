@@ -1,6 +1,6 @@
 # Task List
 
-- [ ] Implement AssetRepository (Singleton!)
+- [x] Implement AssetRepository (Singleton!)
 - [ ] Allow player to move (Command pattern!)
 - [ ] Melt ice at random (Strategy pattern, but only in exercise 3)
 - [ ] Implement observers to track player movement

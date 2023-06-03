@@ -3,6 +3,7 @@ package at.campus02.swd.game;
 import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -39,6 +40,11 @@ public class Main extends ApplicationAdapter {
         drawPlayingField();
         drawPlayer(3, 2);
         drawFinish(7, 8);
+
+        gameInput.addAction(Keys.UP, () -> System.out.println("User pressed UP"));
+        gameInput.addAction(Keys.DOWN, () -> System.out.println("User pressed DOWN"));
+        gameInput.addAction(Keys.LEFT, () -> System.out.println("User pressed LEFT"));
+        gameInput.addAction(Keys.RIGHT, () -> System.out.println("User pressed RIGHT"));
 
         batch = new SpriteBatch();
 		font = new BitmapFont();
