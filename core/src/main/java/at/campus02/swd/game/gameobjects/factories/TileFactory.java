@@ -2,6 +2,7 @@ package at.campus02.swd.game.gameobjects.factories;
 
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.tile.*;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
 
@@ -26,19 +27,19 @@ public class TileFactory implements Factory{
 
         switch(myType.toLowerCase()){
             case "water":
-                return new WaterTile(findTileGraphicPath(type));
+                return new WaterTile(findTileTexture(type));
             case "sand":
-                return new SandTile(findTileGraphicPath(type));
+                return new SandTile(findTileTexture(type));
             case "grass":
-                return new GrassTile(findTileGraphicPath(type));
+                return new GrassTile(findTileTexture(type));
             case "castle":
-                return new CastleTile(findTileGraphicPath(type));
+                return new CastleTile(findTileTexture(type));
             default:
                 return null;
         }
     }
 
-    public String findTileGraphicPath(String type){
+    public Texture findTileTexture(String type){
 
         String[] types = type.split("-");
 

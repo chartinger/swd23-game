@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tile implements GameObject {
 
-    private String spritePath;
-    private Texture texture;
+    //private String spritePath;
+    //private Texture texture;
     private Sprite sprite;
 
-    public Tile(String spritePath) {
-        this.spritePath = spritePath;
-        this.texture = new Texture(this.spritePath);
+    public Tile(Texture texture) {
+        //this.spritePath = spritePath;
+        //this.texture = texture;
         this.sprite = new Sprite(texture);
     }
 
@@ -31,19 +31,4 @@ public class Tile implements GameObject {
         sprite.draw(batch);
     }
 
-    public String getImage() {
-        return spritePath;
-    }
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    public void setImage(String spritePath) {
-        this.spritePath = spritePath;
-    }
 }
