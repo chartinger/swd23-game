@@ -30,21 +30,22 @@ public class Main extends ApplicationAdapter {
     private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
     private TileFactory tileFactory;
     private PlayerFactory playerFactory;
+    private Board board;
 
 	@Override
 	public void create() {
         tileFactory = new TileFactory(AssetRepository.INSTANCE);
         playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
+        board = new Board(gameObjectPositioner, playerFactory, tileFactory);
 
         drawDeathLayer();
-        drawPlayingField();
-        drawPlayer(3, 2);
-        drawFinish(7, 8);
+        drawFloor();
+        gameObjects.addAll(board.getGameObjects());
 
-        gameInput.addAction(Keys.UP, () -> System.out.println("User pressed UP"));
-        gameInput.addAction(Keys.DOWN, () -> System.out.println("User pressed DOWN"));
-        gameInput.addAction(Keys.LEFT, () -> System.out.println("User pressed LEFT"));
-        gameInput.addAction(Keys.RIGHT, () -> System.out.println("User pressed RIGHT"));
+        gameInput.addAction(Keys.UP, board::moveNorth);
+        gameInput.addAction(Keys.DOWN, board::moveSouth);
+        gameInput.addAction(Keys.LEFT, board::moveWest);
+        gameInput.addAction(Keys.RIGHT, board::moveEast);
 
         batch = new SpriteBatch();
 		font = new BitmapFont();
@@ -52,7 +53,7 @@ public class Main extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(this.gameInput);
 	}
 
-    private void drawPlayingField() {
+    private void drawFloor() {
         fillLayerWithTile(TileType.CENTER);
     }
 
@@ -66,26 +67,10 @@ public class Main extends ApplicationAdapter {
                 createAndPlaceTile(center, column, row);
     }
 
-    private void drawPlayer(int column, int row) {
-        createAndPlacePlayer(PlayerType.READY_PLAYER_ONE, column, row);
-    }
-
-    private void drawFinish(int column, int row) {
-        createAndPlaceTile(TileType.FINISH, column, row);
-    }
-
     private void createAndPlaceTile(TileType tileType, int column, int row) {
-        createAndPlaceGameObject(tileFactory, tileType, column, row);
-    }
-
-    private void createAndPlacePlayer(PlayerType playerType, int column, int row) {
-        createAndPlaceGameObject(playerFactory, playerType, column, row);
-    }
-
-    private <E extends Enum<E>> void createAndPlaceGameObject(GameObjectFactory<E> factory, E tileType, int column, int row) {
-        GameObject object = factory.create(tileType);
-        gameObjectPositioner.setPosition(object, column, row);
-        gameObjects.add(object);
+        Tile tile = tileFactory.create(tileType);
+        gameObjectPositioner.setPosition(tile, column, row);
+        gameObjects.add(tile);
     }
 
     private void act(float delta) {
