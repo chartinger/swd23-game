@@ -66,4 +66,168 @@ public class AssetRepository {
         //door
         private Texture castleBottomTopDoor = new Texture("tiles/tile_76.png");
         private Texture castleLeftRightDoor = new Texture("tiles/tile_60.png");
+
+    public Texture getWaterRight() {
+        return waterRight;
+    }
+
+    public Texture getWaterLeft() {
+        return waterLeft;
+    }
+
+    public Texture getWaterStill() {
+        return waterStill;
+    }
+
+    public Texture getWaterBright() {
+        return waterBright;
+    }
+
+    public Texture getSandTopLeftCorner() {
+        return sandTopLeftCorner;
+    }
+
+    public Texture getSandTopRightCorner() {
+        return sandTopRightCorner;
+    }
+
+    public Texture getSandBottomLeftCorner() {
+        return sandBottomLeftCorner;
+    }
+
+    public Texture getSandBottomRightCorner() {
+        return sandBottomRightCorner;
+    }
+
+    public Texture getSandTopLane() {
+        return sandTopLane;
+    }
+
+    public Texture getSandBottomLane() {
+        return sandBottomLane;
+    }
+
+    public Texture getSandLeftLane() {
+        return sandLeftLane;
+    }
+
+    public Texture getSandRightLane() {
+        return sandRightLane;
+    }
+
+    public Texture getSandMiddlePiece() {
+        return sandMiddlePiece;
+    }
+
+    public Texture getSandBoat() {
+        return sandBoat;
+    }
+
+    public Texture getSandDump() {
+        return sandDump;
+    }
+
+    public Texture getGrasTopLeftCorner() {
+        return grasTopLeftCorner;
+    }
+
+    public Texture getGrasTopRightCorner() {
+        return grasTopRightCorner;
+    }
+
+    public Texture getGrasBottomLeftCorner() {
+        return grasBottomLeftCorner;
+    }
+
+    public Texture getGrasBottomRightCorner() {
+        return grasBottomRightCorner;
+    }
+
+    public Texture getGrasMiddlePiece() {
+        return grasMiddlePiece;
+    }
+
+    public Texture getGrasMiddleStony() {
+        return grasMiddleStony;
+    }
+
+    public Texture getGrasTopLane() {
+        return grasTopLane;
+    }
+
+    public Texture getGrasBottomLane() {
+        return grasBottomLane;
+    }
+
+    public Texture getGrasLeftLane() {
+        return grasLeftLane;
+    }
+
+    public Texture getGrasRightLane() {
+        return grasRightLane;
+    }
+
+    public Texture getGrasBigBush() {
+        return grasBigBush;
+    }
+
+    public Texture getGrasTriangleBush() {
+        return grasTriangleBush;
+    }
+
+    public Texture getGrasLittleBush() {
+        return grasLittleBush;
+    }
+
+    public Texture getLittleStone() {
+        return littleStone;
+    }
+
+    public Texture getCastleTopLeftCorner() {
+        return castleTopLeftCorner;
+    }
+
+    public Texture getCastleTopRightCorner() {
+        return castleTopRightCorner;
+    }
+
+    public Texture getCastleBottomLeftCorner() {
+        return castleBottomLeftCorner;
+    }
+
+    public Texture getCastleBottomRightCorner() {
+        return castleBottomRightCorner;
+    }
+
+    public Texture getCastleBottomTopLane() {
+        return castleBottomTopLane;
+    }
+
+    public Texture getCastleLeftRightLane() {
+        return castleLeftRightLane;
+    }
+
+    public Texture getCastleTopCanon() {
+        return castleTopCanon;
+    }
+
+    public Texture getCastleBottomCanon() {
+        return castleBottomCanon;
+    }
+
+    public Texture getCastleLeftCanon() {
+        return castleLeftCanon;
+    }
+
+    public Texture getCastleRightCanon() {
+        return castleRightCanon;
+    }
+
+    public Texture getCastleBottomTopDoor() {
+        return castleBottomTopDoor;
+    }
+
+    public Texture getCastleLeftRightDoor() {
+        return castleLeftRightDoor;
+    }
 }

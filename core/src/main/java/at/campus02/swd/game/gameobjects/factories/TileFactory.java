@@ -1,5 +1,6 @@
 package at.campus02.swd.game.gameobjects.factories;
 
+import at.campus02.swd.game.AssetRepository;
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.tile.*;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,7 +28,7 @@ public class TileFactory implements Factory{
 
         switch(myType.toLowerCase()){
             case "water":
-                return new WaterTile(findTileTexture(type));
+                return new AssetRepository();
             case "sand":
                 return new SandTile(findTileTexture(type));
             case "grass":
@@ -47,108 +48,108 @@ public class TileFactory implements Factory{
             case "water":
                 switch(types[1]){
                     case "right":
-                        return "tiles/mapTile_171.png";
+                        return new AssetRepository().getWaterRight();
                     case "left":
-                        return "tiles/mapTile_187.png";
+                        return new AssetRepository().getWaterLeft();
                     case "still":
-                        return "tiles/mapTile_188.png";
+                        return new AssetRepository().getWaterStill();
                     case "bright":
-                        return "tiles/tile_73.png";
+                        return new AssetRepository().getWaterBright();
                 }
             case "sand":
                 switch(types[1]){
                     //corners
                     case "topLeftCorner":
-                        return "tiles/tile_01.png";
+                        return new AssetRepository().getSandTopLeftCorner();
                     case "topRightCorner":
-                        return "tiles/tile_03.png";
+                        return new AssetRepository().getSandTopRightCorner();
                     case "bottomleftCorner":
-                        return "tiles/tile_33.png";
+                        return new AssetRepository().getSandBottomLeftCorner();
                     case "bottomRightCorner":
-                        return "tiles/tile_35.png";
+                        return new AssetRepository().getSandBottomRightCorner();
                     //lanes (water touching land)
                     case "topLane":
-                        return "tiles/tile_02.png";
+                        return new AssetRepository().getSandTopLane();
                     case "bottomLane":
-                        return "tiles/tile_34.png";
+                        return new AssetRepository().getSandBottomLane();
                     case "leftLane":
-                        return "tiles/tile_17.png";
+                        return new AssetRepository().getSandLeftLane();
                     case "rightLane":
-                        return  "tiles/tile_19.png";
+                        return new AssetRepository().getSandRightLane();
                     //middle piece
                     case "middlePiece":
-                        return "tiles/tile_18.png";
+                        return new AssetRepository().getSandMiddlePiece();
                     //accessoires
                     case "boat":
-                        return "tiles/tile_81.png";
+                        return new AssetRepository().getSandBoat();
                     case "dump":
-                        return "tiles/tile_83.png";
+                        return new AssetRepository().getSandDump();
                 }
             case "grass":
                 switch(types[1]){
                     //corners
                     case "topLeftCorner":
-                        return "tiles/tile_06.png";
+                        return new AssetRepository().getGrasTopLeftCorner();
                     case "topRightCorner":
-                        return "tiles/tile_09.png";
+                        return new AssetRepository().getGrasTopRightCorner();
                     case "bottomleftCorner":
-                        return "tiles/tile_54.png";
+                        return new AssetRepository().getGrasBottomLeftCorner();
                     case "bottomRightCorner":
-                        return "tiles/tile_57.png";
+                        return new AssetRepository().getGrasBottomRightCorner();
                     //lanes (water touching land)
                     case "topLane":
-                        return "tiles/tile_08.png";
+                        return new AssetRepository().getGrasTopLane();
                     case "bottomLane":
-                        return "tiles/tile_55.png";
+                        return new AssetRepository().getGrasBottomLane();
                     case "leftLane":
-                        return "tiles/tile_22.png";
+                        return new AssetRepository().getGrasLeftLane();
                     case "rightLane":
-                        return  "tiles/tile_25.png";
+                        return new AssetRepository().getGrasRightLane();
                     //middle piece
                     case "middlePiece":
-                        return "tiles/tile_23.png";
+                        return new AssetRepository().getGrasMiddlePiece();
                     case "middleStony":
-                        return "tiles/tile_24.png";
+                        return new AssetRepository().getGrasMiddleStony();
                     //accessoires
                     case "bigBush":
-                        return "tiles/tile_71.png";
+                        return new AssetRepository().getGrasBigBush();
                     case "triangleBush":
-                        return "tiles/tile_70.png";
+                        return new AssetRepository().getGrasTriangleBush();
                     case "littleBush":
-                        return "tiles/tile_72.png";
+                        return new AssetRepository().getGrasLittleBush();
                     case "littleStone":
-                        return "tiles/tile_49.png";
+                        return new AssetRepository().getLittleStone();
                 }
             case "castle":
                 switch(types[1]) {
                     //corners
                     case "topLeftCorner":
-                        return "tiles/tile_77.png";
+                        return new AssetRepository().getCastleTopLeftCorner();
                     case "topRightCorner":
-                        return "tiles/tile_78.png";
+                        return new AssetRepository().getCastleTopRightCorner();
                     case "bottomleftCorner":
-                        return "tiles/tile_93.png";
+                        return new AssetRepository().getCastleBottomLeftCorner();
                     case "bottomRightCorner":
-                        return "tiles/tile_94.png";
+                        return new AssetRepository().getCastleBottomRightCorner();
                     //lanes
                     case "bottomTopLane":
-                        return "tiles/tile_16.png";
+                        return new AssetRepository().getCastleBottomTopLane();
                     case "leftRightLane":
-                        return "tiles/tile_15.png";
+                        return new AssetRepository().getCastleLeftRightLane();
                     //canons
                     case "topCanon":
-                        return "tiles/tile_47.png";
+                        return new AssetRepository().getCastleTopCanon();
                     case "bottomCanon":
-                        return "tiles/tile_48.png";
+                        return new AssetRepository().getCastleBottomCanon();
                     case "leftCanon":
-                        return "tiles/tile_32.png";
+                        return new AssetRepository().getCastleLeftCanon();
                     case "rightCanon":
-                        return  "tiles/tile_31.png";
+                        return new AssetRepository().getCastleRightCanon();
                     //door
                     case "bottomTopDoor":
-                        return "tiles/tile_76.png";
+                        return new AssetRepository().getCastleBottomTopDoor();
                     case "leftRightDoor":
-                        return "tiles/tile_60.png";
+                        return new AssetRepository().getCastleLeftRightDoor();
                 }
 
             default:
