@@ -67,5 +67,4 @@ public class AssetRepository {
         private Texture castleBottomTopDoor = new Texture("tiles/tile_76.png");
         private Texture castleLeftRightDoor = new Texture("tiles/tile_60.png");
 
-
 }
