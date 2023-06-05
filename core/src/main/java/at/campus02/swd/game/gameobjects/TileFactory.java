@@ -38,12 +38,12 @@ public class TileFactory implements GameObjectFactory<TileType> {
             case TOP -> TOP_ID;
             case TOP_RIGHT -> TOP_RIGHT_ID;
             case LEFT -> LEFT_ID;
-            case CENTER -> CENTER_ID;
+            case FLOOR -> CENTER_ID;
             case RIGHT -> RIGHT_ID;
             case BOTTOM_LEFT -> rotate(TOP_RIGHT_ID);
             case BOTTOM -> rotate(TOP_ID);
             case BOTTOM_RIGHT -> rotate(TOP_LEFT_ID);
-            case WATER -> BACKGROUND_ID;
+            case CERTAIN_DEATH -> BACKGROUND_ID;
             case FINISH -> FINISH_ID;
         };
     }

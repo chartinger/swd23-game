@@ -16,6 +16,9 @@ public class Board {
     int finishColumn;
     int finishRow;
 
+    final Tile[][] deathLayer = new Tile[10][10];
+    final Tile[][] floorLayer = new Tile[10][10];
+
     public Board(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
         this.gameObjectPositioner = gameObjectPositioner;
         this.playerFactory = playerFactory;
@@ -29,12 +32,18 @@ public class Board {
         this.finishColumn = 8;
         this.finishRow = 8;
 
+        createFloorLayer();
+        createDeathLayer();
+
         refresh();
     }
 
     private void refresh() {
         gameObjectPositioner.setPosition(player, playerColumn, playerRow);
         gameObjectPositioner.setPosition(finish, finishColumn, finishRow);
+        for (int column = 0; column < floorLayer.length; column++)
+            for (int row = 0; row < floorLayer[column].length; row++)
+                gameObjectPositioner.setPosition(floorLayer[column][row], column, row);
     }
 
     private Player createPlayer() {
@@ -47,6 +56,9 @@ public class Board {
 
     public Array<GameObject> getGameObjects() {
         Array<GameObject> gameObjects = new Array<>();
+        for(Tile[] column : floorLayer)
+            for (Tile tile : column)
+                gameObjects.add(tile);
         gameObjects.add(finish);
         gameObjects.add(player);
         return gameObjects;
@@ -87,5 +99,19 @@ public class Board {
     }
     public void moveEast() {
         movePlayer(1, 0);
+    }
+
+    private void createDeathLayer() {
+        fillLayerWithTile(deathLayer, TileType.CERTAIN_DEATH);
+    }
+
+    private void createFloorLayer() {
+        fillLayerWithTile(floorLayer, TileType.FLOOR);
+    }
+
+    private void fillLayerWithTile(Tile[][] layer, TileType tileType) {
+        for (int column = 0; column < layer.length; column++)
+            for (int row = 0; row < layer[column].length; row++)
+                layer[column][row] = tileFactory.create(tileType);
     }
 }

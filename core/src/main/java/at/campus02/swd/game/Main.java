@@ -27,19 +27,14 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
-    private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
-    private TileFactory tileFactory;
-    private PlayerFactory playerFactory;
-    private Board board;
 
-	@Override
+    @Override
 	public void create() {
-        tileFactory = new TileFactory(AssetRepository.INSTANCE);
-        playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
-        board = new Board(gameObjectPositioner, playerFactory, tileFactory);
+        final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
+        final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
+        final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
+        final Board board = new Board(gameObjectPositioner, playerFactory, tileFactory);
 
-        drawDeathLayer();
-        drawFloor();
         gameObjects.addAll(board.getGameObjects());
 
         gameInput.addAction(Keys.UP, board::moveNorth);
@@ -52,26 +47,6 @@ public class Main extends ApplicationAdapter {
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 	}
-
-    private void drawFloor() {
-        fillLayerWithTile(TileType.CENTER);
-    }
-
-    private void drawDeathLayer() {
-        fillLayerWithTile(TileType.WATER);
-    }
-
-    private void fillLayerWithTile(TileType center) {
-        for (int column = 0; column < 10; column++)
-            for (int row = 0; row < 10; row++)
-                createAndPlaceTile(center, column, row);
-    }
-
-    private void createAndPlaceTile(TileType tileType, int column, int row) {
-        Tile tile = tileFactory.create(tileType);
-        gameObjectPositioner.setPosition(tile, column, row);
-        gameObjects.add(tile);
-    }
 
     private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {

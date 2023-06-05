@@ -5,11 +5,11 @@ public enum TileType {
     TOP,
     TOP_RIGHT,
     LEFT,
-    CENTER,
+    FLOOR,
     RIGHT,
     BOTTOM_LEFT,
     BOTTOM,
     BOTTOM_RIGHT,
-    WATER,
+    CERTAIN_DEATH,
     FINISH,
 }
