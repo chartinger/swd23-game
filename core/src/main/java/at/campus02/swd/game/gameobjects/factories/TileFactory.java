@@ -28,7 +28,7 @@ public class TileFactory implements Factory{
 
         switch(myType.toLowerCase()){
             case "water":
-                return new AssetRepository();
+                return new WaterTile(findTileTexture(type));
             case "sand":
                 return new SandTile(findTileTexture(type));
             case "grass":
