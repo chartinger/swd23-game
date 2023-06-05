@@ -4,17 +4,17 @@ import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.utils.Array;
 
 public class Board {
-    GameObjectPositioner gameObjectPositioner;
-    PlayerFactory playerFactory;
-    TileFactory tileFactory;
+    final GameObjectPositioner gameObjectPositioner;
+    final PlayerFactory playerFactory;
+    final TileFactory tileFactory;
 
-    Player player;
-    int playerX;
-    int playerY;
+    final Player player;
+    int playerColumn;
+    int playerRow;
 
-    Tile finish;
-    int finishX;
-    int finishY;
+    final Tile finish;
+    int finishColumn;
+    int finishRow;
 
     public Board(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
         this.gameObjectPositioner = gameObjectPositioner;
@@ -22,19 +22,19 @@ public class Board {
         this.tileFactory = tileFactory;
 
         this.player = createPlayer();
-        this.playerX = 0;
-        this.playerY = 0;
+        this.playerColumn = 0;
+        this.playerRow = 0;
 
         this.finish = createFinish();
-        this.finishX = 8;
-        this.finishY = 8;
+        this.finishColumn = 8;
+        this.finishRow = 8;
 
         refresh();
     }
 
     private void refresh() {
-        gameObjectPositioner.setPosition(player, playerX, playerY);
-        gameObjectPositioner.setPosition(finish, finishX, finishY);
+        gameObjectPositioner.setPosition(player, playerColumn, playerRow);
+        gameObjectPositioner.setPosition(finish, finishColumn, finishRow);
     }
 
     private Player createPlayer() {
@@ -53,19 +53,27 @@ public class Board {
     }
 
     private void movePlayer(int offsetColumn, int offsetRow) {
-        int newCol = playerX + offsetColumn;
-        int newRow = playerY + offsetRow;
+        int newColumn = playerColumn + offsetColumn;
+        int newRow = playerRow + offsetRow;
 
-        if (newCol < 0 || newCol > 9 || newRow < 0 || newRow > 9)
+        if (!isOnBoard(newColumn, newRow))
             return;
 
-        playerX = newCol;
-        playerY = newRow;
+        playerColumn = newColumn;
+        playerRow = newRow;
 
-        if (playerX == finishX && playerY == finishY)
+        if (hasPlayerWon())
             System.out.println("You have won the game!!!!");
 
         refresh();
+    }
+
+    private boolean hasPlayerWon() {
+        return playerColumn == finishColumn && playerRow == finishRow;
+    }
+
+    private static boolean isOnBoard(int newColumn, int newRow) {
+        return newColumn >= 0 && newColumn <= 9 && newRow >= 0 && newRow <= 9;
     }
 
     public void moveNorth() {
