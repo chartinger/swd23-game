@@ -8,6 +8,10 @@ public class GameInput extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         System.out.println(keycode);
+
+        // execute() ?? --> statt sout von Pfeilen
+            // Spieler bewegen mit Methode execute();
+
         return true;
     }
 }

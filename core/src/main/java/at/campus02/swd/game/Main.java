@@ -44,15 +44,29 @@ public class Main extends ApplicationAdapter {
         gameObjects.add(player);
         player.setPosition(100,130);
 
+        /** ÜBUNG 2 **/
+
+            // --> AssetRepository für Tiles
+            // AssetRepository.getInstance().getTexture();
+
+
+
+
+
+
         sign = new Sign();
         gameObjects.add(sign);
         sign.setPosition(100,100);
 
-
-
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
+
+        /** Übung 2 Fortsetzung **/
+
+        // gameInput
+        //gameInput.keyDown(// Pfeile oben unten)
+
 
 	}
 
