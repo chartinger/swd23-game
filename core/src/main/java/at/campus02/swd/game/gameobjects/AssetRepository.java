@@ -21,4 +21,9 @@ public class AssetRepository {
     public void loadTexture(String textureFile) {
         textureMap.put(textureFile, new Texture(textureFile));
     }
+
+    public void dispose() {
+        textureMap.forEach((__, texture) -> texture.dispose());
+        textureMap.clear();
+    }
 }
