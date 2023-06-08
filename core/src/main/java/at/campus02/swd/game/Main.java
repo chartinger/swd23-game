@@ -2,14 +2,11 @@ package at.campus02.swd.game;
 
 import at.campus02.swd.game.board.Board;
 import at.campus02.swd.game.gameobjects.*;
-import at.campus02.swd.game.reporting.MovementLogger;
 import at.campus02.swd.game.reporting.ScoreBoard;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -47,7 +44,7 @@ public class Main extends ApplicationAdapter {
 
         scoreBoard = new ScoreBoard(-300, -290);
         board.subscribe(scoreBoard);
-        board.subscribe(new MovementLogger(System.out));
+        board.subscribe((column, row) -> System.out.println("You are at [" + column + ", " + row + "]"));
 
         batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this.gameInput);
