@@ -1,5 +1,6 @@
 package at.campus02.swd.game.board;
 
+import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.utils.Array;
 
@@ -12,6 +13,7 @@ public class Board {
     final PlayerFactory playerFactory;
     final TileFactory tileFactory;
     final Set<MovementObserver> movementObservers = new HashSet<>();
+    final Set<FloorObserver> floorObservers = new HashSet<>();
 
     final Player player;
     private final Random randomNumberGenerator = new Random();
@@ -128,6 +130,7 @@ public class Board {
         }
 
         floorLayer[column][row] = new Field(floorLayer[column][row].tile(), false);
+        notifyFloorObservers(Action.DESTROY, column, row);
     }
 
     private boolean hasDestructibleFields() {
@@ -194,6 +197,14 @@ public class Board {
 
     private void notifyMovementObservers() {
         movementObservers.forEach(observer -> observer.updatePosition(playerColumn, playerRow));
+    }
+
+    public void subscribe(FloorObserver observer) {
+        floorObservers.add(observer);
+    }
+
+    private void notifyFloorObservers(Action action, int column, int row) {
+        floorObservers.forEach(observer -> observer.updateFloor(action, column, row));
     }
 
     private record Field(Tile tile, boolean exists) {
