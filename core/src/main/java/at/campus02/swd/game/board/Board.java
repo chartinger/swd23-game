@@ -1,14 +1,17 @@
-package at.campus02.swd.game;
+package at.campus02.swd.game.board;
 
 import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class Board {
     final GameObjectPositioner gameObjectPositioner;
     final PlayerFactory playerFactory;
     final TileFactory tileFactory;
+    final Set<MovementObserver> movementObservers = new HashSet<>();
 
     final Player player;
     private final Random randomNumberGenerator = new Random();
@@ -92,6 +95,7 @@ public class Board {
 
         playerColumn = newColumn;
         playerRow = newRow;
+        notifyMovementObservers();
 
         if (hasPlayerWon())
             System.out.println("You have won the game!!!!");
@@ -181,6 +185,15 @@ public class Board {
         for (int column = 0; column < layer.length; column++)
             for (int row = 0; row < layer[column].length; row++)
                 layer[column][row] = new Field(tileFactory.create(tileType));
+    }
+
+    public void subscribe(MovementObserver observer) {
+        movementObservers.add(observer);
+        observer.updatePosition(playerColumn, playerRow);
+    }
+
+    private void notifyMovementObservers() {
+        movementObservers.forEach(observer -> observer.updatePosition(playerColumn, playerRow));
     }
 
     private record Field(Tile tile, boolean exists) {

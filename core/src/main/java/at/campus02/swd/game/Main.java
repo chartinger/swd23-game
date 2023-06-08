@@ -1,5 +1,6 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.board.Board;
 import at.campus02.swd.game.gameobjects.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
