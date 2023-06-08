@@ -2,6 +2,8 @@ package at.campus02.swd.game;
 
 import at.campus02.swd.game.board.Board;
 import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.reporting.MovementLogger;
+import at.campus02.swd.game.reporting.ScoreBoard;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -26,7 +28,7 @@ public class Main extends ApplicationAdapter {
 	private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
-	private BitmapFont font;
+    private ScoreBoard scoreBoard;
 
 
     @Override
@@ -43,9 +45,11 @@ public class Main extends ApplicationAdapter {
         gameInput.addAction(Keys.LEFT, board::moveWest);
         gameInput.addAction(Keys.RIGHT, board::moveEast);
 
+        scoreBoard = new ScoreBoard(-300, -290);
+        board.subscribe(scoreBoard);
+        board.subscribe(new MovementLogger(System.out));
+
         batch = new SpriteBatch();
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
 	}
 
@@ -61,7 +65,7 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -300, -300);
+		scoreBoard.draw(batch);
 		batch.end();
 	}
 
