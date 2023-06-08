@@ -6,4 +6,4 @@
 - [x] Implement observers to track player movement
   - [x] Display position
   - [x] Log position
-- [ ] Allow observers to register melting ice
+- [x] Allow observers to register melting ice

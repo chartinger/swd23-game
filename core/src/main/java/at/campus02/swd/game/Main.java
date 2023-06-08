@@ -45,6 +45,7 @@ public class Main extends ApplicationAdapter {
         scoreBoard = new ScoreBoard(-300, -290);
         board.subscribe(scoreBoard);
         board.subscribe((column, row) -> System.out.println("You are at [" + column + ", " + row + "]"));
+        board.subscribe((action, column, row) -> System.out.println("Floor at [" + column + ", " + row + "] just vanished"));
 
         batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this.gameInput);
