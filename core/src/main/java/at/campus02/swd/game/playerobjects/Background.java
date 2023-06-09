@@ -1,9 +1,9 @@
 package at.campus02.swd.game.playerobjects;
+import at.campus02.swd.game.gameobjects.staticObjects.Cliff;
+import at.campus02.swd.game.gameobjects.staticObjects.Gras;
+import at.campus02.swd.game.gameobjects.staticObjects.Tile;
 import com.badlogic.gdx.utils.Array;
 import at.campus02.swd.game.gameobjects.*;
-import com.badlogic.gdx.Game;
-
-import java.util.ArrayList;
 
 public class Background {
 
@@ -25,14 +25,6 @@ public class Background {
             gras.setPosition(178, i);
             gameObjects.add(gras);
         }
-
-        Rock rock = new Rock();
-        rock.setPosition(40,-128);
-        gameObjects.add(rock);
-
-        Corals corals = new Corals();
-        corals.setPosition(-30,-192);
-        gameObjects.add(corals);
 
         for(int i = - 240; i < 240; i +=64){
             cliff = new Cliff();

@@ -1,7 +1,11 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.logic.Control;
+import at.campus02.swd.game.logic.Observer;
+import at.campus02.swd.game.logic.UsedTextures;
 import at.campus02.swd.game.playerobjects.Background;
+import at.campus02.swd.game.playerobjects.InteractiveObjects;
 import at.campus02.swd.game.playerobjects.Player;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -35,16 +39,14 @@ public class Main extends ApplicationAdapter {
 	public void create() {
 		batch = new SpriteBatch();
 
-		/*sign = new Sign();
-        gameObjects.add(new Sign());
-        sign.setPosition(30,30);
-        gameObjects.add(sign);*/
-
         Background background = new Background();
+        InteractiveObjects interactiveObjects= new InteractiveObjects();
         gameObjects = background.Create(gameObjects);
+        gameObjects = interactiveObjects.Create(gameObjects);
 
-        playerOne = new Player();
-        gameInput.player = playerOne;
+        playerOne = new Player("Player One");
+        gameInput.control = new Control(playerOne, batch);
+
         gameObjects.add(playerOne);
 
 		font = new BitmapFont();

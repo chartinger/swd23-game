@@ -1,35 +1,39 @@
 package at.campus02.swd.game.input;
-import at.campus02.swd.game.playerobjects.Player;
+import at.campus02.swd.game.logic.Control;
 import com.badlogic.gdx.InputAdapter;
 
 public class GameInput extends InputAdapter {
 
-    public Player player;
+    public Control control;
 
-    private final float stepSize = 10.0F;
     @Override
     public boolean keyDown(int keycode) {
 
+        if(control.LockPosition)
+            return true;
+
         if(keycode == 20) {
-            player.setPosition(player.X(), player.Y() - stepSize );
+            control.alterDown();
         }
 
         if(keycode == 19) {
-            player.setPosition(player.X(), player.Y() + stepSize );
+            control.alterUp();
         }
 
         if(keycode == 21) {
-            player.setPosition(player.X()-stepSize, player.Y() );
+            control.alterLeft();
         }
 
         if(keycode == 22) {
-            player.setPosition(player.X() + stepSize, player.Y() );
+            control.alterRight();
         }
 
         if(keycode == 111) {
             System.exit(0);
         }
-        System.out.println(keycode);
+
+        control.CheckPlayerAgainstInteractiveObject();
+//        System.out.println(keycode);
         return true;
     }
 }
