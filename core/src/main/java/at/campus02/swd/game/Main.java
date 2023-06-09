@@ -1,8 +1,10 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.board.Board;
+import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
+import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -44,8 +46,8 @@ public class Main extends ApplicationAdapter {
 
         scoreBoard = new ScoreBoard(-300, -290);
         board.subscribe(scoreBoard);
-        board.subscribe((column, row) -> System.out.println("You are at [" + column + ", " + row + "]"));
-        board.subscribe((action, column, row) -> System.out.println("Floor at [" + column + ", " + row + "] just vanished"));
+        board.subscribe(position -> System.out.println("You are at " + position));
+        board.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
 
         batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this.gameInput);

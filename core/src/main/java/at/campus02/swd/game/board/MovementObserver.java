@@ -1,5 +1,7 @@
 package at.campus02.swd.game.board;
 
+import at.campus02.swd.game.util.Position;
+
 public interface MovementObserver {
-    void updatePosition(int column, int row);
+    void updatePosition(Position position);
 }

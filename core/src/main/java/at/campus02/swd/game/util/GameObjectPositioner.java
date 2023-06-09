@@ -1,4 +1,6 @@
-package at.campus02.swd.game.gameobjects;
+package at.campus02.swd.game.util;
+
+import at.campus02.swd.game.gameobjects.GameObject;
 
 /**
  * Translates rows and columns of the board to the cartesian coordinates used when drawing the tile.
@@ -14,8 +16,8 @@ public class GameObjectPositioner {
         this.gameObjectSize = gameObjectSize;
     }
 
-    public void setPosition(GameObject gameObject, int column, int row) {
-        gameObject.setPosition(translateColumnToX(column), translateRowToY(row));
+    public void setPosition(GameObject gameObject, Position position) {
+        gameObject.setPosition(translateColumnToX(position.column()), translateRowToY(position.row()));
     }
 
     private float translateColumnToX(int column) {

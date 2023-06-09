@@ -2,6 +2,8 @@ package at.campus02.swd.game.board;
 
 import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.util.GameObjectPositioner;
+import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.HashSet;
@@ -9,23 +11,23 @@ import java.util.Random;
 import java.util.Set;
 
 public class Board {
-    final GameObjectPositioner gameObjectPositioner;
-    final PlayerFactory playerFactory;
-    final TileFactory tileFactory;
-    final Set<MovementObserver> movementObservers = new HashSet<>();
-    final Set<FloorObserver> floorObservers = new HashSet<>();
+    private final GameObjectPositioner gameObjectPositioner;
+    private final PlayerFactory playerFactory;
+    private final TileFactory tileFactory;
 
-    final Player player;
+    private final Set<MovementObserver> movementObservers = new HashSet<>();
+    private final Set<FloorObserver> floorObservers = new HashSet<>();
+
     private final Random randomNumberGenerator = new Random();
-    int playerColumn;
-    int playerRow;
 
-    final Tile finish;
-    int finishColumn;
-    int finishRow;
+    private final Player player;
+    private Position playerPosition;
 
-    final Field[][] deathLayer = new Field[10][10];
-    final Field[][] floorLayer = new Field[10][10];
+    private final Tile finish;
+    private final Position finishPosition;
+
+    private final Field[][] deathLayer = new Field[10][10];
+    private final Field[][] floorLayer = new Field[10][10];
 
     public Board(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
         this.gameObjectPositioner = gameObjectPositioner;
@@ -33,12 +35,10 @@ public class Board {
         this.tileFactory = tileFactory;
 
         this.player = createPlayer();
-        this.playerColumn = 0;
-        this.playerRow = 0;
+        this.playerPosition = new Position(0, 0);
 
         this.finish = createFinish();
-        this.finishColumn = 8;
-        this.finishRow = 8;
+        this.finishPosition = new Position(8, 8);
 
         createFloorLayer();
         createDeathLayer();
@@ -47,8 +47,8 @@ public class Board {
     }
 
     private void refresh() {
-        gameObjectPositioner.setPosition(player, playerColumn, playerRow);
-        gameObjectPositioner.setPosition(finish, finishColumn, finishRow);
+        gameObjectPositioner.setPosition(player, playerPosition);
+        gameObjectPositioner.setPosition(finish, finishPosition);
         refreshLayer(deathLayer);
         refreshLayer(floorLayer);
     }
@@ -59,7 +59,7 @@ public class Board {
                 Field field = layer[column][row];
                 Tile tile = field.tile;
                 tile.setVisible(field.exists());
-                gameObjectPositioner.setPosition(tile, column, row);
+                gameObjectPositioner.setPosition(tile, new Position(column, row));
             }
     }
 
@@ -89,14 +89,12 @@ public class Board {
     }
 
     private void movePlayer(int offsetColumn, int offsetRow) {
-        int newColumn = playerColumn + offsetColumn;
-        int newRow = playerRow + offsetRow;
+        Position newPosition = new Position(playerPosition.column() + offsetColumn, playerPosition.row() + offsetRow);
 
-        if (!isOnBoard(newColumn, newRow))
+        if (!isOnBoard(newPosition))
             return;
 
-        playerColumn = newColumn;
-        playerRow = newRow;
+        playerPosition = newPosition;
         notifyMovementObservers();
 
         if (hasPlayerWon())
@@ -110,7 +108,7 @@ public class Board {
     }
 
     private boolean hasPlayerDied() {
-        return !floorLayer[playerColumn][playerRow].exists();
+        return !floorLayer[playerPosition.column()][playerPosition.row()].exists();
     }
 
     private void attackPlayer() {
@@ -120,47 +118,52 @@ public class Board {
     }
 
     private void destroyRandomFloor() {
-        int column = randomNumberGenerator.nextInt(floorLayer.length);
-        int row = randomNumberGenerator.nextInt(floorLayer[column].length);
-        while (!isDestructible(column, row)) {
-            if (!hasDestructibleFields())
-                return;
-            column = randomNumberGenerator.nextInt(floorLayer.length);
-            row = randomNumberGenerator.nextInt(floorLayer[column].length);
+        if (!hasDestructibleFields())
+            return;
+
+        Position position = getRandomPosition();
+        while (!isDestructible(position)) {
+            position = getRandomPosition();
         }
 
-        floorLayer[column][row] = new Field(floorLayer[column][row].tile(), false);
-        notifyFloorObservers(Action.DESTROY, column, row);
+        floorLayer[position.column()][position.row()] = new Field(floorLayer[position.column()][position.row()].tile(), false);
+        notifyFloorObservers(Action.DESTROY, position);
+    }
+
+    private Position getRandomPosition() {
+        int column = randomNumberGenerator.nextInt(floorLayer.length);
+        int row = randomNumberGenerator.nextInt(floorLayer[column].length);
+        return new Position(column, row);
     }
 
     private boolean hasDestructibleFields() {
         for (int column = 0; column < floorLayer.length; column++)
             for (int row = 0; row < floorLayer[column].length; row++)
-                if (isDestructible(column, row))
+                if (isDestructible(new Position(column, row)))
                     return true;
         return false;
     }
 
-    private boolean isDestructible(int column, int row) {
-        return !isPlayerPosition(column, row)
-            && !isFinishPosition(column, row)
-            && floorLayer[column][row].exists();
+    private boolean isDestructible(Position position) {
+        return !isPlayerPosition(position)
+            && !isFinishPosition(position)
+            && floorLayer[position.column()][position.row()].exists();
     }
 
-    private boolean isFinishPosition(int column, int row) {
-        return column == finishColumn && row == finishRow;
+    private boolean isFinishPosition(Position position) {
+        return finishPosition.equals(position);
     }
 
-    private boolean isPlayerPosition(int column, int row) {
-        return column == playerColumn && row == playerRow;
+    private boolean isPlayerPosition(Position position) {
+        return playerPosition.equals(position);
     }
 
     private boolean hasPlayerWon() {
-        return playerColumn == finishColumn && playerRow == finishRow;
+        return isFinishPosition(playerPosition);
     }
 
-    private static boolean isOnBoard(int newColumn, int newRow) {
-        return newColumn >= 0 && newColumn <= 9 && newRow >= 0 && newRow <= 9;
+    private static boolean isOnBoard(Position position) {
+        return position.column() >= 0 && position.column() <= 9 && position.row() >= 0 && position.row() <= 9;
     }
 
     public void moveNorth() {
@@ -192,19 +195,19 @@ public class Board {
 
     public void subscribe(MovementObserver observer) {
         movementObservers.add(observer);
-        observer.updatePosition(playerColumn, playerRow);
+        observer.updatePosition(playerPosition);
     }
 
     private void notifyMovementObservers() {
-        movementObservers.forEach(observer -> observer.updatePosition(playerColumn, playerRow));
+        movementObservers.forEach(observer -> observer.updatePosition(playerPosition));
     }
 
     public void subscribe(FloorObserver observer) {
         floorObservers.add(observer);
     }
 
-    private void notifyFloorObservers(Action action, int column, int row) {
-        floorObservers.forEach(observer -> observer.updateFloor(action, column, row));
+    private void notifyFloorObservers(Action action, Position position) {
+        floorObservers.forEach(observer -> observer.updateFloor(action, position));
     }
 
     private record Field(Tile tile, boolean exists) {
