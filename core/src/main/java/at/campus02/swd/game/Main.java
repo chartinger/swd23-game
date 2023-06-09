@@ -1,6 +1,6 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.board.Board;
+import at.campus02.swd.game.board.Game;
 import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
@@ -35,19 +35,19 @@ public class Main extends ApplicationAdapter {
         final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
         final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
         final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
-        final Board board = new Board(gameObjectPositioner, playerFactory, tileFactory);
+        final Game game = new Game(gameObjectPositioner, playerFactory, tileFactory);
 
-        gameObjects.addAll(board.getGameObjects());
+        gameObjects.addAll(game.getGameObjects());
 
-        gameInput.addAction(Keys.UP, board::moveNorth);
-        gameInput.addAction(Keys.DOWN, board::moveSouth);
-        gameInput.addAction(Keys.LEFT, board::moveWest);
-        gameInput.addAction(Keys.RIGHT, board::moveEast);
+        gameInput.addAction(Keys.UP, game::moveNorth);
+        gameInput.addAction(Keys.DOWN, game::moveSouth);
+        gameInput.addAction(Keys.LEFT, game::moveWest);
+        gameInput.addAction(Keys.RIGHT, game::moveEast);
 
         scoreBoard = new ScoreBoard(-300, -290);
-        board.subscribe(scoreBoard);
-        board.subscribe(position -> System.out.println("You are at " + position));
-        board.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
+        game.subscribe(scoreBoard);
+        game.subscribe(position -> System.out.println("You are at " + position));
+        game.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
 
         batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this.gameInput);
