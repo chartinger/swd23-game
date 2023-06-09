@@ -6,11 +6,12 @@ import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
 public class GameBoard {
+    public static final int BOARD_WIDTH = 10;
+    public static final int BOARD_HEIGHT = 10;
+
     private final GameObjectPositioner gameObjectPositioner;
     private final TileFactory tileFactory;
 
-    public static final int BOARD_WIDTH = 10;
-    public static final int BOARD_HEIGHT = 10;
     private final Player player;
     private Position playerPosition;
 
