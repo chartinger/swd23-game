@@ -1,5 +1,8 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.AssetRepository;
+import at.campus02.swd.game.gameobjects.FactoryMethod;
+import at.campus02.swd.game.gameobjects.GameObject;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -9,129 +12,120 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Tile;
-import at.campus02.swd.game.gameobjects.TileFactory;
-import at.campus02.swd.game.gameobjects.Player;
-import at.campus02.swd.game.gameobjects.PlayerFactory;
-import at.campus02.swd.game.input.GameInput;
-
+/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-    private SpriteBatch batch;
+	private SpriteBatch batch;
 
-    private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-    private GameInput gameInput = new GameInput();
+	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	//private GameInput gameInput = new GameInput();
 
-    private Array<GameObject> gameObjects = new Array<>();
+	private Array<GameObject> gameObjects = new Array<>();
 
-    private final float updatesPerSecond = 60;
-    private final float logicFrameTime = 1 / updatesPerSecond;
-    private float deltaAccumulator = 0;
-    private BitmapFont font;
+	private final float updatesPerSecond = 60;
+	private final float logicFrameTime = 1 / updatesPerSecond;
+	private float deltaAccumulator = 0;
+	private BitmapFont font;
 
-    private TileFactory tileFactory;
-    private PlayerFactory playerFactory;
-    private Player player;
+    private AssetRepository repository = AssetRepository.getInstance();
 
-    @Override
-    public void create() {
-        batch = new SpriteBatch();
-        tileFactory = new TileFactory();
-        playerFactory = new PlayerFactory();
-        player = playerFactory.createPlayer();
-        gameObjects.add(player);
-        font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        Gdx.input.setInputProcessor(this.gameInput);
-        createTileBackground();
-        placeTiles();
-    }
-
-    private void createTileBackground() {
-        int numTilesX = 100;
-        int numTilesY = 100;
-        float tileSize = 32.0f;
-
-        float worldWidth = numTilesX * tileSize;
-        float worldHeight = numTilesY * tileSize;
-        viewport.setWorldSize(worldWidth, worldHeight);
-    }
-
-
-    private void placeTiles() {
-        int numTilesX = 6;
-        int numTilesY = 6;
-        float tileSize = 76.0f;
-
-        for (int x = 0; x < numTilesX; x++) {
-            for (int y = 0; y < numTilesY; y++) {
-                Tile tile = new Tile();
-                if (tile != null) {
-                    float tilePosX = x * tileSize;
-                    float tilePosY = y * tileSize;
-                    tile.setPosition(tilePosX, tilePosY);
-                    gameObjects.add(tile);
+	@Override
+	public void create() {
+        repository.preloadAssets();
+		batch = new SpriteBatch();
+        FactoryMethod factory = new FactoryMethod();
+        int fieldSize = 6;
+        for (int i = 1; i < fieldSize +1 ; i++) {
+            for (int j = 1; j < fieldSize + 1; j++) {
+                GameObject rt = null;
+                if (j == 1) {
+                    if (i == 1) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Rechts_Oben"));
+                    } else if (i < 6) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Mitte_Oben"));
+                    } else if (i == 6) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Links_Oben"));
+                    }
+                } else if (j < 6) {
+                    if (i == 1) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Rechts_Mitte"));
+                    } else if (i < 6) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Mitte"));
+                    } else if (i == 6) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Links_Mitte"));
+                    }
+                } else if (j == 6) {
+                    if (i == 1) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Rechts_Unten"));
+                    } else if (i < 6) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Mitte_Unten"));
+                    } else if (i == 6) {
+                        rt = factory.createObject("tile", repository.getTexture("Sand_Links_Unten"));
+                    }
                 }
-            }
-        }
-    }
-
-    private void act(float delta) {
-        for (GameObject gameObject : gameObjects) {
-            gameObject.act(delta);
-        }
-    }
-
-    private void draw() {
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.begin();
-
-        // Draw background
-        for (GameObject gameObject : gameObjects) {
-            if (!(gameObject instanceof Player)) {
-                gameObject.draw(batch);
+                rt.setPosition(((fieldSize / 2) - i) * 75, ((fieldSize / 2) - j) * 75); //TODO Hauptvariable für TileSize anlegen, falls es noch keine gibt, kein Hardcode wie bei mir
+                gameObjects.add(rt);
             }
         }
 
-        // Draw player
-        player.draw(batch);
+        GameObject pb = factory.createObject("player",repository.getTexture("Sand_Links_Mitte"));
+        pb.setPosition(0,0);
+        gameObjects.add(pb);
+		font = new BitmapFont();
+		font.setColor(Color.WHITE);
 
-        font.draw(batch, "Hello Game", -220, -220);
-        batch.end();
-    }
+	/*	Gdx.input.setInputProcessor(this.gameInput);
 
-    @Override
-    public void render() {
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Command moveUpCommand = new MoveUpCommand();
+        Command moveDownCommand = new MoveDownCommand();
+        Command moveLeftCommand = new MoveLeftCommand();
+        Command moveRightCommand = new MoveRightCommand();
 
-        float delta = Gdx.graphics.getDeltaTime();
-        deltaAccumulator += delta;
-        while (deltaAccumulator > logicFrameTime) {
-            deltaAccumulator -= logicFrameTime;
-            act(logicFrameTime);
-            draw();
-        }
-    }
+        gameInput.setMoveUpCommand(moveUpCommand);
+        gameInput.setMoveDownCommand(moveDownCommand);
+        gameInput.setMoveLeftCommand(moveLeftCommand);
+        gameInput.setMoveRightCommand(moveRightCommand);
 
-    @Override
-    public void dispose() {
-        batch.dispose();
-        // tileFactory.dispose();
-        // playerFactory.dispose();
-        font.dispose();
-    }
+	 */
+	}
 
+	private void act(float delta) {
+		for(GameObject gameObject : gameObjects) {
+			gameObject.act(delta);
+		}
+	}
 
-    public void resize(int width, int height) {
-        float aspectRatio = (float) width / height;
-        float worldWidth = 600.0f;
-        float worldHeight = worldWidth / aspectRatio;
+	private void draw() {
+		batch.setProjectionMatrix(viewport.getCamera().combined);
+		batch.begin();
+		for(GameObject gameObject : gameObjects) {
+			gameObject.draw(batch);
+		}
+		font.draw(batch, "Hello Game", -220, -220);
+		batch.end();
+	}
 
-        viewport.setWorldSize(worldWidth, worldHeight);
-        viewport.update(width, height, true);
-    }
+	@Override
+	public void render() {
+		Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		float delta = Gdx.graphics.getDeltaTime();
+		deltaAccumulator += delta;
+		while(deltaAccumulator > logicFrameTime) {
+			deltaAccumulator -= logicFrameTime;
+			act(logicFrameTime);
+		}
+		draw();
+	}
+
+	@Override
+	public void dispose() {
+		batch.dispose();
+        repository.dispose();
+	}
+
+	@Override
+	public void resize(int width, int height){
+		viewport.update(width,height);
+	}
 }
