@@ -46,23 +46,6 @@ public class Board {
         refresh();
     }
 
-    private void refresh() {
-        gameObjectPositioner.setPosition(player, playerPosition);
-        gameObjectPositioner.setPosition(finish, finishPosition);
-        refreshLayer(deathLayer);
-        refreshLayer(floorLayer);
-    }
-
-    private void refreshLayer(Field[][] layer) {
-        for (int column = 0; column < layer.length; column++)
-            for (int row = 0; row < layer[column].length; row++) {
-                Field field = layer[column][row];
-                Tile tile = field.tile;
-                tile.setVisible(field.exists());
-                gameObjectPositioner.setPosition(tile, new Position(column, row));
-            }
-    }
-
     private Player createPlayer() {
         return playerFactory.create(PlayerType.READY_PLAYER_ONE);
     }
@@ -71,21 +54,75 @@ public class Board {
         return tileFactory.create(TileType.FINISH);
     }
 
+    private void createDeathLayer() {
+        fillLayerWithTile(deathLayer, TileType.CERTAIN_DEATH);
+    }
+
+    private void createFloorLayer() {
+        fillLayerWithTile(floorLayer, TileType.FLOOR);
+    }
+
+    private void fillLayerWithTile(Field[][] layer, TileType tileType) {
+        for (int column = 0; column < layer.length; column++)
+            for (int row = 0; row < layer[column].length; row++)
+                layer[column][row] = new Field(tileFactory.create(tileType));
+    }
+
+
+    private void refresh() {
+        refreshPlayer();
+        refreshFinish();
+        refreshLayer(deathLayer);
+        refreshLayer(floorLayer);
+    }
+
+    private void refreshPlayer() {
+        gameObjectPositioner.setPosition(player, playerPosition);
+    }
+
+    private void refreshFinish() {
+        gameObjectPositioner.setPosition(finish, finishPosition);
+    }
+
+    private void refreshLayer(Field[][] layer) {
+        for (int column = 0; column < layer.length; column++)
+            for (int row = 0; row < layer[column].length; row++) {
+                Field field = layer[column][row];
+                field.tile.setVisible(field.exists());
+                gameObjectPositioner.setPosition(field.tile, new Position(column, row));
+            }
+    }
+
+
     public Array<GameObject> getGameObjects() {
         Array<GameObject> gameObjects = new Array<>();
-        gameObjects.addAll(getLayerObjects(deathLayer));
-        gameObjects.addAll(getLayerObjects(floorLayer));
+        gameObjects.addAll(getGameObjects(deathLayer));
+        gameObjects.addAll(getGameObjects(floorLayer));
         gameObjects.add(finish);
         gameObjects.add(player);
         return gameObjects;
     }
 
-    private Array<GameObject> getLayerObjects(Field[][] layer) {
+    private Array<GameObject> getGameObjects(Field[][] layer) {
         Array<GameObject> gameObjects = new Array<>();
         for(Field[] column : layer)
             for (Field field : column)
                 gameObjects.add(field.tile);
         return gameObjects;
+    }
+
+
+    public void moveNorth() {
+        movePlayer(0, -1);
+    }
+    public void moveSouth() {
+        movePlayer(0, 1);
+    }
+    public void moveWest() {
+        movePlayer(-1, 0);
+    }
+    public void moveEast() {
+        movePlayer(1, 0);
     }
 
     private void movePlayer(int offsetColumn, int offsetRow) {
@@ -110,6 +147,37 @@ public class Board {
     private boolean hasPlayerDied() {
         return !floorLayer[playerPosition.column()][playerPosition.row()].exists();
     }
+
+    private boolean isDestructible(Position position) {
+        return !isPlayerPosition(position)
+            && !isFinishPosition(position)
+            && floorLayer[position.column()][position.row()].exists();
+    }
+
+    private boolean isFinishPosition(Position position) {
+        return finishPosition.equals(position);
+    }
+
+    private boolean isPlayerPosition(Position position) {
+        return playerPosition.equals(position);
+    }
+
+    private boolean hasPlayerWon() {
+        return isFinishPosition(playerPosition);
+    }
+
+    private static boolean isOnBoard(Position position) {
+        return position.column() >= 0 && position.column() <= 9 && position.row() >= 0 && position.row() <= 9;
+    }
+
+    private boolean hasDestructibleFields() {
+        for (int column = 0; column < floorLayer.length; column++)
+            for (int row = 0; row < floorLayer[column].length; row++)
+                if (isDestructible(new Position(column, row)))
+                    return true;
+        return false;
+    }
+
 
     private void attackPlayer() {
         destroyRandomFloor();
@@ -136,62 +204,6 @@ public class Board {
         return new Position(column, row);
     }
 
-    private boolean hasDestructibleFields() {
-        for (int column = 0; column < floorLayer.length; column++)
-            for (int row = 0; row < floorLayer[column].length; row++)
-                if (isDestructible(new Position(column, row)))
-                    return true;
-        return false;
-    }
-
-    private boolean isDestructible(Position position) {
-        return !isPlayerPosition(position)
-            && !isFinishPosition(position)
-            && floorLayer[position.column()][position.row()].exists();
-    }
-
-    private boolean isFinishPosition(Position position) {
-        return finishPosition.equals(position);
-    }
-
-    private boolean isPlayerPosition(Position position) {
-        return playerPosition.equals(position);
-    }
-
-    private boolean hasPlayerWon() {
-        return isFinishPosition(playerPosition);
-    }
-
-    private static boolean isOnBoard(Position position) {
-        return position.column() >= 0 && position.column() <= 9 && position.row() >= 0 && position.row() <= 9;
-    }
-
-    public void moveNorth() {
-        movePlayer(0, -1);
-    }
-    public void moveSouth() {
-        movePlayer(0, 1);
-    }
-    public void moveWest() {
-        movePlayer(-1, 0);
-    }
-    public void moveEast() {
-        movePlayer(1, 0);
-    }
-
-    private void createDeathLayer() {
-        fillLayerWithTile(deathLayer, TileType.CERTAIN_DEATH);
-    }
-
-    private void createFloorLayer() {
-        fillLayerWithTile(floorLayer, TileType.FLOOR);
-    }
-
-    private void fillLayerWithTile(Field[][] layer, TileType tileType) {
-        for (int column = 0; column < layer.length; column++)
-            for (int row = 0; row < layer[column].length; row++)
-                layer[column][row] = new Field(tileFactory.create(tileType));
-    }
 
     public void subscribe(MovementObserver observer) {
         movementObservers.add(observer);
@@ -202,6 +214,7 @@ public class Board {
         movementObservers.forEach(observer -> observer.updatePosition(playerPosition));
     }
 
+
     public void subscribe(FloorObserver observer) {
         floorObservers.add(observer);
     }
@@ -209,6 +222,7 @@ public class Board {
     private void notifyFloorObservers(Action action, Position position) {
         floorObservers.forEach(observer -> observer.updateFloor(action, position));
     }
+
 
     private record Field(Tile tile, boolean exists) {
         public Field(Tile tile) {
