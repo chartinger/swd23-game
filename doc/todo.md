@@ -10,7 +10,7 @@
 - [x] Allow observers to register melting ice
 - [x] Use Strategy pattern to melt ice
   - [x] Implement different patterns of melting ice
-  - [ ] Switch strategy every other round
+  - [x] Switch strategy every other round
   - [x] Allow to use multiple melting strategies at the same time (= multiple enemies)
 - [ ] Freeze closest piece(s) of water (3x, <SPACE>)
 - [ ] Player has 3 lives (can enter water 3 times)
