@@ -98,28 +98,34 @@ public class Board implements BoardView {
     }
 
 
+    @Override
     public Position getPlayerPosition() {
         return playerPosition;
     }
 
+    @Override
     public boolean isPlayer(Position position) {
         return playerPosition.equals(position);
     }
 
+    @Override
     public void setPlayerPosition(Position playerPosition) {
         checkBounds(playerPosition);
         this.playerPosition = playerPosition;
         refreshPlayer();
     }
 
+    @Override
     public Position getFinishPosition() {
         return finishPosition;
     }
 
+    @Override
     public boolean isFinish(Position position) {
         return finishPosition.equals(position);
     }
 
+    @Override
     public boolean isDeadly(Position position) {
         return !floorLayer[position.column()][position.row()].exists();
     }
