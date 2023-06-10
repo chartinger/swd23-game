@@ -18,43 +18,60 @@ import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+    private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
     private SpriteBatch batch;
+    private ScoreBoard scoreBoard;
 
 	private final ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
-	private final GameInput gameInput = new GameInput();
 
 	private final Array<GameObject> gameObjects = new Array<>();
 
 	private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
-    private ScoreBoard scoreBoard;
 
 
     @Override
 	public void create() {
-        final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
+        batch = new SpriteBatch();
+        scoreBoard = new ScoreBoard(-300, -290);
+        startNewGame();
+    }
+
+    private void startNewGame() {
+        final Game game = createGame();
+        setupReporting(game);
+        setupKeybindings(game);
+        setupThreats(game);
+        System.out.println("Game has been started - try to safe yourself!");
+    }
+
+    private Game createGame() {
         final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
         final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
         final Game game = new Game(gameObjectPositioner, playerFactory, tileFactory);
-
         gameObjects.addAll(game.getGameObjects());
+        return game;
+    }
 
+    private void setupKeybindings(Game game) {
+        final GameInput gameInput = new GameInput();
         gameInput.addAction(Keys.UP, game::moveNorth);
         gameInput.addAction(Keys.DOWN, game::moveSouth);
         gameInput.addAction(Keys.LEFT, game::moveWest);
         gameInput.addAction(Keys.RIGHT, game::moveEast);
+        Gdx.input.setInputProcessor(gameInput);
+    }
 
-        scoreBoard = new ScoreBoard(-300, -290);
+    private void setupReporting(Game game) {
         game.subscribe(scoreBoard);
         game.subscribe(position -> System.out.println("You are at " + position));
         game.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
+    }
 
+    private static void setupThreats(Game game) {
         game.addThreat(new RandomFloorDestroyer(3));
-
-        batch = new SpriteBatch();
-		Gdx.input.setInputProcessor(this.gameInput);
-	}
+    }
 
     private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
