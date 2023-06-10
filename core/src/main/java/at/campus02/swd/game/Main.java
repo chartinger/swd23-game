@@ -61,6 +61,7 @@ public class Main extends ApplicationAdapter {
         gameInput.addAction(Keys.LEFT, game::moveWest);
         gameInput.addAction(Keys.RIGHT, game::moveEast);
         gameInput.addAction(Keys.ESCAPE, this::startNewGame);
+        gameInput.addAction(Keys.Q, Gdx.app::exit);
         Gdx.input.setInputProcessor(gameInput);
     }
 
