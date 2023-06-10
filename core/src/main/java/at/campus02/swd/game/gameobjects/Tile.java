@@ -5,25 +5,34 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tile implements GameObject {
-    private Texture image;
-    private Sprite sprite;
+    private Texture image; // Die Textur des Tiles.
+    private Sprite sprite; // Der Sprite des Tiles.
 
-    public Tile(String path) {
-        this.image = new Texture(path);
-        sprite = new Sprite(image);
+    public static final float SIZE = 64.0f;
+
+    private String imagePath;
+
+    public Tile(String imagePath) {
+        this.imagePath=imagePath;
+        this.image =AssetRepository.getInstance().getTexture(imagePath);
+        this.sprite = new Sprite(image);
     }
+
     @Override
     public void act(float delta) {
 
     }
+
 
     @Override
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
     }
 
+
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
 }
