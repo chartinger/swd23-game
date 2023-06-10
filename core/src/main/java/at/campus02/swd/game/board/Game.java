@@ -116,8 +116,8 @@ public class Game {
     }
 
 
-    public void addThreat(ThreatStrategy damageProvider) {
-        threatStrategies.add(damageProvider);
+    public void addThreat(ThreatStrategy.Builder damageProvider) {
+        threatStrategies.add(damageProvider.forBoard(board));
     }
 
     private void attackPlayer() {
@@ -125,7 +125,7 @@ public class Game {
     }
 
     private void examineDamage(ThreatStrategy damageProvider) {
-        damageProvider.wreakHavoc(board)
+        damageProvider.wreakHavoc()
             .forEach(this::destroyFloorTile);
     }
 

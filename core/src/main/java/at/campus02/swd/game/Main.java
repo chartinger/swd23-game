@@ -72,7 +72,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private static void setupThreats(Game game) {
-        game.addThreat(new RandomFloorDestroyer(3));
+        game.addThreat(RandomFloorDestroyer.withTilesPerRound(3));
     }
 
     private void act(float delta) {

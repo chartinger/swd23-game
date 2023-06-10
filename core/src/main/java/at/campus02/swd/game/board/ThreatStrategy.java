@@ -9,5 +9,9 @@ public interface ThreatStrategy {
      * Determines floor tiles to be destroyed
      * @return Positions of floor tiles to be destroyed
      */
-    List<Position> wreakHavoc(BoardView gameBoard);
+    List<Position> wreakHavoc();
+
+    interface Builder {
+        ThreatStrategy forBoard(BoardView gameBoard);
+    }
 }
