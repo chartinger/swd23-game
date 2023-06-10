@@ -1,6 +1,5 @@
 package at.campus02.swd.game.threats;
 
-import at.campus02.swd.game.board.Board;
 import at.campus02.swd.game.board.BoardView;
 import at.campus02.swd.game.board.ThreatStrategy;
 import at.campus02.swd.game.util.Position;
@@ -28,23 +27,23 @@ public class RandomFloorDestroyer implements ThreatStrategy {
         if (!hasDestructibleFields(board, damageDealt))
             return null;
 
-        Position position = getRandomPosition();
+        Position position = getRandomPosition(board);
         while (!isDestructible(board, damageDealt, position)) {
-            position = getRandomPosition();
+            position = getRandomPosition(board);
         }
 
         return position;
     }
 
-    private Position getRandomPosition() {
-        int column = randomNumberGenerator.nextInt(Board.BOARD_WIDTH);
-        int row = randomNumberGenerator.nextInt(Board.BOARD_HEIGHT);
+    private Position getRandomPosition(BoardView board) {
+        int column = randomNumberGenerator.nextInt(board.getWidth());
+        int row = randomNumberGenerator.nextInt(board.getHeight());
         return new Position(column, row);
     }
 
     private boolean hasDestructibleFields(BoardView board, Set<Position> damageDealt) {
-        for (int column = 0; column < Board.BOARD_WIDTH; column++)
-            for (int row = 0; row < Board.BOARD_HEIGHT; row++)
+        for (int column = 0; column < board.getWidth(); column++)
+            for (int row = 0; row < board.getHeight(); row++)
                 if (isDestructible(board, damageDealt, new Position(column, row)))
                     return true;
         return false;

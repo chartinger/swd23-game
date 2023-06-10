@@ -6,8 +6,8 @@ import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
 public class Board implements BoardView {
-    public static final int BOARD_WIDTH = 10;
-    public static final int BOARD_HEIGHT = 10;
+    private static final int BOARD_WIDTH = 10;
+    private static final int BOARD_HEIGHT = 10;
 
     private final GameObjectPositioner gameObjectPositioner;
     private final TileFactory tileFactory;
@@ -130,12 +130,21 @@ public class Board implements BoardView {
         return !floorLayer[position.column()][position.row()].exists();
     }
 
+    @Override
+    public int getWidth() {
+        return BOARD_WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return BOARD_HEIGHT;
+    }
 
     private void checkBounds(Position position) {
-        if (position.column() < 0 || position.column() >= BOARD_WIDTH)
-            throw new IllegalArgumentException("Column out of bound: " + position.column() + " not in [" + 0 + ", " + (BOARD_WIDTH - 1) + "]");
-        if (position.row() < 0 || position.row() >= BOARD_HEIGHT)
-            throw new IllegalArgumentException("Row out of bound: " + position.row() + " not in [" + 0 + ", " + (BOARD_HEIGHT - 1) + "]");
+        if (position.column() < 0 || position.column() >= getWidth())
+            throw new IllegalArgumentException("Column out of bound: " + position.column() + " not in [" + 0 + ", " + (getWidth() - 1) + "]");
+        if (position.row() < 0 || position.row() >= getHeight())
+            throw new IllegalArgumentException("Row out of bound: " + position.row() + " not in [" + 0 + ", " + (getHeight() - 1) + "]");
     }
 
 

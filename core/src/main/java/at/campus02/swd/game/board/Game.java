@@ -10,8 +10,8 @@ import java.util.*;
 import java.util.function.BiConsumer;
 
 public class Game {
-    public static final Position INITIAL_PLAYER_POSITION = new Position(0, 0);
-    public static final Position INITIAL_FINISH_POSITION = new Position(8, 8);
+    private static final Position INITIAL_PLAYER_POSITION = new Position(0, 0);
+    private static final Position INITIAL_FINISH_POSITION = new Position(8, 8);
 
     private final Set<MovementObserver> movementObservers = new HashSet<>();
     private final Set<FloorObserver> floorObservers = new HashSet<>();
@@ -42,8 +42,8 @@ public class Game {
     }
 
     private void fillLayerWithTile(BiConsumer<Position, TileType> tileSetter, TileType tileType) {
-        for (int column = 0; column < Board.BOARD_WIDTH; column++)
-            for (int row = 0; row < Board.BOARD_HEIGHT; row++)
+        for (int column = 0; column < board.getWidth(); column++)
+            for (int row = 0; row < board.getHeight(); row++)
                 tileSetter.accept(new Position(column, row), tileType);
     }
 
@@ -110,9 +110,9 @@ public class Game {
         return board.isFinish(board.getPlayerPosition());
     }
 
-    private static boolean isOnBoard(Position position) {
-        return position.column() >= 0 && position.column() < Board.BOARD_WIDTH
-            && position.row() >= 0 && position.row() < Board.BOARD_HEIGHT;
+    private boolean isOnBoard(Position position) {
+        return position.column() >= 0 && position.column() < board.getWidth()
+            && position.row() >= 0 && position.row() < board.getHeight();
     }
 
 
