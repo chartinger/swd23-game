@@ -66,7 +66,8 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
+        String position = "x: " + playerOne.getPositionX() + ", y: " + playerOne.getPositionY();
+		font.draw(batch, position, -220, -220);
 		batch.end();
 	}
 

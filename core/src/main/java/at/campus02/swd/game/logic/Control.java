@@ -1,6 +1,7 @@
 package at.campus02.swd.game.logic;
 import at.campus02.swd.game.gameobjects.interactiveObjects.InteractiveObject;
 import at.campus02.swd.game.gameobjects.interactiveObjects.InteractiveObjectsObserver;
+import at.campus02.swd.game.playerobjects.Background;
 import at.campus02.swd.game.playerobjects.InteractiveObjects;
 import at.campus02.swd.game.playerobjects.Player;
 import at.campus02.swd.game.playerobjects.PlayerObserver;
@@ -58,7 +59,8 @@ public class Control {
 
         for (InteractiveObject iO: InteractiveObjects._listOfObjects) {
             interactiveOObserver.PushAction("InteractiveObject: ", iO.getPositionX(), iO.getPositionY());
-            if (iO.getPositionX() == player.getPositionX() && iO.getPositionY() == player.getPositionY() ) {
+            if (iO.getPositionX() == player.getPositionX() && iO.getPositionY() == player.getPositionY()
+                || player.getPositionX() == Background.collisionPositionRight || player.getPositionX() == Background.collisionPositionLeft) {
                 player.ChangeTexture();
                 LockPosition = true;
                 batch.begin();

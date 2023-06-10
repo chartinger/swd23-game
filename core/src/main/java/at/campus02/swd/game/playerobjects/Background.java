@@ -7,6 +7,9 @@ import at.campus02.swd.game.gameobjects.*;
 
 public class Background {
 
+    static public float collisionPositionRight = 130;
+    static public float collisionPositionLeft= -210;
+
     public Array<GameObject> Create(Array<GameObject> gameObjects){
 
         Cliff cliff;
