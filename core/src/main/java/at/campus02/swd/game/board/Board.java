@@ -5,7 +5,7 @@ import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
-public class Board {
+public class Board implements BoardView {
     public static final int BOARD_WIDTH = 10;
     public static final int BOARD_HEIGHT = 10;
 
@@ -99,6 +99,10 @@ public class Board {
         return playerPosition;
     }
 
+    public boolean isPlayer(Position position) {
+        return playerPosition.equals(position);
+    }
+
     public void setPlayerPosition(Position playerPosition) {
         checkBounds(playerPosition);
         this.playerPosition = playerPosition;
@@ -107,6 +111,10 @@ public class Board {
 
     public Position getFinishPosition() {
         return finishPosition;
+    }
+
+    public boolean isFinish(Position position) {
+        return finishPosition.equals(position);
     }
 
     public boolean isDeadly(Position position) {

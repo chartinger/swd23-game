@@ -4,6 +4,7 @@ import at.campus02.swd.game.board.Game;
 import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
+import at.campus02.swd.game.threats.RandomFloorDestroyer;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -48,6 +49,8 @@ public class Main extends ApplicationAdapter {
         game.subscribe(scoreBoard);
         game.subscribe(position -> System.out.println("You are at " + position));
         game.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
+
+        game.addThreat(new RandomFloorDestroyer(3));
 
         batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this.gameInput);

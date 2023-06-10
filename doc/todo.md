@@ -8,7 +8,7 @@
   - [x] Display position
   - [x] Log position
 - [x] Allow observers to register melting ice
-- [ ] Use Strategy pattern to melt ice
+- [x] Use Strategy pattern to melt ice
   - [ ] Implement different patterns of melting ice
   - [ ] Switch strategy after 10 rounds
   - [ ] Allow to use multiple melting strategies at the same time (= multiple enemies)

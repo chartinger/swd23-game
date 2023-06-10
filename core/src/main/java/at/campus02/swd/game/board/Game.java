@@ -6,9 +6,7 @@ import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public class Game {
@@ -17,8 +15,7 @@ public class Game {
 
     private final Set<MovementObserver> movementObservers = new HashSet<>();
     private final Set<FloorObserver> floorObservers = new HashSet<>();
-
-    private final Random randomNumberGenerator = new Random();
+    private final List<ThreatStrategy> threatStrategies = new ArrayList<>();
 
     private final Board board;
 
@@ -79,33 +76,28 @@ public class Game {
         notifyMovementObservers();
 
         if (hasPlayerWon())
-            System.out.println("You have won the game!!!!");
+            winGame();
         else if (hasPlayerDied())
-            System.out.println("You died miserably :(");
+            looseLife();
         else
             attackPlayer();
     }
+
+    private void looseLife() {
+        System.out.println("You died miserably :(");
+    }
+
+    private void winGame() {
+        System.out.println("You have won the game!!!!");
+    }
+
 
     private boolean hasPlayerDied() {
         return board.isDeadly(board.getPlayerPosition());
     }
 
-    private boolean isDestructible(Position position) {
-        return !isPlayerPosition(position)
-            && !isFinishPosition(position)
-            && !board.isDeadly(position);
-    }
-
-    private boolean isFinishPosition(Position position) {
-        return board.getFinishPosition().equals(position);
-    }
-
-    private boolean isPlayerPosition(Position position) {
-        return board.getPlayerPosition().equals(position);
-    }
-
     private boolean hasPlayerWon() {
-        return isFinishPosition(board.getPlayerPosition());
+        return board.isFinish(board.getPlayerPosition());
     }
 
     private static boolean isOnBoard(Position position) {
@@ -113,38 +105,32 @@ public class Game {
             && position.row() >= 0 && position.row() < Board.BOARD_HEIGHT;
     }
 
-    private boolean hasDestructibleFields() {
-        for (int column = 0; column < Board.BOARD_WIDTH; column++)
-            for (int row = 0; row < Board.BOARD_HEIGHT; row++)
-                if (isDestructible(new Position(column, row)))
-                    return true;
-        return false;
-    }
 
+    public void addThreat(ThreatStrategy damageProvider) {
+        threatStrategies.add(damageProvider);
+    }
 
     private void attackPlayer() {
-        destroyRandomFloor();
-        destroyRandomFloor();
-        destroyRandomFloor();
+        threatStrategies.forEach(this::examineDamage);
     }
 
-    private void destroyRandomFloor() {
-        if (!hasDestructibleFields())
+    private void examineDamage(ThreatStrategy damageProvider) {
+        damageProvider.wreakHavoc(board)
+            .forEach(this::destroyFloorTile);
+    }
+
+    private void destroyFloorTile(Position position) {
+        // Finish is indestructible
+        if (board.isFinish(position))
             return;
 
-        Position position = getRandomPosition();
-        while (!isDestructible(position)) {
-            position = getRandomPosition();
+        if (!board.isDeadly(position)) {
+            board.destroyFloorTile(position);
+            notifyFloorObservers(FloorObserver.Action.DESTROY, position);
         }
 
-        board.destroyFloorTile(position);
-        notifyFloorObservers(Action.DESTROY, position);
-    }
-
-    private Position getRandomPosition() {
-        int column = randomNumberGenerator.nextInt(Board.BOARD_WIDTH);
-        int row = randomNumberGenerator.nextInt(Board.BOARD_HEIGHT);
-        return new Position(column, row);
+        if (board.isPlayer(position))
+            looseLife();
     }
 
 
