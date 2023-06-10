@@ -45,7 +45,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
             gameObjects.add(o);
         }
 
-        player = (Player) playerFactory.create(Type.PLAYER, 240, 240);
+        player = (Player) playerFactory.create(Type.PLAYER, 235, 235);
         gameObjects.add(player);
 
         gameInput = new GameInput(player);
