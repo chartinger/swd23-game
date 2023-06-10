@@ -127,7 +127,13 @@ public class Board implements BoardView {
 
     @Override
     public boolean isDeadly(Position position) {
-        return !floorLayer[position.column()][position.row()].exists();
+        return isOnBoard(position) && !floorLayer[position.column()][position.row()].exists();
+    }
+
+    @Override
+    public boolean isOnBoard(Position position) {
+        return position.column() >= 0 && position.column() < getWidth()
+            && position.row() >= 0 && position.row() < getHeight();
     }
 
     @Override

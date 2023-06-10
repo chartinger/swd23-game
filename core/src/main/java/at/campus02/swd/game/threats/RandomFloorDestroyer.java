@@ -24,11 +24,11 @@ public class RandomFloorDestroyer implements ThreatStrategy {
     public List<Position> wreakHavoc() {
         Set<Position> damage = new HashSet<>();
         for (int i = 0; i < tilesPerRound; i++)
-            getRandomFloorToBeDestroyed(damage).ifPresent(damage::add);
+            computeDamage(damage).ifPresent(damage::add);
         return List.copyOf(damage);
     }
 
-    private Optional<Position> getRandomFloorToBeDestroyed(Set<Position> damageDealt) {
+    private Optional<Position> computeDamage(Set<Position> damageDealt) {
         if (!hasDestructibleFields(damageDealt))
             return Optional.empty();
 

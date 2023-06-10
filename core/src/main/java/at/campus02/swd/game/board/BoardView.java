@@ -9,6 +9,7 @@ public interface BoardView {
     Position getFinishPosition();
     boolean isFinish(Position position);
     boolean isDeadly(Position position);
+    boolean isOnBoard(Position position);
     int getWidth();
     int getHeight();
 }

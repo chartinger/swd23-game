@@ -9,9 +9,9 @@
   - [x] Log position
 - [x] Allow observers to register melting ice
 - [x] Use Strategy pattern to melt ice
-  - [ ] Implement different patterns of melting ice
-  - [ ] Switch strategy after 10 rounds
-  - [ ] Allow to use multiple melting strategies at the same time (= multiple enemies)
+  - [x] Implement different patterns of melting ice
+  - [ ] Switch strategy every other round
+  - [x] Allow to use multiple melting strategies at the same time (= multiple enemies)
 - [ ] Freeze closest piece(s) of water (3x, <SPACE>)
 - [ ] Player has 3 lives (can enter water 3 times)
 - [ ] Display remaining lives and frozen pieces of water in the HUD

@@ -73,7 +73,7 @@ public class Game {
         Position playerPosition = board.getPlayerPosition();
         Position newPosition = new Position(playerPosition.column() + offsetColumn, playerPosition.row() + offsetRow);
 
-        if (!isOnBoard(newPosition))
+        if (!board.isOnBoard(newPosition))
             return;
 
         board.setPlayerPosition(newPosition);
@@ -108,11 +108,6 @@ public class Game {
 
     private boolean hasPlayerWon() {
         return board.isFinish(board.getPlayerPosition());
-    }
-
-    private boolean isOnBoard(Position position) {
-        return position.column() >= 0 && position.column() < board.getWidth()
-            && position.row() >= 0 && position.row() < board.getHeight();
     }
 
 
