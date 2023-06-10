@@ -1,42 +1,59 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.board.Game;
+import at.campus02.swd.game.board.FloorObserver.Action;
+import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.reporting.ScoreBoard;
+import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-	private SpriteBatch batch;
+    private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-	private GameInput gameInput = new GameInput();
+	private final ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
+	private final GameInput gameInput = new GameInput();
 
-	private Array<GameObject> gameObjects = new Array<>();
+	private final Array<GameObject> gameObjects = new Array<>();
 
 	private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
-	private BitmapFont font;
+    private ScoreBoard scoreBoard;
 
-	@Override
+
+    @Override
 	public void create() {
-		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
+        final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
+        final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
+        final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
+        final Game game = new Game(gameObjectPositioner, playerFactory, tileFactory);
+
+        gameObjects.addAll(game.getGameObjects());
+
+        gameInput.addAction(Keys.UP, game::moveNorth);
+        gameInput.addAction(Keys.DOWN, game::moveSouth);
+        gameInput.addAction(Keys.LEFT, game::moveWest);
+        gameInput.addAction(Keys.RIGHT, game::moveEast);
+
+        scoreBoard = new ScoreBoard(-300, -290);
+        game.subscribe(scoreBoard);
+        game.subscribe(position -> System.out.println("You are at " + position));
+        game.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
+
+        batch = new SpriteBatch();
 		Gdx.input.setInputProcessor(this.gameInput);
 	}
 
-	private void act(float delta) {
+    private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.act(delta);
 		}
@@ -48,7 +65,7 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
+		scoreBoard.draw(batch);
 		batch.end();
 	}
 
@@ -69,6 +86,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
+        AssetRepository.INSTANCE.dispose();
 	}
 
 	@Override
