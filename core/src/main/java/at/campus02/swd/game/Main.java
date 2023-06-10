@@ -5,6 +5,7 @@ import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
 import at.campus02.swd.game.threats.AmplifiedEdgeDamage;
+import at.campus02.swd.game.threats.NoDamage;
 import at.campus02.swd.game.threats.RandomFloorDestroyer;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -63,6 +64,10 @@ public class Main extends ApplicationAdapter {
         gameInput.addAction(Keys.RIGHT, game::moveEast);
         gameInput.addAction(Keys.ESCAPE, this::startNewGame);
         gameInput.addAction(Keys.Q, Gdx.app::exit);
+        gameInput.addAction(Keys.NUM_0, () -> game.setActiveStrategy(0));
+        gameInput.addAction(Keys.NUM_1, () -> game.setActiveStrategy(1));
+        gameInput.addAction(Keys.NUM_2, () -> game.setActiveStrategy(2));
+        gameInput.addAction(Keys.X, game::useAllStrategies);
         Gdx.input.setInputProcessor(gameInput);
     }
 
@@ -73,6 +78,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private static void setupThreats(Game game) {
+        game.addThreat(NoDamage.builder());
         game.addThreat(RandomFloorDestroyer.withTilesPerRound(2));
         game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(3));
     }

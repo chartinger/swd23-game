@@ -11,6 +11,9 @@ public class NoDamage implements ThreatStrategy {
         return __ -> new NoDamage();
     }
 
+    private NoDamage() {
+    }
+
     @Override
     public List<Position> wreakHavoc() {
         return Collections.emptyList();

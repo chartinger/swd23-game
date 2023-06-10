@@ -2,7 +2,6 @@ package at.campus02.swd.game.board;
 
 import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
-import at.campus02.swd.game.threats.NoDamage;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
@@ -17,10 +16,9 @@ public class Game {
     private final Set<MovementObserver> movementObservers = new HashSet<>();
     private final Set<FloorObserver> floorObservers = new HashSet<>();
     private final List<ThreatStrategy> threatStrategies = new ArrayList<>();
-    private final ThreatStrategy alternatingStrategy = new NoDamage();
+    private ThreatStrategy activeStrategy = null;
 
     private final Board board;
-    private int currentRound = 1;
     private boolean isGameOver = false;
 
     public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
@@ -85,8 +83,6 @@ public class Game {
         updateGameStatus();
         if (!isGameOver)
             attackPlayer();
-
-        endRound();
     }
 
     private void updateGameStatus() {
@@ -94,10 +90,6 @@ public class Game {
             winGame();
         else if (hasPlayerDied())
             looseLife();
-    }
-
-    private void endRound() {
-        currentRound++;
     }
 
     private void looseLife() {
@@ -124,9 +116,19 @@ public class Game {
         threatStrategies.add(damageProvider.forBoard(board));
     }
 
+    public void setActiveStrategy(int strategyIndex) {
+        if (strategyIndex >= threatStrategies.size())
+            return;
+        activeStrategy = threatStrategies.get(strategyIndex);
+    }
+
+    public void useAllStrategies() {
+        activeStrategy = null;
+    }
+
     private void attackPlayer() {
-        if (currentRound % 2 == 0)
-            examineDamage(alternatingStrategy);
+        if (activeStrategy != null)
+            examineDamage(activeStrategy);
         else
             threatStrategies.forEach(this::examineDamage);
     }
