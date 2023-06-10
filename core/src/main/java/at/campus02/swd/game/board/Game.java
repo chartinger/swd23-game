@@ -18,6 +18,7 @@ public class Game {
     private final List<ThreatStrategy> threatStrategies = new ArrayList<>();
 
     private final Board board;
+    private boolean isGameOver = false;
 
     public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
         board = new Board(
@@ -66,6 +67,9 @@ public class Game {
     }
 
     private void movePlayer(int offsetColumn, int offsetRow) {
+        if (isGameOver)
+            return;
+
         Position playerPosition = board.getPlayerPosition();
         Position newPosition = new Position(playerPosition.column() + offsetColumn, playerPosition.row() + offsetRow);
 
@@ -75,20 +79,26 @@ public class Game {
         board.setPlayerPosition(newPosition);
         notifyMovementObservers();
 
+        updateGameStatus();
+        if (!isGameOver)
+            attackPlayer();
+    }
+
+    private void updateGameStatus() {
         if (hasPlayerWon())
             winGame();
         else if (hasPlayerDied())
             looseLife();
-        else
-            attackPlayer();
     }
 
     private void looseLife() {
         System.out.println("You died miserably :(");
+        isGameOver = true;
     }
 
     private void winGame() {
         System.out.println("You have won the game!!!!");
+        isGameOver = true;
     }
 
 
