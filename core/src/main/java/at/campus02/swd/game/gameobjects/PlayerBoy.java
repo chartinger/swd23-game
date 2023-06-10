@@ -5,14 +5,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
-public abstract class PlayerBoy implements GameObject {
+public class PlayerBoy implements GameObject {
     private Texture image;
     private Sprite sprite;
+
+
+
 
     public PlayerBoy() {
         image = new Texture("dinghyLarge1.png"); //TODO PATH ANPASSEN!
         sprite = new Sprite(image);
     }
+
+
+
     @Override
     public void act(float delta) {
 
@@ -30,23 +36,21 @@ public abstract class PlayerBoy implements GameObject {
 
     public void moveUp() {
         System.out.println("Bewege nach oben.");
-        sprite.setPosition(0,+10);
+        sprite.setY(sprite.getY() + 10);
     }
 
     public void moveDown() {
         System.out.println("Bewege nach unten.");
-        sprite.setPosition(0,-10);
+        sprite.setY(sprite.getY() - 10);
     }
-    @Override
+
     public void moveLeft() {
         System.out.println("Bewege nach links.");
-        sprite.setPosition(-10, 0);
+        sprite.setX(sprite.getX() - 10);
     }
 
-    @Override
     public void moveRight() {
         System.out.println("Bewege nach rechts.");
-        sprite.setPosition(+10, 0);
+        sprite.setX(sprite.getX() + 10);
     }
-
 }

@@ -3,10 +3,13 @@ package at.campus02.swd.game;
 import at.campus02.swd.game.gameobjects.AssetRepository;
 import at.campus02.swd.game.gameobjects.FactoryMethod;
 import at.campus02.swd.game.gameobjects.GameObject;
+import at.campus02.swd.game.gameobjects.PlayerBoy;
+import at.campus02.swd.game.input.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -17,7 +20,7 @@ public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-	//private GameInput gameInput = new GameInput();
+	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
 
@@ -27,6 +30,8 @@ public class Main extends ApplicationAdapter {
 	private BitmapFont font;
 
     private AssetRepository repository = AssetRepository.getInstance();
+
+
 
 	@Override
 	public void create() {
@@ -66,14 +71,18 @@ public class Main extends ApplicationAdapter {
                 gameObjects.add(rt);
             }
         }
+        /*
+        Texture playerTexture = repository.getTexture("dinghyLarge1.png");
+        player = new PlayerBoy();
+        player.setPosition(0, 0);
+        gameObjects.add(player);
+        gameInput.setPlayer(player);
 
-        GameObject pb = factory.createObject("player",repository.getTexture("Sand_Links_Mitte"));
-        pb.setPosition(0,0);
-        gameObjects.add(pb);
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
 
-	/*	Gdx.input.setInputProcessor(this.gameInput);
+        font = new BitmapFont();
+        font.setColor(Color.WHITE);
+
+        Gdx.input.setInputProcessor(gameInput);
 
         Command moveUpCommand = new MoveUpCommand();
         Command moveDownCommand = new MoveDownCommand();
@@ -85,7 +94,27 @@ public class Main extends ApplicationAdapter {
         gameInput.setMoveLeftCommand(moveLeftCommand);
         gameInput.setMoveRightCommand(moveRightCommand);
 
-	 */
+         */
+
+
+
+        GameObject pb = factory.createObject("player", repository.getTexture("Sand_Links_Mitte"));
+        pb.setPosition(0,0);
+        gameObjects.add(pb);
+        gameInput.setPlayer(pb);
+		font = new BitmapFont();
+		font.setColor(Color.WHITE);
+        Gdx.input.setInputProcessor(this.gameInput);
+        Command moveUpCommand = new MoveUpCommand();
+        Command moveDownCommand = new MoveDownCommand();
+        Command moveLeftCommand = new MoveLeftCommand();
+        Command moveRightCommand = new MoveRightCommand();
+        gameInput.setMoveUpCommand(moveUpCommand);
+        gameInput.setMoveDownCommand(moveDownCommand);
+        gameInput.setMoveLeftCommand(moveLeftCommand);
+        gameInput.setMoveRightCommand(moveRightCommand);
+
+
 	}
 
 	private void act(float delta) {
@@ -113,6 +142,7 @@ public class Main extends ApplicationAdapter {
 		deltaAccumulator += delta;
 		while(deltaAccumulator > logicFrameTime) {
 			deltaAccumulator -= logicFrameTime;
+            gameInput.update(logicFrameTime);
 			act(logicFrameTime);
 		}
 		draw();

@@ -6,15 +6,7 @@ public class FactoryMethod{
     public static GameObject createObject (String type, Texture texture) {
         if (type.equalsIgnoreCase("player")) {
             return new PlayerBoy() {
-                @Override
-                public void moveLeft() {
 
-                }
-
-                @Override
-                public void moveRight() {
-
-                }
             };
         } else if (type.equalsIgnoreCase("tile")) {
             return new Tile(texture);
