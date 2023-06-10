@@ -12,7 +12,7 @@ public class RandomFloorDestroyer implements ThreatStrategy {
     private final int tilesPerRound;
 
     public static ThreatStrategy.Builder withTilesPerRound(int tilesPerRound) {
-        return new Builder(tilesPerRound);
+        return board -> new RandomFloorDestroyer(board, tilesPerRound);
     }
 
     private RandomFloorDestroyer(BoardView board, int tilesPerRound) {
@@ -60,19 +60,5 @@ public class RandomFloorDestroyer implements ThreatStrategy {
             && !board.isFinish(position)
             && !board.isDeadly(position)
             && !damageDealt.contains(position);
-    }
-
-
-    private static class Builder implements ThreatStrategy.Builder {
-        private final int tilesPerRound;
-
-        public Builder(int tilesPerRound) {
-            this.tilesPerRound = tilesPerRound;
-        }
-
-        @Override
-        public RandomFloorDestroyer forBoard(BoardView gameBoard) {
-            return new RandomFloorDestroyer(gameBoard, tilesPerRound);
-        }
     }
 }
