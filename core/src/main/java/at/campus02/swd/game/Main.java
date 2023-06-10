@@ -4,6 +4,7 @@ import at.campus02.swd.game.board.Game;
 import at.campus02.swd.game.board.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
+import at.campus02.swd.game.threats.AmplifiedEdgeDamage;
 import at.campus02.swd.game.threats.RandomFloorDestroyer;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -72,7 +73,8 @@ public class Main extends ApplicationAdapter {
     }
 
     private static void setupThreats(Game game) {
-        game.addThreat(RandomFloorDestroyer.withTilesPerRound(3));
+        game.addThreat(RandomFloorDestroyer.withTilesPerRound(1));
+        game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(1));
     }
 
     private void act(float delta) {
