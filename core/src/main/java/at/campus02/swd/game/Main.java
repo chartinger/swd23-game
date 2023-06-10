@@ -15,6 +15,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
+import java.util.Observer;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -71,32 +73,6 @@ public class Main extends ApplicationAdapter {
                 gameObjects.add(rt);
             }
         }
-        /*
-        Texture playerTexture = repository.getTexture("dinghyLarge1.png");
-        player = new PlayerBoy();
-        player.setPosition(0, 0);
-        gameObjects.add(player);
-        gameInput.setPlayer(player);
-
-
-        font = new BitmapFont();
-        font.setColor(Color.WHITE);
-
-        Gdx.input.setInputProcessor(gameInput);
-
-        Command moveUpCommand = new MoveUpCommand();
-        Command moveDownCommand = new MoveDownCommand();
-        Command moveLeftCommand = new MoveLeftCommand();
-        Command moveRightCommand = new MoveRightCommand();
-
-        gameInput.setMoveUpCommand(moveUpCommand);
-        gameInput.setMoveDownCommand(moveDownCommand);
-        gameInput.setMoveLeftCommand(moveLeftCommand);
-        gameInput.setMoveRightCommand(moveRightCommand);
-
-         */
-
-
 
         GameObject pb = factory.createObject("player", repository.getTexture("Sand_Links_Mitte"));
         pb.setPosition(0,0);
@@ -113,6 +89,10 @@ public class Main extends ApplicationAdapter {
         gameInput.setMoveDownCommand(moveDownCommand);
         gameInput.setMoveLeftCommand(moveLeftCommand);
         gameInput.setMoveRightCommand(moveRightCommand);
+
+
+    InputObservable inputObservable = InputObservable.getInstance();
+    InputObserver inputObserver = new InputObserver(pb);
 
 
 	}
@@ -146,6 +126,10 @@ public class Main extends ApplicationAdapter {
 			act(logicFrameTime);
 		}
 		draw();
+
+
+
+
 	}
 
 	@Override
