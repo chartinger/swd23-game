@@ -124,10 +124,8 @@ public class Game {
         if (board.isFinish(position))
             return;
 
-        if (!board.isDeadly(position)) {
-            board.destroyFloorTile(position);
+        if (board.destroyFloorTile(position))
             notifyFloorObservers(FloorObserver.Action.DESTROY, position);
-        }
 
         if (board.isPlayer(position))
             looseLife();

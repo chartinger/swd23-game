@@ -38,28 +38,31 @@ public class Board implements BoardView {
 
 
     public void setDeathTile(Position position, TileType tileType) {
-        checkBounds(position);
         setTile(deathLayer, position, tileType);
     }
 
     public void setFloorTile(Position position, TileType tileType) {
-        checkBounds(position);
         setTile(floorLayer, position, tileType);
     }
 
     private void setTile(Field[][] layer, Position position, TileType tileType) {
+        checkBounds(position);
         layer[position.column()][position.row()] = new Field(tileFactory.create(tileType));
         refreshField(layer, position);
     }
 
-    public void destroyFloorTile(Position position) {
-        checkBounds(position);
-        destroyTile(floorLayer, position);
+    public boolean destroyFloorTile(Position position) {
+        return destroyTile(floorLayer, position);
     }
 
-    private void destroyTile(Field[][] layer, Position position) {
-        layer[position.column()][position.row()] = new Field(layer[position.column()][position.row()].tile, false);
+    private boolean destroyTile(Field[][] layer, Position position) {
+        checkBounds(position);
+        if (!layer[position.column()][position.row()].exists())
+            return false;
+
+        layer[position.column()][position.row()] = new Field(layer[position.column()][position.row()].tile(), false);
         refreshField(layer, position);
+        return true;
     }
 
     private void refreshField(Field[][] layer, Position position) {
