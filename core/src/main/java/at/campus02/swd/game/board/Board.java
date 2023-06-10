@@ -5,7 +5,7 @@ import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
-public class GameBoard {
+public class Board {
     public static final int BOARD_WIDTH = 10;
     public static final int BOARD_HEIGHT = 10;
 
@@ -21,7 +21,7 @@ public class GameBoard {
     private final Field[][] deathLayer = new Field[BOARD_WIDTH][BOARD_HEIGHT];
     private final Field[][] floorLayer = new Field[BOARD_WIDTH][BOARD_HEIGHT];
 
-    public GameBoard(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, PlayerType player, Position playerPosition, TileType finish, Position finishPosition) {
+    public Board(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, PlayerType player, Position playerPosition, TileType finish, Position finishPosition) {
         checkBounds(playerPosition);
         checkBounds(finishPosition);
 

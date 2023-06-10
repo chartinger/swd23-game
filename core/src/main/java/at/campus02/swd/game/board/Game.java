@@ -20,10 +20,10 @@ public class Game {
 
     private final Random randomNumberGenerator = new Random();
 
-    private final GameBoard board;
+    private final Board board;
 
     public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
-        board = new GameBoard(
+        board = new Board(
             gameObjectPositioner,
             playerFactory,
             tileFactory,
@@ -44,8 +44,8 @@ public class Game {
     }
 
     private void fillLayerWithTile(BiConsumer<Position, TileType> tileSetter, TileType tileType) {
-        for (int column = 0; column < GameBoard.BOARD_WIDTH; column++)
-            for (int row = 0; row < GameBoard.BOARD_HEIGHT; row++)
+        for (int column = 0; column < Board.BOARD_WIDTH; column++)
+            for (int row = 0; row < Board.BOARD_HEIGHT; row++)
                 tileSetter.accept(new Position(column, row), tileType);
     }
 
@@ -109,13 +109,13 @@ public class Game {
     }
 
     private static boolean isOnBoard(Position position) {
-        return position.column() >= 0 && position.column() < GameBoard.BOARD_WIDTH
-            && position.row() >= 0 && position.row() < GameBoard.BOARD_HEIGHT;
+        return position.column() >= 0 && position.column() < Board.BOARD_WIDTH
+            && position.row() >= 0 && position.row() < Board.BOARD_HEIGHT;
     }
 
     private boolean hasDestructibleFields() {
-        for (int column = 0; column < GameBoard.BOARD_WIDTH; column++)
-            for (int row = 0; row < GameBoard.BOARD_HEIGHT; row++)
+        for (int column = 0; column < Board.BOARD_WIDTH; column++)
+            for (int row = 0; row < Board.BOARD_HEIGHT; row++)
                 if (isDestructible(new Position(column, row)))
                     return true;
         return false;
@@ -142,8 +142,8 @@ public class Game {
     }
 
     private Position getRandomPosition() {
-        int column = randomNumberGenerator.nextInt(GameBoard.BOARD_WIDTH);
-        int row = randomNumberGenerator.nextInt(GameBoard.BOARD_HEIGHT);
+        int column = randomNumberGenerator.nextInt(Board.BOARD_WIDTH);
+        int row = randomNumberGenerator.nextInt(Board.BOARD_HEIGHT);
         return new Position(column, row);
     }
 
