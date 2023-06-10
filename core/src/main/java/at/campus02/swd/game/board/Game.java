@@ -17,6 +17,7 @@ public class Game {
     private final Set<FloorObserver> floorObservers = new HashSet<>();
     private final List<ThreatStrategy> threatStrategies = new ArrayList<>();
     private ThreatStrategy activeStrategy = null;
+    private final Map<DefenceType, DefenceStrategy> defenceStrategies = new HashMap<>();
 
     private final Board board;
     private boolean isGameOver = false;
@@ -116,13 +117,13 @@ public class Game {
         threatStrategies.add(damageProvider.forBoard(board));
     }
 
-    public void setActiveStrategy(int strategyIndex) {
+    public void setActiveThreat(int strategyIndex) {
         if (strategyIndex >= threatStrategies.size())
             return;
         activeStrategy = threatStrategies.get(strategyIndex);
     }
 
-    public void useAllStrategies() {
+    public void activateAllThreats() {
         activeStrategy = null;
     }
 
@@ -148,6 +149,25 @@ public class Game {
 
         if (board.isPlayer(position))
             looseLife();
+    }
+
+
+    public void setDefence(DefenceType defenceType, DefenceStrategy.Builder landscapeReviver) {
+        defenceStrategies.put(defenceType, landscapeReviver.forBoard(board));
+    }
+
+    public void defend(DefenceType defenceType) {
+        examineRepairs(defenceStrategies.getOrDefault(defenceType, Collections::emptyList));
+    }
+
+    private void examineRepairs(DefenceStrategy landscapeReviver) {
+        landscapeReviver.restoreChaos()
+            .forEach(this::restoreFloorTile);
+    }
+
+    private void restoreFloorTile(Position position) {
+        if (board.restoreFloorTile(position))
+            notifyFloorObservers(Action.CREATE, position);
     }
 
 

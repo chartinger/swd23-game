@@ -65,6 +65,20 @@ public class Board implements BoardView {
         return true;
     }
 
+    public boolean restoreFloorTile(Position position) {
+        return restoreTile(floorLayer, position);
+    }
+
+    private boolean restoreTile(Field[][] layer, Position position) {
+        checkBounds(position);
+        if (layer[position.column()][position.row()].exists())
+            return false;
+
+        layer[position.column()][position.row()] = new Field(layer[position.column()][position.row()].tile(), true);
+        refreshField(layer, position);
+        return true;
+    }
+
     private void refreshField(Field[][] layer, Position position) {
         Field field = layer[position.column()][position.row()];
         field.tile.setVisible(field.exists());

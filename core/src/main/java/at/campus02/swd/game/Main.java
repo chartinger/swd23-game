@@ -64,10 +64,10 @@ public class Main extends ApplicationAdapter {
         gameInput.addAction(Keys.RIGHT, game::moveEast);
         gameInput.addAction(Keys.ESCAPE, this::startNewGame);
         gameInput.addAction(Keys.Q, Gdx.app::exit);
-        gameInput.addAction(Keys.NUM_0, () -> game.setActiveStrategy(0));
-        gameInput.addAction(Keys.NUM_1, () -> game.setActiveStrategy(1));
-        gameInput.addAction(Keys.NUM_2, () -> game.setActiveStrategy(2));
-        gameInput.addAction(Keys.X, game::useAllStrategies);
+        gameInput.addAction(Keys.NUM_0, () -> game.setActiveThreat(0));
+        gameInput.addAction(Keys.NUM_1, () -> game.setActiveThreat(1));
+        gameInput.addAction(Keys.NUM_2, () -> game.setActiveThreat(2));
+        gameInput.addAction(Keys.X, game::activateAllThreats);
         Gdx.input.setInputProcessor(gameInput);
     }
 
