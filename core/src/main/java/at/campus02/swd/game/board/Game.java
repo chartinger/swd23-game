@@ -111,6 +111,15 @@ public class Game {
         isGameOver = true;
     }
 
+    private boolean pay(int amount) {
+        if (budget < amount)
+            return false;
+
+        budget -= amount;
+        notifyBudgetObservers();
+        return true;
+    }
+
 
     private boolean hasPlayerDied() {
         return board.isDeadly(board.getPlayerPosition());
@@ -171,23 +180,9 @@ public class Game {
 
     private void examineRepairs(DefenceStrategy landscapeReviver) {
         AidPack aidPack = landscapeReviver.restoreChaos();
-        if (canAfford(aidPack))
-            purchaseAndApply(aidPack);
-    }
-
-    private boolean canAfford(AidPack aidPack) {
-        return aidPack.cost() <= budget;
-    }
-
-    private void withdraw(int amount) {
-        budget -= amount;
-        notifyBudgetObservers();
-    }
-
-    private void purchaseAndApply(AidPack aidPack) {
-        withdraw(aidPack.cost());
-        aidPack.repairs()
-            .forEach(this::restoreFloorTile);
+        if (pay(aidPack.cost()))
+            aidPack.repairs()
+                .forEach(this::restoreFloorTile);
     }
 
     private void restoreFloorTile(Position position) {
