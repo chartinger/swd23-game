@@ -12,12 +12,17 @@ public class MoveUpCommand implements Command {
 
     @Override
     public void execute() {
-
-        // Muss die Position vom Spieler nach oben versetzten
-
-
-
+            float move = 20.0f;
+            player.setPosition(player.getPositionX(), player.getPositionY() + move);
+        }
 
 
+    public MoveUpCommand(Player player) {
+        this.player = player;
     }
+
+
+
+
 }
+

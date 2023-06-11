@@ -4,13 +4,24 @@ import at.campus02.swd.game.gameobjects.Player;
 
 public class MoveDownCommand implements Command{
 
-    public void MoveUpCommand(Player player){};
+    public void MoveDownCommand(Player player){};
 
+    private Player player;
+
+    public void MoveUpCommand(Player player){
+        this.player = player;
+    }
 
     @Override
     public void execute() {
-
-        // Muss die Position vom Spieler nach unten versetzten
-
+        float move = 20.0f;
+        player.setPosition(player.getPositionX(), player.getPositionY() - move);
     }
+
+
+    public MoveDownCommand(Player player) {
+        this.player = player;
+    }
+
+
 }

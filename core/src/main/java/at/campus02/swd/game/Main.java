@@ -18,7 +18,7 @@ public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
 	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-	private GameInput gameInput = new GameInput();
+	private GameInput gameInput;
 
 	private Array<GameObject> gameObjects = new Array<>();
 
@@ -43,6 +43,7 @@ public class Main extends ApplicationAdapter {
         Player player = playerFactory.create();
         gameObjects.add(player);
         player.setPosition(100,130);
+        gameInput = new GameInput(player);
 
         /** ÜBUNG 2 **/
 
