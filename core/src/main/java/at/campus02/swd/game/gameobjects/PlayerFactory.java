@@ -13,7 +13,7 @@ public class PlayerFactory extends Factory{
     @Override
     public Player create() {
 
-        Player player = new Player(new Texture("sprites/Ship parts/hullLarge (1).png"));
+        Player player = new Player(AssetRepository.getInstance().getTexturePlayer());
 
         return player;
     }

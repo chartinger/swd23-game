@@ -9,6 +9,12 @@ import java.util.ArrayList;
 
 public class AssetRepository  {
 
+    private Texture player = new Texture("sprites/Ship parts/hullLarge (1).png");
+    private Texture grass = new Texture("tiles/mapTile_022.png");
+    private Texture water = new Texture("tiles/mapTile_188.png");
+
+
+
     private static AssetRepository instance = null;
 
     private AssetRepository() {}
@@ -23,7 +29,7 @@ public class AssetRepository  {
     }
 
 
-    public void preloadAssets(){
+   /* public void preloadAssets(){
 
         ArrayList<Texture> textures = new ArrayList<>();
         ArrayList<String> paths = new ArrayList<>();
@@ -45,19 +51,26 @@ public class AssetRepository  {
             // System.setErr("Keine Texturen gefunden");
         }
 
+    } */ // alte public void preloadAssets() --> was soll hier passieren?
 
+    public Texture getTexturePlayer() {
+        return player;
+    }
+
+    public Texture getTextureGrass() {
+        return grass;
+    }
+
+    public Texture getTextureWater() {
+        return water;
     }
 
 
-    public void getTexture(Texture texture){
+    public void dispose(){
 
-
-
-
+        // was soll hier passieren?
 
     }
-
-    // dispose()
 
 
 }

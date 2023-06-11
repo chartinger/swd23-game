@@ -47,10 +47,7 @@ public class Main extends ApplicationAdapter {
 
         /** ÜBUNG 2 **/
 
-            // --> AssetRepository für Tiles
-            // AssetRepository.getInstance().getTexture();
-
-
+            //AssetRepository.getInstance().preloadAssets() --> notwendig?
 
 
 
@@ -105,7 +102,13 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
+
+        batch.dispose();
+
+
+        // AssetRepository.getInstance().dispose();
+            // Methode funktioniert noch nicht --> was soll hier passieren?
+
 	}
 
 	@Override

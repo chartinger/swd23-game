@@ -15,19 +15,19 @@ public class TileFactory extends Factory{
      */
 
     public Tile createGras() {
-        Tile tile =  new Tile(new Texture("tiles/mapTile_022.png"));
+        Tile tile =  new Tile(AssetRepository.getInstance().getTextureGrass());
         return tile;
     }
 
     public Tile createWasser() {
-        Tile tile =  new Tile(new Texture("tiles/mapTile_188.png"));
+        Tile tile =  new Tile(AssetRepository.getInstance().getTextureWater());
         return tile;
     }
 
 
     @Override
     public Tile create() {
-        Tile tile =  new Tile(new Texture("tiles/mapTile_188.png"));
+        Tile tile =  new Tile(AssetRepository.getInstance().getTextureGrass());
         return tile;
     }
 }

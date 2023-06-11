@@ -14,7 +14,9 @@ public class MoveUpCommand implements Command {
     public void execute() {
             float move = 20.0f;
             player.setPosition(player.getPositionX(), player.getPositionY() + move);
-        }
+
+
+    }
 
 
     public MoveUpCommand(Player player) {
