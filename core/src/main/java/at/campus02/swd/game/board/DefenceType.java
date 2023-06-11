@@ -1,9 +1,9 @@
 package at.campus02.swd.game.board;
 
 public enum DefenceType {
-    CLOSEST,
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
+    DETONATE,
+    AIM_NORTH,
+    AIM_SOUTH,
+    AIM_EAST,
+    AIM_WEST,
 }

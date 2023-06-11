@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RestoreGun implements DefenceStrategy {
+public class RepairGun implements DefenceStrategy {
     private final BoardView board;
     private final Direction direction;
 
     public static DefenceStrategy.Builder pointing(Direction direction) {
-        return board -> new RestoreGun(board, direction);
+        return board -> new RepairGun(board, direction);
     }
 
-    private RestoreGun(BoardView board, Direction direction) {
+    private RepairGun(BoardView board, Direction direction) {
         this.board = board;
         this.direction = direction;
     }
@@ -33,17 +33,19 @@ public class RestoreGun implements DefenceStrategy {
     }
 
     private List<Position> restoreColumn(int column, int northRow, int southRow) {
-        List<Position> restores = new ArrayList<>();
+        List<Position> repairs = new ArrayList<>();
         for (int row = northRow; row <= southRow; row++)
-            computeRestore(new Position(column, row)).ifPresent(restores::add);
-        return restores;
+            computeRestore(new Position(column, row))
+                .ifPresent(repairs::add);
+        return repairs;
     }
 
     private List<Position> restoreRow(int row, int westColumn, int eastColumn) {
-        List<Position> restores = new ArrayList<>();
+        List<Position> repairs = new ArrayList<>();
         for (int column = westColumn; column <= eastColumn; column++)
-            computeRestore(new Position(column, row)).ifPresent(restores::add);
-        return restores;
+            computeRestore(new Position(column, row))
+                .ifPresent(repairs::add);
+        return repairs;
     }
 
     private Optional<Position> computeRestore(Position position) {
