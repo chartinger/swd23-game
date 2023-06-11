@@ -24,6 +24,8 @@ import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
+    public static final int BUDGET = 3;
+
     private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
     private SpriteBatch batch;
     private ScoreBoard scoreBoard;
@@ -56,7 +58,7 @@ public class Main extends ApplicationAdapter {
     private Game createGame() {
         final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
         final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
-        final Game game = new Game(gameObjectPositioner, playerFactory, tileFactory);
+        final Game game = new Game(gameObjectPositioner, playerFactory, tileFactory, BUDGET);
         gameObjects.addAll(game.getGameObjects());
         return game;
     }
@@ -82,15 +84,16 @@ public class Main extends ApplicationAdapter {
     }
 
     private void setupReporting(Game game) {
-        game.subscribe(scoreBoard);
-        game.subscribe(position -> System.out.println("You are at " + position));
-        game.subscribe((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
+        game.subscribeForBudget(scoreBoard);
+        game.subscribeForMovement(scoreBoard);
+        game.subscribeForMovement(position -> System.out.println("You are at " + position));
+        game.subscribeForFloorActions((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
     }
 
     private static void setupThreats(Game game) {
         game.addThreat(NoDamage.builder());
         game.addThreat(RandomFloorDestroyer.withTilesPerRound(2));
-        game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(3));
+        game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(BUDGET));
     }
 
     private static void setupDefences(Game game) {

@@ -12,8 +12,9 @@ import java.util.function.BiConsumer;
 public class Game {
     private static final Position INITIAL_PLAYER_POSITION = new Position(0, 0);
     private static final Position INITIAL_FINISH_POSITION = new Position(8, 8);
-    private static final int INITIAL_BUDGET = 3;
+    private static final int DEFAULT_BUDGET = 3;
 
+    private final Set<BudgetObserver> budgetObservers = new HashSet<>();
     private final Set<MovementObserver> movementObservers = new HashSet<>();
     private final Set<FloorObserver> floorObservers = new HashSet<>();
     private final List<ThreatStrategy> threatStrategies = new ArrayList<>();
@@ -22,7 +23,12 @@ public class Game {
 
     private final Board board;
     private boolean isGameOver = false;
-    private int budget = INITIAL_BUDGET;
+    private int budget = DEFAULT_BUDGET;
+
+    public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, int budget) {
+        this(gameObjectPositioner, playerFactory, tileFactory);
+        this.budget = budget;
+    }
 
     public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
         this.board = new Board(
@@ -165,16 +171,21 @@ public class Game {
 
     private void examineRepairs(DefenceStrategy landscapeReviver) {
         AidPack aidPack = landscapeReviver.restoreChaos();
-        if (isAffordable(aidPack))
-            applyAidPack(aidPack);
+        if (canAfford(aidPack))
+            purchaseAndApply(aidPack);
     }
 
-    private boolean isAffordable(AidPack aidPack) {
+    private boolean canAfford(AidPack aidPack) {
         return aidPack.cost() <= budget;
     }
 
-    private void applyAidPack(AidPack aidPack) {
-        budget -= aidPack.cost();
+    private void withdraw(int amount) {
+        budget -= amount;
+        notifyBudgetObservers();
+    }
+
+    private void purchaseAndApply(AidPack aidPack) {
+        withdraw(aidPack.cost());
         aidPack.repairs()
             .forEach(this::restoreFloorTile);
     }
@@ -185,7 +196,17 @@ public class Game {
     }
 
 
-    public void subscribe(MovementObserver observer) {
+    public void subscribeForBudget(BudgetObserver observer) {
+        budgetObservers.add(observer);
+        observer.updateBudget(budget);
+    }
+
+    private void notifyBudgetObservers() {
+        budgetObservers.forEach(observer -> observer.updateBudget(budget));
+    }
+
+
+    public void subscribeForMovement(MovementObserver observer) {
         movementObservers.add(observer);
         observer.updatePosition(board.getPlayerPosition());
     }
@@ -195,7 +216,7 @@ public class Game {
     }
 
 
-    public void subscribe(FloorObserver observer) {
+    public void subscribeForFloorActions(FloorObserver observer) {
         floorObservers.add(observer);
     }
 

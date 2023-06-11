@@ -12,8 +12,8 @@
   - [x] Implement different patterns of melting ice
   - [x] Switch strategy every other round
   - [x] Allow to use multiple melting strategies at the same time (= multiple enemies)
-- [ ] Freeze closest piece(s) of water (3x, <SPACE>)
-- [ ] Player has 3 lives (can enter water 3 times)
-- [ ] Display remaining lives and frozen pieces of water in the HUD
+- [x] Freeze closest piece(s) of water (3x, <SPACE>)
+- [x] Player has a budget (required to purchase defence actions)
+- [ ] Display remaining budget and frozen pieces of water in the HUD
 - [ ] BONUS: Use two rounds to freeze water
-- [ ] BONUS: Pick direction in which to freeze water
+- [x] BONUS: Pick direction in which to freeze water
