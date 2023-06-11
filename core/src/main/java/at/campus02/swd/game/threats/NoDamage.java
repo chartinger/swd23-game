@@ -1,6 +1,6 @@
 package at.campus02.swd.game.threats;
 
-import at.campus02.swd.game.board.ThreatStrategy;
+import at.campus02.swd.game.game.ThreatStrategy;
 import at.campus02.swd.game.util.Position;
 
 import java.util.Collections;

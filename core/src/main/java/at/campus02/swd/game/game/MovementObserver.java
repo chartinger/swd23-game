@@ -1,4 +1,4 @@
-package at.campus02.swd.game.board;
+package at.campus02.swd.game.game;
 
 import at.campus02.swd.game.util.Position;
 

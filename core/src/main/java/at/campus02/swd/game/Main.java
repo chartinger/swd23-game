@@ -1,8 +1,8 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.board.DefenceType;
-import at.campus02.swd.game.board.Game;
-import at.campus02.swd.game.board.FloorObserver.Action;
+import at.campus02.swd.game.game.DefenceType;
+import at.campus02.swd.game.game.Game;
+import at.campus02.swd.game.game.FloorObserver.Action;
 import at.campus02.swd.game.defences.Direction;
 import at.campus02.swd.game.defences.RepairBomb;
 import at.campus02.swd.game.defences.RepairGun;

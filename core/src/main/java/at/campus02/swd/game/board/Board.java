@@ -1,5 +1,6 @@
 package at.campus02.swd.game.board;
 
+import at.campus02.swd.game.game.BoardView;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;

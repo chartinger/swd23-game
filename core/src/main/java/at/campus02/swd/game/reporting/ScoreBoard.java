@@ -1,8 +1,8 @@
 package at.campus02.swd.game.reporting;
 
-import at.campus02.swd.game.board.BudgetObserver;
-import at.campus02.swd.game.board.FloorObserver;
-import at.campus02.swd.game.board.MovementObserver;
+import at.campus02.swd.game.game.BudgetObserver;
+import at.campus02.swd.game.game.FloorObserver;
+import at.campus02.swd.game.game.MovementObserver;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

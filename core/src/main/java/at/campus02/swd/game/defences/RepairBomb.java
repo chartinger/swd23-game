@@ -1,8 +1,8 @@
 package at.campus02.swd.game.defences;
 
-import at.campus02.swd.game.board.AidPack;
-import at.campus02.swd.game.board.BoardView;
-import at.campus02.swd.game.board.DefenceStrategy;
+import at.campus02.swd.game.game.AidPack;
+import at.campus02.swd.game.game.BoardView;
+import at.campus02.swd.game.game.DefenceStrategy;
 import at.campus02.swd.game.util.Position;
 
 import java.util.ArrayList;

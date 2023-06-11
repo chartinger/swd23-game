@@ -1,6 +1,7 @@
-package at.campus02.swd.game.board;
+package at.campus02.swd.game.game;
 
-import at.campus02.swd.game.board.FloorObserver.Action;
+import at.campus02.swd.game.board.Board;
+import at.campus02.swd.game.game.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;

@@ -1,4 +1,4 @@
-package at.campus02.swd.game.board;
+package at.campus02.swd.game.game;
 
 public enum DefenceType {
     DETONATE,
