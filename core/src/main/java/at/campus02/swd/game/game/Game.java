@@ -1,9 +1,7 @@
 package at.campus02.swd.game.game;
 
-import at.campus02.swd.game.board.Board;
 import at.campus02.swd.game.game.FloorObserver.Action;
 import at.campus02.swd.game.gameobjects.*;
-import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
@@ -26,19 +24,15 @@ public class Game {
     private boolean isGameOver = false;
     private int budget = DEFAULT_BUDGET;
 
-    public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, int budget) {
-        this(gameObjectPositioner, playerFactory, tileFactory);
+    public Game(Board board, int budget) {
+        this(board);
         this.budget = budget;
     }
 
-    public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
-        this.board = new Board(
-            gameObjectPositioner,
-            playerFactory,
-            tileFactory,
-            PlayerType.READY_PLAYER_ONE, INITIAL_PLAYER_POSITION,
-            TileType.FINISH, INITIAL_FINISH_POSITION
-        );
+    public Game(Board board) {
+        this.board = Objects.requireNonNull(board);
+        board.setPlayerPosition(INITIAL_PLAYER_POSITION);
+        board.setFinishPosition(INITIAL_FINISH_POSITION);
 
         createFloorLayer();
         createDeathLayer();

@@ -4,9 +4,8 @@ import at.campus02.swd.game.util.Position;
 
 public interface BoardView {
     Position getPlayerPosition();
-    boolean isPlayer(Position position);
-    void setPlayerPosition(Position playerPosition);
     Position getFinishPosition();
+    boolean isPlayer(Position position);
     boolean isFinish(Position position);
     boolean isDeadly(Position position);
     boolean isOnBoard(Position position);

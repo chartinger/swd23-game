@@ -1,12 +1,12 @@
 package at.campus02.swd.game.board;
 
-import at.campus02.swd.game.game.BoardView;
+import at.campus02.swd.game.game.Board;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
-public class Board implements BoardView {
+public class BasicBoard implements Board {
     private static final int BOARD_WIDTH = 10;
     private static final int BOARD_HEIGHT = 10;
 
@@ -17,31 +17,25 @@ public class Board implements BoardView {
     private Position playerPosition;
 
     private final Tile finish;
-    private final Position finishPosition;
+    private Position finishPosition;
 
     private final Field[][] deathLayer = new Field[BOARD_WIDTH][BOARD_HEIGHT];
     private final Field[][] floorLayer = new Field[BOARD_WIDTH][BOARD_HEIGHT];
 
-    public Board(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, PlayerType player, Position playerPosition, TileType finish, Position finishPosition) {
-        checkBounds(playerPosition);
-        checkBounds(finishPosition);
-
+    public BasicBoard(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, PlayerType player, TileType finish) {
         this.gameObjectPositioner = gameObjectPositioner;
         this.tileFactory = tileFactory;
         this.player = playerFactory.create(player);
-        this.playerPosition = playerPosition;
         this.finish = tileFactory.create(finish);
-        this.finishPosition = finishPosition;
-
-        refreshPlayer();
-        refreshFinish();
     }
 
 
+    @Override
     public void setDeathTile(Position position, TileType tileType) {
         setTile(deathLayer, position, tileType);
     }
 
+    @Override
     public void setFloorTile(Position position, TileType tileType) {
         setTile(floorLayer, position, tileType);
     }
@@ -52,6 +46,7 @@ public class Board implements BoardView {
         refreshField(layer, position);
     }
 
+    @Override
     public boolean destroyFloorTile(Position position) {
         return destroyTile(floorLayer, position);
     }
@@ -66,6 +61,7 @@ public class Board implements BoardView {
         return true;
     }
 
+    @Override
     public boolean restoreFloorTile(Position position) {
         return restoreTile(floorLayer, position);
     }
@@ -95,6 +91,7 @@ public class Board implements BoardView {
     }
 
 
+    @Override
     public Array<GameObject> getGameObjects() {
         Array<GameObject> gameObjects = new Array<>();
         gameObjects.addAll(getGameObjects(deathLayer));
@@ -128,6 +125,13 @@ public class Board implements BoardView {
         checkBounds(playerPosition);
         this.playerPosition = playerPosition;
         refreshPlayer();
+    }
+
+    @Override
+    public void setFinishPosition(Position finishPosition) {
+        checkBounds(finishPosition);
+        this.finishPosition = finishPosition;
+        refreshFinish();
     }
 
     @Override
