@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Tile implements GameObject {
     private final Texture image;
     private final Sprite sprite;
-    private boolean visible;
 
     public Tile(Texture texture, boolean isRotated) {
         image = texture;
