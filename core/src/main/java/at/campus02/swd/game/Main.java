@@ -86,6 +86,7 @@ public class Main extends ApplicationAdapter {
     private void setupReporting(Game game) {
         game.subscribeForBudget(scoreBoard);
         game.subscribeForMovement(scoreBoard);
+        game.subscribeForFloorActions(scoreBoard);
         game.subscribeForMovement(position -> System.out.println("You are at " + position));
         game.subscribeForFloorActions((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
     }
