@@ -42,7 +42,6 @@ public class Main extends ApplicationAdapter {
     @Override
 	public void create() {
         batch = new SpriteBatch();
-        scoreBoard = new ScoreBoard(-300, -290);
         startNewGame();
     }
 
@@ -60,6 +59,7 @@ public class Main extends ApplicationAdapter {
         final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
         final Game game = new Game(gameObjectPositioner, playerFactory, tileFactory, BUDGET);
         gameObjects.addAll(game.getGameObjects());
+        scoreBoard = new ScoreBoard(-300, -290);
         return game;
     }
 
