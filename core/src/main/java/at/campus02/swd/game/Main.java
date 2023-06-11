@@ -1,7 +1,11 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.board.DefenceType;
 import at.campus02.swd.game.board.Game;
 import at.campus02.swd.game.board.FloorObserver.Action;
+import at.campus02.swd.game.defences.Direction;
+import at.campus02.swd.game.defences.RestoreBomb;
+import at.campus02.swd.game.defences.RestoreGun;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
 import at.campus02.swd.game.threats.AmplifiedEdgeDamage;
@@ -45,6 +49,7 @@ public class Main extends ApplicationAdapter {
         setupReporting(game);
         setupKeybindings(game);
         setupThreats(game);
+        setupDefences(game);
         System.out.println("Game has been started - try to safe yourself!");
     }
 
@@ -68,6 +73,11 @@ public class Main extends ApplicationAdapter {
         gameInput.addAction(Keys.NUM_1, () -> game.setActiveThreat(1));
         gameInput.addAction(Keys.NUM_2, () -> game.setActiveThreat(2));
         gameInput.addAction(Keys.X, game::activateAllThreats);
+        gameInput.addAction(Keys.SPACE, () -> game.defend(DefenceType.CLOSEST));
+        gameInput.addAction(Keys.W, () -> game.defend(DefenceType.NORTH));
+        gameInput.addAction(Keys.A, () -> game.defend(DefenceType.WEST));
+        gameInput.addAction(Keys.S, () -> game.defend(DefenceType.SOUTH));
+        gameInput.addAction(Keys.D, () -> game.defend(DefenceType.EAST));
         Gdx.input.setInputProcessor(gameInput);
     }
 
@@ -81,6 +91,14 @@ public class Main extends ApplicationAdapter {
         game.addThreat(NoDamage.builder());
         game.addThreat(RandomFloorDestroyer.withTilesPerRound(2));
         game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(3));
+    }
+
+    private static void setupDefences(Game game) {
+        game.setDefence(DefenceType.CLOSEST, RestoreBomb.builder());
+        game.setDefence(DefenceType.NORTH, RestoreGun.pointing(Direction.NORTH));
+        game.setDefence(DefenceType.SOUTH, RestoreGun.pointing(Direction.SOUTH));
+        game.setDefence(DefenceType.EAST, RestoreGun.pointing(Direction.EAST));
+        game.setDefence(DefenceType.WEST, RestoreGun.pointing(Direction.WEST));
     }
 
     private void act(float delta) {
