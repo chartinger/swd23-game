@@ -27,24 +27,30 @@ public class BasicBoard implements Board {
         this.tileFactory = tileFactory;
         this.player = playerFactory.create(player);
         this.finish = tileFactory.create(finish);
+
+        createDeathLayer();
+        createFloorLayer();
     }
 
-
-    @Override
-    public void setDeathTile(Position position, TileType tileType) {
-        setTile(deathLayer, position, tileType);
+    private void createDeathLayer() {
+        fillLayerWithTile(deathLayer, TileType.CERTAIN_DEATH);
     }
 
-    @Override
-    public void setFloorTile(Position position, TileType tileType) {
-        setTile(floorLayer, position, tileType);
+    private void createFloorLayer() {
+        fillLayerWithTile(floorLayer, TileType.FLOOR);
+    }
+
+    private void fillLayerWithTile(Field[][] layer, TileType tileType) {
+        for (int column = 0; column < getWidth(); column++)
+            for (int row = 0; row < getHeight(); row++)
+                setTile(layer, new Position(column, row), tileType);
     }
 
     private void setTile(Field[][] layer, Position position, TileType tileType) {
-        checkBounds(position);
         layer[position.column()][position.row()] = new Field(tileFactory.create(tileType));
         refreshField(layer, position);
     }
+
 
     @Override
     public boolean destroyFloorTile(Position position) {
@@ -128,13 +134,6 @@ public class BasicBoard implements Board {
     }
 
     @Override
-    public void setFinishPosition(Position finishPosition) {
-        checkBounds(finishPosition);
-        this.finishPosition = finishPosition;
-        refreshFinish();
-    }
-
-    @Override
     public Position getFinishPosition() {
         return finishPosition;
     }
@@ -143,6 +142,14 @@ public class BasicBoard implements Board {
     public boolean isFinish(Position position) {
         return finishPosition.equals(position);
     }
+
+    @Override
+    public void setFinishPosition(Position finishPosition) {
+        checkBounds(finishPosition);
+        this.finishPosition = finishPosition;
+        refreshFinish();
+    }
+
 
     @Override
     public boolean isDeadly(Position position) {
@@ -164,6 +171,7 @@ public class BasicBoard implements Board {
     public int getHeight() {
         return BOARD_HEIGHT;
     }
+
 
     private void checkBounds(Position position) {
         if (position.column() < 0 || position.column() >= getWidth())

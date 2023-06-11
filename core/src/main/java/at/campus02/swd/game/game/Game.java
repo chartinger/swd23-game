@@ -1,12 +1,9 @@
 package at.campus02.swd.game.game;
 
 import at.campus02.swd.game.game.FloorObserver.Action;
-import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.util.Position;
-import com.badlogic.gdx.utils.Array;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 
 public class Game {
     private static final Position INITIAL_PLAYER_POSITION = new Position(0, 0);
@@ -33,28 +30,6 @@ public class Game {
         this.board = Objects.requireNonNull(board);
         board.setPlayerPosition(INITIAL_PLAYER_POSITION);
         board.setFinishPosition(INITIAL_FINISH_POSITION);
-
-        createFloorLayer();
-        createDeathLayer();
-    }
-
-    private void createDeathLayer() {
-        fillLayerWithTile(board::setDeathTile, TileType.CERTAIN_DEATH);
-    }
-
-    private void createFloorLayer() {
-        fillLayerWithTile(board::setFloorTile, TileType.FLOOR);
-    }
-
-    private void fillLayerWithTile(BiConsumer<Position, TileType> tileSetter, TileType tileType) {
-        for (int column = 0; column < board.getWidth(); column++)
-            for (int row = 0; row < board.getHeight(); row++)
-                tileSetter.accept(new Position(column, row), tileType);
-    }
-
-
-    public Array<GameObject> getGameObjects() {
-        return board.getGameObjects();
     }
 
 

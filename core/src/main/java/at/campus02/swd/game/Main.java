@@ -61,7 +61,7 @@ public class Main extends ApplicationAdapter {
         final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
         final Board board = new BasicBoard(gameObjectPositioner, playerFactory, tileFactory, PlayerType.READY_PLAYER_ONE, TileType.FINISH);
         final Game game = new Game(board, BUDGET);
-        gameObjects.addAll(game.getGameObjects());
+        gameObjects.addAll(board.getGameObjects());
         scoreBoard = new ScoreBoard(-300, -290);
         return game;
     }
