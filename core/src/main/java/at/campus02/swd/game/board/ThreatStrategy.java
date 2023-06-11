@@ -4,6 +4,7 @@ import at.campus02.swd.game.util.Position;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface ThreatStrategy {
     /**
      * Determines floor tiles to be destroyed
