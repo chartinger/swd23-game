@@ -12,6 +12,7 @@ import java.util.function.BiConsumer;
 public class Game {
     private static final Position INITIAL_PLAYER_POSITION = new Position(0, 0);
     private static final Position INITIAL_FINISH_POSITION = new Position(8, 8);
+    private static final int INITIAL_BUDGET = 3;
 
     private final Set<MovementObserver> movementObservers = new HashSet<>();
     private final Set<FloorObserver> floorObservers = new HashSet<>();
@@ -21,9 +22,10 @@ public class Game {
 
     private final Board board;
     private boolean isGameOver = false;
+    private int budget = INITIAL_BUDGET;
 
     public Game(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory) {
-        board = new Board(
+        this.board = new Board(
             gameObjectPositioner,
             playerFactory,
             tileFactory,
@@ -158,11 +160,22 @@ public class Game {
 
     public void defend(DefenceType defenceType) {
         if (!isGameOver)
-            examineRepairs(defenceStrategies.getOrDefault(defenceType, Collections::emptyList));
+            examineRepairs(defenceStrategies.getOrDefault(defenceType, AidPack::empty));
     }
 
     private void examineRepairs(DefenceStrategy landscapeReviver) {
-        landscapeReviver.restoreChaos()
+        AidPack aidPack = landscapeReviver.restoreChaos();
+        if (isAffordable(aidPack))
+            applyAidPack(aidPack);
+    }
+
+    private boolean isAffordable(AidPack aidPack) {
+        return aidPack.cost() <= budget;
+    }
+
+    private void applyAidPack(AidPack aidPack) {
+        budget -= aidPack.cost();
+        aidPack.repairs()
             .forEach(this::restoreFloorTile);
     }
 

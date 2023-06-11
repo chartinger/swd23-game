@@ -1,5 +1,6 @@
 package at.campus02.swd.game.defences;
 
+import at.campus02.swd.game.board.AidPack;
 import at.campus02.swd.game.board.BoardView;
 import at.campus02.swd.game.board.DefenceStrategy;
 import at.campus02.swd.game.util.Position;
@@ -22,14 +23,15 @@ public class RepairGun implements DefenceStrategy {
     }
 
     @Override
-    public List<Position> restoreChaos() {
+    public AidPack restoreChaos() {
         Position playerPosition = board.getPlayerPosition();
-        return switch (direction) {
+        List<Position> repairs = switch (direction) {
             case NORTH -> restoreColumn(playerPosition.column(), 0, playerPosition.row());
             case SOUTH -> restoreColumn(playerPosition.column(), playerPosition.row(), board.getHeight() - 1);
             case EAST -> restoreRow(playerPosition.row(), playerPosition.column(), board.getWidth() - 1);
             case WEST -> restoreRow(playerPosition.row(), 0, playerPosition.column());
         };
+        return new AidPack(repairs, 1);
     }
 
     private List<Position> restoreColumn(int column, int northRow, int southRow) {
