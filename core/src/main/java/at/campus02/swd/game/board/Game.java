@@ -157,7 +157,8 @@ public class Game {
     }
 
     public void defend(DefenceType defenceType) {
-        examineRepairs(defenceStrategies.getOrDefault(defenceType, Collections::emptyList));
+        if (!isGameOver)
+            examineRepairs(defenceStrategies.getOrDefault(defenceType, Collections::emptyList));
     }
 
     private void examineRepairs(DefenceStrategy landscapeReviver) {
