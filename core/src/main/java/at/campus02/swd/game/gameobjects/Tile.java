@@ -7,19 +7,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Objects;
 
 public class Tile implements GameObject {
-    private final Texture image;
     private final Sprite sprite;
 
     public Tile(Texture texture, boolean isRotated) {
-        image = Objects.requireNonNull(texture);
-        sprite = new Sprite(image);
+        sprite = new Sprite(Objects.requireNonNull(texture));
         if (isRotated)
             sprite.rotate(180);
     }
 
     @Override
     public void act(float delta) {
-
     }
 
     @Override
