@@ -39,7 +39,7 @@ public class RepairGun implements DefenceStrategy {
     private List<Position> restoreColumn(int column, int northRow, int southRow) {
         List<Position> repairs = new ArrayList<>();
         for (int row = northRow; row <= southRow; row++)
-            computeRestore(new Position(column, row))
+            computeRepair(new Position(column, row))
                 .ifPresent(repairs::add);
         return repairs;
     }
@@ -47,13 +47,13 @@ public class RepairGun implements DefenceStrategy {
     private List<Position> restoreRow(int row, int westColumn, int eastColumn) {
         List<Position> repairs = new ArrayList<>();
         for (int column = westColumn; column <= eastColumn; column++)
-            computeRestore(new Position(column, row))
+            computeRepair(new Position(column, row))
                 .ifPresent(repairs::add);
         return repairs;
     }
 
-    private Optional<Position> computeRestore(Position position) {
-        return board.isDeadly(position)
+    private Optional<Position> computeRepair(Position position) {
+        return board.isRepairable(position)
             ? Optional.of(position)
             : Optional.empty();
     }

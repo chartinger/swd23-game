@@ -8,6 +8,8 @@ public interface BoardView {
     boolean isPlayer(Position position);
     boolean isFinish(Position position);
     boolean isDeadly(Position position);
+    boolean isDamageable(Position position);
+    boolean isRepairable(Position position);
     boolean isOnBoard(Position position);
     int getWidth();
     int getHeight();

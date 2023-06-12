@@ -37,7 +37,7 @@ public class RepairBomb implements DefenceStrategy {
     }
 
     private Optional<Position> computeRepair(Position position) {
-        return board.isDeadly(position)
+        return board.isRepairable(position)
             ? Optional.of(position)
             : Optional.empty();
     }

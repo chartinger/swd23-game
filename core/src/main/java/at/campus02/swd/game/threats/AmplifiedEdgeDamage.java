@@ -49,12 +49,16 @@ public class AmplifiedEdgeDamage implements ThreatStrategy {
         for (int column = 0; column < board.getWidth(); column++)
             for (int row = 0; row < board.getHeight(); row++) {
                 Position candidate = new Position(column, row);
-                if (!board.isDeadly(candidate)
-                    && !board.isPlayer(candidate)
-                    && !board.isFinish(candidate))
+                if (isDestructible(candidate))
                     candidateTiles.addAll(getCandidateSet(candidate));
             }
         return candidateTiles;
+    }
+
+    private boolean isDestructible(Position candidate) {
+        return !board.isPlayer(candidate)
+            && !board.isFinish(candidate)
+            && board.isDamageable(candidate);
     }
 
     private List<Position> getCandidateSet(Position candidate) {

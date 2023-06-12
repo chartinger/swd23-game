@@ -57,7 +57,7 @@ public class RandomFloorDestroyer implements ThreatStrategy {
     private boolean isDestructible(Set<Position> damageDealt, Position position) {
         return !board.isPlayer(position)
             && !board.isFinish(position)
-            && !board.isDeadly(position)
+            && board.isDamageable(position)
             && !damageDealt.contains(position);
     }
 }
