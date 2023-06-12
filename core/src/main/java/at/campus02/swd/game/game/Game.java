@@ -162,7 +162,7 @@ public class Game {
 
 
     public void subscribeForBudget(BudgetObserver observer) {
-        budgetObservers.add(observer);
+        budgetObservers.add(Objects.requireNonNull(observer));
         observer.updateBudget(budget);
     }
 
@@ -172,7 +172,7 @@ public class Game {
 
 
     public void subscribeForMovement(MovementObserver observer) {
-        movementObservers.add(observer);
+        movementObservers.add(Objects.requireNonNull(observer));
         observer.updatePosition(board.getPlayerPosition());
     }
 
@@ -182,7 +182,7 @@ public class Game {
 
 
     public void subscribeForFloorActions(FloorObserver observer) {
-        floorObservers.add(observer);
+        floorObservers.add(Objects.requireNonNull(observer));
     }
 
     private void notifyFloorObservers(Action action, Position position) {

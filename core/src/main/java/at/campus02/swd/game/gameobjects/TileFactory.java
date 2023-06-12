@@ -18,7 +18,7 @@ public class TileFactory implements GameObjectFactory<TileType> {
     private final AssetRepository assetRepository;
 
     public TileFactory(AssetRepository assetRepository) {
-        this.assetRepository = assetRepository;
+        this.assetRepository = Objects.requireNonNull(assetRepository);
         for (TileType tileType : TileType.values()) {
             this.assetRepository.loadTexture(getTextureFilename(getTextureId(tileType)));
         }

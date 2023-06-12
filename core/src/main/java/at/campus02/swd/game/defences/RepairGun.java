@@ -7,6 +7,7 @@ import at.campus02.swd.game.util.Position;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class RepairGun implements DefenceStrategy {
@@ -14,12 +15,13 @@ public class RepairGun implements DefenceStrategy {
     private final Direction direction;
 
     public static DefenceStrategy.Builder pointing(Direction direction) {
+        Objects.requireNonNull(direction);
         return board -> new RepairGun(board, direction);
     }
 
     private RepairGun(BoardView board, Direction direction) {
-        this.board = board;
-        this.direction = direction;
+        this.board = Objects.requireNonNull(board);
+        this.direction = Objects.requireNonNull(direction);
     }
 
     @Override

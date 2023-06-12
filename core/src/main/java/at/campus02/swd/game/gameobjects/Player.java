@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Objects;
+
 public class Player implements GameObject {
     private final Texture image;
     private final Sprite sprite;
 
     public Player(Texture texture) {
-        image = texture;
+        image = Objects.requireNonNull(texture);
         sprite = new Sprite(image);
     }
 

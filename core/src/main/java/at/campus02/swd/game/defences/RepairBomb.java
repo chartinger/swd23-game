@@ -5,10 +5,7 @@ import at.campus02.swd.game.game.BoardView;
 import at.campus02.swd.game.game.DefenceStrategy;
 import at.campus02.swd.game.util.Position;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class RepairBomb implements DefenceStrategy {
     private final BoardView board;
@@ -18,7 +15,7 @@ public class RepairBomb implements DefenceStrategy {
     }
 
     private RepairBomb(BoardView board) {
-        this.board = board;
+        this.board = Objects.requireNonNull(board);
     }
 
     @Override

@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.Objects;
+
 public class Tile implements GameObject {
     private final Texture image;
     private final Sprite sprite;
 
     public Tile(Texture texture, boolean isRotated) {
-        image = texture;
+        image = Objects.requireNonNull(texture);
         sprite = new Sprite(image);
         if (isRotated)
             sprite.rotate(180);

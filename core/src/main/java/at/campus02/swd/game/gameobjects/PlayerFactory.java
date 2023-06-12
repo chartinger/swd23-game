@@ -9,7 +9,7 @@ public class PlayerFactory implements GameObjectFactory<PlayerType> {
     private final AssetRepository assetRepository;
 
     public PlayerFactory(AssetRepository assetRepository) {
-        this.assetRepository = assetRepository;
+        this.assetRepository = Objects.requireNonNull(assetRepository);
         for (PlayerType playerType : PlayerType.values()) {
             this.assetRepository.loadTexture(getTextureFilename(getTextureId(playerType)));
         }

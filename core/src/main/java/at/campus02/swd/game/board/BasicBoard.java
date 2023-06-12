@@ -6,6 +6,8 @@ import at.campus02.swd.game.util.GameObjectPositioner;
 import at.campus02.swd.game.util.Position;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Objects;
+
 public class BasicBoard implements Board {
     private static final int BOARD_WIDTH = 10;
     private static final int BOARD_HEIGHT = 10;
@@ -23,8 +25,8 @@ public class BasicBoard implements Board {
     private final Field[][] floorLayer = new Field[BOARD_WIDTH][BOARD_HEIGHT];
 
     public BasicBoard(GameObjectPositioner gameObjectPositioner, PlayerFactory playerFactory, TileFactory tileFactory, PlayerType player, TileType finish) {
-        this.gameObjectPositioner = gameObjectPositioner;
-        this.tileFactory = tileFactory;
+        this.gameObjectPositioner = Objects.requireNonNull(gameObjectPositioner);
+        this.tileFactory = Objects.requireNonNull(tileFactory);
         this.player = playerFactory.create(player);
         this.finish = tileFactory.create(finish);
 

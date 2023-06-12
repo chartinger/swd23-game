@@ -16,7 +16,7 @@ public class RandomFloorDestroyer implements ThreatStrategy {
     }
 
     private RandomFloorDestroyer(BoardView board, int tilesPerRound) {
-        this.board = board;
+        this.board = Objects.requireNonNull(board);
         this.tilesPerRound = tilesPerRound;
     }
 
