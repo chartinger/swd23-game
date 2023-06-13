@@ -5,7 +5,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -22,8 +21,13 @@ public class Main extends ApplicationAdapter {
 
 	private Array<GameObject> gameObjects = new Array<>();
 
+    private DrawObserver drawObserver = new DrawObserver();
 
-	private final float updatesPerSecond = 60;
+    private CurrentPositionObserver positionObserver = new CurrentPositionObserver();
+
+
+
+    private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
@@ -43,7 +47,10 @@ public class Main extends ApplicationAdapter {
         Player player = playerFactory.create();
         gameObjects.add(player);
         player.setPosition(100,130);
+        positionObserver.update(player);
         gameInput = new GameInput(player);
+
+
 
         /** ÜBUNG 2 **/
 
@@ -70,21 +77,14 @@ public class Main extends ApplicationAdapter {
 
 
 
+
 	private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.act(delta);
 		}
 	}
 
-	private void draw() {
-		batch.setProjectionMatrix(viewport.getCamera().combined);
-		batch.begin();
-		for(GameObject gameObject : gameObjects) {
-			gameObject.draw(batch);
-		}
-		font.draw(batch, "Krasses Gras", -220, -220);
-		batch.end();
-	}
+
 
 	@Override
 	public void render() {
@@ -97,7 +97,11 @@ public class Main extends ApplicationAdapter {
 			deltaAccumulator -= logicFrameTime;
 			act(logicFrameTime);
 		}
-		draw();
+		//draw();
+        drawObserver.draw(batch,viewport,gameObjects); // Methode in DrawObserver Klasse
+
+        int lastPlayerX = (int) positionObserver.getLastX();
+        int lastPlayerY = (int) positionObserver.getLastY();
 	}
 
 	@Override
