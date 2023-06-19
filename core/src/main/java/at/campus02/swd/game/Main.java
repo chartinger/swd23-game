@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -38,6 +39,9 @@ public class Main extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
+        /** Übung 2: Laden der Textures aus dem AssetRepository **/
+        AssetRepository.getInstance().preloadAssets();
+
         /** Tiles werden hier erstellt und platziert  **/
         Background background = new Background();
         background.fillBackground(gameObjects);
@@ -52,12 +56,6 @@ public class Main extends ApplicationAdapter {
 
 
 
-        /** ÜBUNG 2 **/
-
-            //AssetRepository.getInstance().preloadAssets() --> notwendig?
-
-
-
 
         sign = new Sign();
         gameObjects.add(sign);
@@ -66,12 +64,6 @@ public class Main extends ApplicationAdapter {
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
-
-        /** Übung 2 Fortsetzung **/
-
-        // gameInput
-        //gameInput.keyDown(// Pfeile oben unten)
-
 
 	}
 
@@ -109,10 +101,8 @@ public class Main extends ApplicationAdapter {
 
         batch.dispose();
 
-
-        // AssetRepository.getInstance().dispose();
-            // Methode funktioniert noch nicht --> was soll hier passieren?
-
+        // Übung 2: aufräumen des AssetRepositorys
+        AssetRepository.getInstance().dispose();
 	}
 
 	@Override

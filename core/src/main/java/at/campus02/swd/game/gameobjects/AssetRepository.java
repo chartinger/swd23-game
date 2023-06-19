@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class AssetRepository  {
 
-    private Texture player = new Texture("sprites/Ship parts/hullLarge (1).png");
-    private Texture grass = new Texture("tiles/mapTile_022.png");
-    private Texture water = new Texture("tiles/mapTile_188.png");
+    private Texture player;
+    private Texture grass;
+    private Texture water;
 
 
 
@@ -66,9 +66,31 @@ public class AssetRepository  {
     }
 
 
+    /**
+     * Hier werden alle Texturen für das AssetRepository initialisiert.
+     * Nicht mehr beim Initialisieren des AssetRepositorys selbst.
+     *
+     * Diese Methode sollte aktuell nur in der Main .create() Methode verwendet werden.
+     */
+    public void preloadAssets(){
+
+        player = new Texture("sprites/Ship parts/hullLarge (1).png");
+        grass = new Texture("tiles/mapTile_022.png");
+        water = new Texture("tiles/mapTile_188.png");
+
+    }
+
+    /**
+     * Hier werden alle Texturen aus dem AssetRepository aufgeräumt.
+     *
+     * Diese Methode soll aktuell nur in der Main --> .dispose() Methode verwendet werden.
+     *
+     * **/
     public void dispose(){
 
-        // was soll hier passieren?
+        player.dispose();
+        grass.dispose();
+        water.dispose();
 
     }
 
