@@ -5,6 +5,7 @@ public enum TileType {
     TOP,
     TOP_RIGHT,
     LEFT,
+    DAMAGED_FLOOR,
     FLOOR,
     RIGHT,
     BOTTOM_LEFT,

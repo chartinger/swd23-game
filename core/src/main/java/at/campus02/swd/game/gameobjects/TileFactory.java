@@ -2,65 +2,68 @@ package at.campus02.swd.game.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class TileFactory implements GameObjectFactory<TileType> {
-
-    public static final int TOP_LEFT_ID = 61;
-    public static final int TOP_ID = 62;
-    public static final int TOP_RIGHT_ID = 63;
-    public static final int LEFT_ID = 76;
-    public static final int CENTER_ID = 77;
-    public static final int RIGHT_ID = 78;
-    public static final int BACKGROUND_ID = 187;
-    public static final int FINISH_ID = 95;
+    private static final Map<TileType, Integer> TEXTURE_IDS = Map.of(
+        TileType.TOP_LEFT, 61,
+        TileType.TOP, 62,
+        TileType.TOP_RIGHT, 63,
+        TileType.LEFT, 76,
+        TileType.FLOOR, 77,
+        TileType.RIGHT, 78,
+        TileType.CERTAIN_DEATH, 187,
+        TileType.FINISH, 95
+    );
 
     private final AssetRepository assetRepository;
 
     public TileFactory(AssetRepository assetRepository) {
         this.assetRepository = Objects.requireNonNull(assetRepository);
-        for (TileType tileType : TileType.values()) {
-            this.assetRepository.loadTexture(getTextureFilename(getTextureId(tileType)));
-        }
+        for (Integer textureId : TEXTURE_IDS.values())
+            this.assetRepository.loadTexture(getTextureFilename(textureId));
     }
 
     @Override
-    public Tile create(TileType type) {
-        int textureId = getTextureId(type);
-        String textureFile = getTextureFilename(textureId);
-        Texture texture = assetRepository.getTexture(textureFile);
-        return new Tile(texture, isRotated(textureId));
-    }
-
-    private static int getTextureId(TileType type) {
-        return switch (Objects.requireNonNull(type)) {
-            case TOP_LEFT -> TOP_LEFT_ID;
-            case TOP -> TOP_ID;
-            case TOP_RIGHT -> TOP_RIGHT_ID;
-            case LEFT -> LEFT_ID;
-            case FLOOR -> CENTER_ID;
-            case RIGHT -> RIGHT_ID;
-            case BOTTOM_LEFT -> rotate(TOP_RIGHT_ID);
-            case BOTTOM -> rotate(TOP_ID);
-            case BOTTOM_RIGHT -> rotate(TOP_LEFT_ID);
-            case CERTAIN_DEATH -> BACKGROUND_ID;
-            case FINISH -> FINISH_ID;
+    public ITile create(TileType type) {
+        return switch (type) {
+            case TOP_LEFT, TOP, TOP_RIGHT, LEFT, FLOOR, RIGHT, CERTAIN_DEATH, FINISH -> createSimpleTile(getTextureId(type));
+            case DAMAGED_FLOOR -> createCompositeTile(TileType.TOP_LEFT, TileType.TOP_RIGHT, TileType.BOTTOM_LEFT, TileType.BOTTOM_RIGHT);
+            case BOTTOM_LEFT -> rotate(create(TileType.TOP_RIGHT));
+            case BOTTOM -> rotate(create(TileType.TOP));
+            case BOTTOM_RIGHT -> rotate(create(TileType.TOP_LEFT));
         };
     }
 
+    private static int getTextureId(TileType tileType) {
+        return Objects.requireNonNull(TEXTURE_IDS.get(tileType), "Missing texture id for tile type: " + tileType);
+    }
+
+    private ITile createCompositeTile(TileType northWestType, TileType northEastType, TileType southWestType, TileType southEastType) {
+        return new ComposedTile(
+            create(northWestType),
+            create(northEastType),
+            create(southWestType),
+            create(southEastType)
+        );
+    }
+
+    private Texture getTexture(int textureId) {
+        String textureFile = getTextureFilename(textureId);
+        return assetRepository.getTexture(textureFile);
+    }
+
+    private Tile createSimpleTile(int textureId) {
+        return new Tile(getTexture(textureId), false);
+    }
+
     private static String getTextureFilename(int textureId) {
-        return String.format("tiles/mapTile_%03d.png", actualTextureId(textureId));
+        return String.format("tiles/mapTile_%03d.png", textureId);
     }
 
-    private static int actualTextureId(int textureId) {
-        return isRotated(textureId) ? textureId >> 10 : textureId;
-    }
-
-    private static boolean isRotated(int textureId) {
-        return textureId >= (1 << 10);
-    }
-
-    private static int rotate(int textureId) {
-        return textureId << 10;
+    private static ITile rotate(ITile tile) {
+        tile.rotate();
+        return tile;
     }
 }
