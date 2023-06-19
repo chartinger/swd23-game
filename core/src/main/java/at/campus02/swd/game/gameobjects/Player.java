@@ -13,20 +13,11 @@ public class Player implements GameObject, Observable{
     private Sprite sprite;
 
     private List<PositionObserver> oberservers = new ArrayList<PositionObserver>();
-    private PlayerPositionObserver playerPositionObserver = new PlayerPositionObserver();
-
-    private PlayerPositionLogObserver playerPositionLogObserver = new PlayerPositionLogObserver();
-
-
 
 
     public Player(Texture image) {
         this.image = image;
         this.sprite = new Sprite(image);
-
-        addObserver(playerPositionObserver);
-        //addObserver(playerPositionLogObserver); //--> funktioniert noch nicht --> findet File nicht
-
     }
 
 
@@ -47,12 +38,8 @@ public class Player implements GameObject, Observable{
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
 
-        // update() Oberservers -> ?
         for (PositionObserver oberserver : oberservers) {
-
-            System.out.print("Spieler ");
-            oberserver.update(x,y);
-
+            oberserver.update(getPositionX(),getPositionY());
         }
     }
 

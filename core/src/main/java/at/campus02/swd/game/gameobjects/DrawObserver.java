@@ -1,3 +1,5 @@
+/* Wird nicht mehr benötigt
+
 package at.campus02.swd.game.gameobjects;
 
 import com.badlogic.gdx.graphics.Color;
@@ -15,11 +17,8 @@ public class DrawObserver {
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
-        for(GameObject gameObject : gameObjects) {
-            gameObject.draw(batch);
-        }
-        font.draw(batch, "Krasses Gras", -220, -220);
+        // font.draw(batch, "Krasses Gras", -220, -220);
         batch.end();
     }
 
-}
+}*/
