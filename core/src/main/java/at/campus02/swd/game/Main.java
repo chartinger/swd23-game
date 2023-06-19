@@ -1,6 +1,6 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.board.BasicBoard;
+import at.campus02.swd.game.board.MultiDamageBoard;
 import at.campus02.swd.game.game.Board;
 import at.campus02.swd.game.game.DefenceType;
 import at.campus02.swd.game.game.Game;
@@ -59,7 +59,7 @@ public class Main extends ApplicationAdapter {
     private Game createGame() {
         final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
         final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
-        final Board board = new BasicBoard(gameObjectPositioner, playerFactory, tileFactory, PlayerType.READY_PLAYER_ONE, TileType.FINISH);
+        final Board board = new MultiDamageBoard(gameObjectPositioner, playerFactory, tileFactory, PlayerType.READY_PLAYER_ONE, TileType.FINISH);
         final Game game = new Game(board, BUDGET);
         gameObjects.addAll(board.getGameObjects());
         scoreBoard = new ScoreBoard(-300, -290);
