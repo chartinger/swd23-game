@@ -2,15 +2,15 @@ package at.campus02.swd.game.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ComposedTile implements ITile {
-    private ITile northWest;
-    private ITile northEast;
-    private ITile southWest;
-    private ITile southEast;
+public class ComposedTile implements Tile {
+    private Tile northWest;
+    private Tile northEast;
+    private Tile southWest;
+    private Tile southEast;
     private int columnOffset = 0;
     private int rowOffset = 0;
 
-    public ComposedTile(ITile northWest, ITile northEast, ITile southWest, ITile southEast) {
+    public ComposedTile(Tile northWest, Tile northEast, Tile southWest, Tile southEast) {
         this.northWest = northWest;
         this.northEast = northEast;
         this.southWest = southWest;
@@ -92,7 +92,7 @@ public class ComposedTile implements ITile {
         southWest.rotate();
         southEast.rotate();
 
-        ITile temp = northWest;
+        Tile temp = northWest;
         northWest = southEast;
         southEast = temp;
         temp = northEast;

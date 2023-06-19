@@ -18,7 +18,7 @@ public class BasicBoard implements Board {
     private final Player player;
     private Position playerPosition;
 
-    private final ITile finish;
+    private final Tile finish;
     private Position finishPosition;
 
     private final Field[][] deathLayer = new Field[BOARD_WIDTH][BOARD_HEIGHT];
@@ -193,8 +193,8 @@ public class BasicBoard implements Board {
     }
 
 
-    private record Field(ITile tile, boolean exists) {
-        public Field(ITile tile) {
+    private record Field(Tile tile, boolean exists) {
+        public Field(Tile tile) {
             this(tile, true);
         }
     }

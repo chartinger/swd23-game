@@ -1,73 +1,32 @@
 package at.campus02.swd.game.gameobjects;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.Objects;
-
-public class Tile implements ITile {
-    private final Sprite sprite;
-    private int columnOffset = 0;
-    private int rowOffset = 0;
-
-    public Tile(Texture texture, boolean isRotated) {
-        this.sprite = new Sprite(Objects.requireNonNull(texture));
-        if (isRotated)
-            sprite.rotate(180);
-    }
+public interface Tile extends GameObject {
+    @Override
+    void act(float delta);
 
     @Override
-    public void act(float delta) {
-    }
+    void setPosition(float x, float y);
 
     @Override
-    public void setPosition(float x, float y) {
-        final float offsetX = getWidth() * (1 - getScale()) / 2;
-        final float offsetY = getHeight() * (1 - getScale()) / 2;
-        final float tileOffsetX = getWidth() * getScale() * columnOffset;
-        final float tileOffsetY = getHeight() * getScale() * rowOffset;
-        sprite.setPosition(x - offsetX + tileOffsetX, y - offsetY + tileOffsetY);
-    }
+    void draw(SpriteBatch batch);
 
-    @Override
-    public void draw(SpriteBatch batch) {
-        sprite.draw(batch);
-    }
+    void setVisible(boolean visible);
 
-    @Override
-    public void setVisible(boolean visible) {
-        sprite.setAlpha(visible ? 1f : 0f);
-    }
+    void setScale(float scale);
 
-    @Override
-    public void setScale(float scale) {
-        sprite.setScale(scale);
-    }
+    /**
+     * Position relative to the lower left tile
+     * Introduced to aid the implementation of structures composed of multiple tiles (e.g. ComposedTile)
+     * @param columnOffset number of columns to the right of the left most column
+     * @param rowOffset number of rows above the bottom row
+     */
+    void setRelativePosition(int columnOffset, int rowOffset);
 
-    @Override
-    public void setRelativePosition(int columnOffset, int rowOffset) {
-        this.columnOffset = columnOffset;
-        this.rowOffset = rowOffset;
-    }
+    float getWidth();
+    float getHeight();
+    float getScale();
 
-    @Override
-    public float getWidth() {
-        return sprite.getWidth();
-    }
-
-    @Override
-    public float getHeight() {
-        return sprite.getHeight();
-    }
-
-    @Override
-    public float getScale() {
-        return sprite.getScaleX();
-    }
-
-    @Override
-    public void rotate() {
-        sprite.rotate(180);
-    }
+    void rotate();
 }

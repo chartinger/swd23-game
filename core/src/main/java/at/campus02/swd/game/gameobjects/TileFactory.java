@@ -26,7 +26,7 @@ public class TileFactory implements GameObjectFactory<TileType> {
     }
 
     @Override
-    public ITile create(TileType type) {
+    public Tile create(TileType type) {
         return switch (type) {
             case TOP_LEFT, TOP, TOP_RIGHT, LEFT, FLOOR, RIGHT, CERTAIN_DEATH, FINISH -> createSimpleTile(getTextureId(type));
             case DAMAGED_FLOOR -> createCompositeTile(TileType.TOP_LEFT, TileType.TOP_RIGHT, TileType.BOTTOM_LEFT, TileType.BOTTOM_RIGHT);
@@ -40,7 +40,7 @@ public class TileFactory implements GameObjectFactory<TileType> {
         return Objects.requireNonNull(TEXTURE_IDS.get(tileType), "Missing texture id for tile type: " + tileType);
     }
 
-    private ITile createCompositeTile(TileType northWestType, TileType northEastType, TileType southWestType, TileType southEastType) {
+    private Tile createCompositeTile(TileType northWestType, TileType northEastType, TileType southWestType, TileType southEastType) {
         return new ComposedTile(
             create(northWestType),
             create(northEastType),
@@ -54,15 +54,15 @@ public class TileFactory implements GameObjectFactory<TileType> {
         return assetRepository.getTexture(textureFile);
     }
 
-    private Tile createSimpleTile(int textureId) {
-        return new Tile(getTexture(textureId), false);
+    private SimpleTile createSimpleTile(int textureId) {
+        return new SimpleTile(getTexture(textureId), false);
     }
 
     private static String getTextureFilename(int textureId) {
         return String.format("tiles/mapTile_%03d.png", textureId);
     }
 
-    private static ITile rotate(ITile tile) {
+    private static Tile rotate(Tile tile) {
         tile.rotate();
         return tile;
     }
