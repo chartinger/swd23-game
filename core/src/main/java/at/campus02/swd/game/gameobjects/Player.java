@@ -4,17 +4,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Sign implements GameObject {
-    private Texture image;
-    private Sprite sprite;
+import java.util.Objects;
 
-    public Sign() {
-        image = new Texture("sign.png");
-        sprite = new Sprite(image);
+public class Player implements GameObject {
+    private final Sprite sprite;
+
+    public Player(Texture texture) {
+        sprite = new Sprite(Objects.requireNonNull(texture));
     }
+
     @Override
     public void act(float delta) {
-
     }
 
     @Override
