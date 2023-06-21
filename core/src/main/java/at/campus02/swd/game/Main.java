@@ -96,8 +96,8 @@ public class Main extends ApplicationAdapter {
 
     private static void setupThreats(Game game) {
         game.addThreat(NoDamage.builder());
-        game.addThreat(RandomFloorDestroyer.withTilesPerRound(2));
-        game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(BUDGET));
+        game.addThreat(RandomFloorDestroyer.withTilesPerRound(3));
+        game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(11));
     }
 
     private static void setupDefences(Game game) {
