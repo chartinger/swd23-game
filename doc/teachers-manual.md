@@ -20,12 +20,12 @@
 
 ## Exercise 3
 
-| Goal                                                       | Achieved Via                                                                                                                            |
-|------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| More than one enemy                                        | The enemies are the threat strategies. There are multiple of them.                                                                      |
-| Strategies for enemies                                     | There are multiple threat strategies (`RandomFloorDestroyer`, `AmplifiedEdgeDamage`, `NoDamage`)                                        |
-| Strategy can change dynamically                            | User can choose strategies during runtime                                                                                               |
-| Kill closest enemy                                         | `RepairBomb` will repair all broken tiles closest to you                                                                                |
-| Display counter for eliminated enemies and players health  | Display remaining budget and number of repaired tiles                                                                                   |
-| Bonus: some enemies need more than one key press           | Not implemented                                                                                                                         |
-| Bonus: damage only enemies in the direction you are facing | `RepairGun` will restore tiles in any particular direction. However, in this game the player doesn't face in any particular directions. |
+| Goal                                                       | Achieved Via                                                                                                                             |
+|------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| More than one enemy                                        | The enemies are the threat strategies. There are multiple of them.                                                                       |
+| Strategies for enemies                                     | There are multiple threat strategies (`RandomFloorDestroyer`, `AmplifiedEdgeDamage`, `NoDamage`)                                         |
+| Strategy can change dynamically                            | User can choose strategies during runtime                                                                                                |
+| Kill closest enemy                                         | `RepairBomb` will repair all broken fields closest to you                                                                                |
+| Display counter for eliminated enemies and players health  | Display remaining budget and number of repaired fields                                                                                   |
+| Bonus: some enemies need more than one key press           | Destroyed fields will require two hits to be fully restored                                                                              |
+| Bonus: damage only enemies in the direction you are facing | `RepairGun` will restore fields in any particular direction. However, in this game the player doesn't face in any particular directions. |

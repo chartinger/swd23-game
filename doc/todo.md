@@ -15,5 +15,5 @@
 - [x] Freeze closest piece(s) of water (3x, <SPACE>)
 - [x] Player has a budget (required to purchase defence actions)
 - [x] Display remaining budget and frozen pieces of water in the HUD
-- [ ] BONUS: Use two rounds to freeze water
+- [x] BONUS: Use two rounds to freeze water
 - [x] BONUS: Pick direction in which to freeze water
