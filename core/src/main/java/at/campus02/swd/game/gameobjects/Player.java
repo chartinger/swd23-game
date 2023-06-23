@@ -27,9 +27,8 @@ public class Player implements GameObject {
         this.sprite = new Sprite(image);
         this.x = 0;
         this.y = 0;
-        this.speed = 20;
+        this.speed = 40;
         this.observers = new ArrayList<>();
-
     }
 
     public void addObserver(PositionObserver observer) {
