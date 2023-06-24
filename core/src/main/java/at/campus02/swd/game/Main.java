@@ -33,7 +33,6 @@ public class Main extends ApplicationAdapter {
     /**
      * Observer
      **/
-    //private DrawObserver drawObserver = new DrawObserver();
     private UIPositionObserver positionObserver;
     private ConsoleLogObserver consoleLogObserver = new ConsoleLogObserver();
 
@@ -51,7 +50,7 @@ public class Main extends ApplicationAdapter {
     /**
      * Attack Strategy sout TEST
      **/
-    MovementStrategy attackStrategy = new AttackStrategy();
+    private MovementStrategy attackStrategy = new AttackStrategy();
     /**
      * Für render()
      **/
@@ -106,9 +105,6 @@ public class Main extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(this.gameInput);
 
-        /*font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		Gdx.input.setInputProcessor(this.gameInput);*/
     }
 
     private void createPlayer() {
@@ -147,11 +143,6 @@ public class Main extends ApplicationAdapter {
         /** Hier wird die aktuelle SpielerPosition aufs UI ausgegeben **/
         positionObserver.update(player);
 
-
-        //drawObserver.draw(batch,viewport,gameObjects); // Methode in DrawObserver Klasse
-
-        //int lastPlayerX = (int) positionObserver.getLastX();
-        //int lastPlayerY = (int) positionObserver.getLastY();
     }
 
     private void draw() {
