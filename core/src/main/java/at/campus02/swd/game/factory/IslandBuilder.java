@@ -36,7 +36,7 @@ public class IslandBuilder {
 
         // Da die y-Koordinate von unten nach oben zählt, invertieren wir sie
         float tileY = (islandHeight - y - 1) * tileHeight + islandPosY;
-        GameObject islandTile = tileFactory.create(getTileType(x, y, islandHeight, islandWidth), (int) tileX, (int) tileY);
+        GameObject islandTile = tileFactory.create(getTileType(x, y, islandHeight, islandWidth), (int) tileX, (int) tileY, 0);
         // Setzen der Position des Tiles
         islandTile.setPosition(tileX, tileY);
 

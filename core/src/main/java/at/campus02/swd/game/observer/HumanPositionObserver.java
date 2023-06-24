@@ -5,14 +5,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class HumanPositionObserver implements PositionObserver{
+public class HumanPositionObserver implements PositionObserver {
 
 
     @Override
     public void updatePosition(float x, float y, float rotation) {
-        System.out.println(LocalDateTime.now()+" - Human at: x = "+ x + ", y = "+ y +", rot = "+ rotation +"^");
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("log.txt",true))) {
-            bw.write(LocalDateTime.now()+" - Human at: x = "+ x + ", y = "+ y +", rot = "+ rotation +"°");
+        System.out.println(LocalDateTime.now() + " - Human at: x = " + x + ", y = " + y + ", rot = " + rotation + "^");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("log.txt", true))) {
+            bw.write(LocalDateTime.now() + " - Human at: x = " + x + ", y = " + y + ", rot = " + rotation + "°");
             bw.newLine();
             bw.flush();
         } catch (IOException e) {

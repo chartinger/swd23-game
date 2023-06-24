@@ -7,13 +7,13 @@ import at.campus02.swd.game.observer.HumanPositionObserver;
 import com.badlogic.gdx.graphics.Texture;
 
 
-public class PlayerFactory extends Factory{
+public class PlayerFactory extends Factory {
 
 
     @Override
-    protected GameObject createGameObject(Type type, int x, int y) {
+    protected GameObject createGameObject(Type type, int x, int y, int z) {
         GameObject player;
-        switch (type){
+        switch (type) {
             case HUMAN:
                 player = new Player(Type.HUMAN, new HumanPositionObserver());
                 break;
@@ -21,9 +21,10 @@ public class PlayerFactory extends Factory{
                 player = new Player(Type.ENEMY, new EnemyPositionObserver());
                 break;
             default:
-                throw  new IllegalArgumentException("Value is invalid: "+type);
+                throw new IllegalArgumentException("Value is invalid: " + type);
         }
-        player.setPosition(x,y);
+        player.setPosition(x, y);
+        player.setRotation(z);
 
 
         return player;

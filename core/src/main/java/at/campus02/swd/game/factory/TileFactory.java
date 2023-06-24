@@ -5,18 +5,18 @@ import at.campus02.swd.game.gameobjects.IslandTile;
 import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.gameobjects.WaterTile;
 
-public class TileFactory extends Factory{
+public class TileFactory extends Factory {
     @Override
-    protected GameObject createGameObject(Type type, int x, int y) {
+    protected GameObject createGameObject(Type type, int x, int y, int z) {
         GameObject tile;
-        switch (type){
+        switch (type) {
             case WATER:
                 tile = new WaterTile();
-                tile.setPosition(x,y);
+                tile.setPosition(x, y);
                 break;
             case SIGN:
                 tile = new Sign();
-                tile.setPosition(x,y);
+                tile.setPosition(x, y);
                 break;
             case ISLAND_TOP:
                 tile = new IslandTile(Type.ISLAND_TOP);
@@ -45,8 +45,8 @@ public class TileFactory extends Factory{
             case ISLAND_BOTTOM_RIGHT:
                 tile = new IslandTile(Type.ISLAND_BOTTOM_RIGHT);
                 break;
-           default:
-                throw  new IllegalArgumentException("Value is invalid: "+type);
+            default:
+                throw new IllegalArgumentException("Value is invalid: " + type);
         }
 
         return tile;

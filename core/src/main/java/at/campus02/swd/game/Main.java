@@ -51,7 +51,7 @@ public class Main extends ApplicationAdapter {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                gameObjects.add(tileFactory.create(Type.WATER,tileX,tileY));
+                gameObjects.add(tileFactory.create(Type.WATER,tileX,tileY,0));
             }
         }
 
@@ -60,9 +60,9 @@ public class Main extends ApplicationAdapter {
              ) {
             gameObjects.add(o);
         }
-        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240));
-        gameObjects.add(playerFactory.create(Type.ENEMY,320,80));
-        player = (Player) playerFactory.create(Type.HUMAN,500,100);
+        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240,0));
+        gameObjects.add(playerFactory.create(Type.ENEMY,320,80,0));
+        player = (Player) playerFactory.create(Type.HUMAN,500,100,0);
         gameObjects.add(player);
         gameInput = new GameInput(player);
 

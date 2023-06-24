@@ -11,6 +11,7 @@ public class Player implements GameObject {
     private final Movement movement;
     private Texture image;
     private Sprite sprite;
+
     public Player(Type type, PositionObserver observer) {
         this.image = AssetRepository.INSTANCE.getTexture(type);
         sprite = new Sprite(image);
@@ -30,9 +31,10 @@ public class Player implements GameObject {
     @Override
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
-        movement.setPosition(x,y, sprite.getRotation());
+        movement.setPosition(x, y, sprite.getRotation());
     }
-    public void setRotation(float angle)    {
+
+    public void setRotation(float angle) {
         sprite.setRotation(angle);
     }
 

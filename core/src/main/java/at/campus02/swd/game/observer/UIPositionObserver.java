@@ -11,7 +11,7 @@ public class UIPositionObserver implements PositionObserver {
 
     @Override
     public void updatePosition(float x, float y, float rotation) {
-        pos = "x = "+ x + ", y = "+ y +", rot = "+ rotation;
+        pos = "x = " + x + ", y = " + y + ", rot = " + rotation;
     }
 
     public String getPos() {

@@ -110,6 +110,6 @@ public class GameInput extends InputAdapter {
     //    player.setPosition(posx + 10.0f,posy);
     //    player.setRotation(90.0f);
     //}
-    }
+}
 
 

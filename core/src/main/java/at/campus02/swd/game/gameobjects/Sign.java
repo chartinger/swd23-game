@@ -13,6 +13,7 @@ public class Sign implements GameObject {
         image = AssetRepository.INSTANCE.getTexture(Type.SIGN);
         sprite = new Sprite(image);
     }
+
     @Override
     public void act(float delta) {
 
@@ -23,7 +24,7 @@ public class Sign implements GameObject {
         sprite.setPosition(x, y);
     }
 
-    public void setRotation(float angle)    {
+    public void setRotation(float angle) {
         sprite.setRotation(angle);
     }
 

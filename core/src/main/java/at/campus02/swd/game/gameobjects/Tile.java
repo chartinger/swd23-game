@@ -14,6 +14,7 @@ public class Tile implements GameObject {
         this.image = AssetRepository.INSTANCE.getTexture(type);
         sprite = new Sprite(image);
     }
+
     @Override
     public void act(float delta) {
 
@@ -23,7 +24,8 @@ public class Tile implements GameObject {
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
     }
-    public void setRotation(float angle)    {
+
+    public void setRotation(float angle) {
         sprite.setRotation(angle);
     }
 

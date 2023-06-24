@@ -18,7 +18,7 @@ public class Movement {
 
     public void setPosition(float x, float y, float rotation) {
         for (PositionObserver positionObserver : observer) {
-            positionObserver.updatePosition(x,y, rotation);
+            positionObserver.updatePosition(x, y, rotation);
         }
     }
 
