@@ -28,8 +28,17 @@ public class Player implements GameObject {
 
     }
 
+    public boolean isBorderCollision(float x, float y) {
+        if (y <= -10 || y >= 540) {
+            return true;
+        } else if (x <= 10 || x >= 560) {
+            return true;
+        } else return false;
+    }
+
     @Override
     public void setPosition(float x, float y) {
+
         sprite.setPosition(x, y);
         movement.setPosition(x, y, sprite.getRotation());
     }

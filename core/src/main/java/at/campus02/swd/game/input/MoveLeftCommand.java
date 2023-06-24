@@ -13,7 +13,11 @@ public class MoveLeftCommand implements MoveCommand {
     public void execute() {
         float posx = player.getSprite().getX();
         float posy = player.getSprite().getY();
-        player.setPosition(posx - 10.0f, posy);
-        player.setRotation(270.0f);
+        if (player.isBorderCollision(posx - 10.0f, posy)) {
+            player.setPosition(posx, posy);
+        } else {
+            player.setPosition(posx - 10.0f, posy);
+            player.setRotation(270.0f);
+        }
     }
 }

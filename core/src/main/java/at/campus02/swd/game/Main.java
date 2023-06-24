@@ -61,8 +61,8 @@ public class Main extends ApplicationAdapter {
             gameObjects.add(o);
         }
         gameObjects.add(tileFactory.create(Type.SIGN, 250, 240,0));
-        gameObjects.add(playerFactory.create(Type.ENEMY,320,80,0));
-        player = (Player) playerFactory.create(Type.HUMAN,500,100,0);
+        gameObjects.add(playerFactory.create(Type.ENEMY,320,80,90));
+        player = (Player) playerFactory.create(Type.HUMAN,500,100,270);
         gameObjects.add(player);
         gameInput = new GameInput(player);
 

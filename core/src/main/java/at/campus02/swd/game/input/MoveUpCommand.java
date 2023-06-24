@@ -13,7 +13,11 @@ public class MoveUpCommand implements MoveCommand {
     public void execute() {
         float posx = player.getSprite().getX();
         float posy = player.getSprite().getY();
-        player.setPosition(posx, posy + 10.0f);
-        player.setRotation(180.0f);
+        if (player.isBorderCollision(posx, posy + 10.0f)) {
+            player.setPosition(posx, posy);
+        } else {
+            player.setPosition(posx, posy + 10.0f);
+            player.setRotation(180.0f);
+        }
     }
 }
