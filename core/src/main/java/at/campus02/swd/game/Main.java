@@ -82,6 +82,7 @@ public class Main extends ApplicationAdapter {
 			act(logicFrameTime);
 		}
         gameMap.getPlayer1().update();
+        gameMap.entityDetector();
 		draw();
 
 	}

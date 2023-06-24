@@ -1,5 +1,6 @@
 package at.campus02.swd.game.gameobjects.maps;
 
+import at.campus02.swd.game.EnemyProximtyDetector;
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.entities.Entity;
 import at.campus02.swd.game.gameobjects.entities.Player;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class GameMap{
 
     private ArrayList<GameObject> terrainObjects;
-    private ArrayList<GameObject> entityObjects;
+    private ArrayList<Entity> entityObjects;
     private ArrayList<GameObject> structureObjects;
 
     private TileFactory tileFactory;
@@ -22,6 +23,8 @@ public class GameMap{
 
     private int width;
     private int height;
+
+    private EnemyProximtyDetector enemyProximtyDetector;
 
     public GameMap(){
         terrainObjects = new ArrayList<>();
@@ -41,6 +44,8 @@ public class GameMap{
 
         spawnPlayer();
         spawnEnemies();
+
+        enemyProximtyDetector = new EnemyProximtyDetector(entityObjects,(Player) player1);
     }
 
     private void water(){
@@ -278,8 +283,8 @@ public class GameMap{
 
     private void spawnEnemies(){
         Entity enemy1 = entityFactory.create("enemy-black");
-        Entity enemy2 = entityFactory.create("player-black");
-        Entity enemy3 = entityFactory.create("player-black");
+        Entity enemy2 = entityFactory.create("enemy-black");
+        Entity enemy3 = entityFactory.create("enemy-black");
         enemy1.setPosition(300,-200);
         enemy2.setPosition(300, 0);
         enemy3.setPosition(300, 200);
@@ -292,7 +297,7 @@ public class GameMap{
         return terrainObjects;
     }
 
-    public ArrayList<GameObject> getEntityObjects(){
+    public ArrayList<Entity> getEntityObjects(){
         return entityObjects;
     }
 
@@ -302,4 +307,11 @@ public class GameMap{
     public Entity getPlayer1(){
         return player1;
     }
+
+    public void entityDetector(){
+        enemyProximtyDetector.detect();
+    }
+
+
+
 }
