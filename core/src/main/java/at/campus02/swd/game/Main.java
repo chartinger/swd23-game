@@ -13,9 +13,9 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import at.campus02.swd.game.input.GameInput;
 
-/**
- * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
- */
+import java.util.Random;
+
+
 public class Main extends ApplicationAdapter {
 
     /**
@@ -73,10 +73,11 @@ public class Main extends ApplicationAdapter {
         Background background = new Background();
         background.fillBackground(gameObjects);
 
-        /**  Hier wird ein Player von einer Factory erzeugt und platziert**/
+        /**  Hier wird ein Player von einer Factory erzeugt und random platziert**/
         createPlayer();
 
-        /**  Hier wird ein Enemy von einer Factory erzeugt und platziert**/
+        /**  Hier wird ein Enemy von einer Factory erzeugt und random platziert**/
+        createEnemies();
         createEnemies();
 
         /** Attack Strategy sout TEST **/
@@ -113,13 +114,11 @@ public class Main extends ApplicationAdapter {
     private void createPlayer() {
         player = playerFactory.create();
         gameObjects.add(player);
-        player.setPosition(100, 130);
     }
 
     private void createEnemies() {
         enemy = enemyFactory.create();
         gameObjects.add(enemy);
-        enemy.setPosition(-150, -100);
     }
 
 
