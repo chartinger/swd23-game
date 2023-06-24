@@ -1,6 +1,11 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.gameobjects.entities.Entity;
+import at.campus02.swd.game.gameobjects.entities.Player;
+import at.campus02.swd.game.gameobjects.factories.EntityFactory;
+import at.campus02.swd.game.gameobjects.maps.GameMap;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,14 +15,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
+	private ExtendViewport viewport = new ExtendViewport(1920.0f, 1080.0f, 1920.0f, 1080.0f);
 	private GameInput gameInput = new GameInput();
 
 	private Array<GameObject> gameObjects = new Array<>();
@@ -27,13 +31,28 @@ public class Main extends ApplicationAdapter {
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
 
+    private GameMap gameMap;
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
+
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		Gdx.input.setInputProcessor(this.gameInput);
+
+
+
+
+        gameMap = new GameMap();
+
+        for(GameObject go : gameMap.getTerrainObjects()){
+            gameObjects.add(go);
+        }
+        for(GameObject go : gameMap.getEntityObjects()){
+            gameObjects.add(go);
+        }
+
 	}
 
 	private void act(float delta) {
@@ -48,7 +67,6 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
 		batch.end();
 	}
 
@@ -63,10 +81,16 @@ public class Main extends ApplicationAdapter {
 			deltaAccumulator -= logicFrameTime;
 			act(logicFrameTime);
 		}
+        gameMap.getPlayer1().update();
+        gameMap.entityDetector();
+        gameMap.strategyDetector();
+        gameMap.getEnemy1().update();
+        gameMap.getEnemy2().update();
 		draw();
+
 	}
 
-	@Override
+    @Override
 	public void dispose() {
 		batch.dispose();
 	}

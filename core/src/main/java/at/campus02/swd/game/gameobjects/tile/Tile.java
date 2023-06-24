@@ -1,20 +1,24 @@
-package at.campus02.swd.game.gameobjects;
+package at.campus02.swd.game.gameobjects.tile;
 
+import at.campus02.swd.game.gameobjects.GameObject;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Sign implements GameObject {
-    private Texture image;
+public class Tile implements GameObject {
+
+    //private String spritePath;
+    //private Texture texture;
     private Sprite sprite;
 
-    public Sign() {
-        image = new Texture("sign.png");
-        sprite = new Sprite(image);
+    public Tile(Texture texture) {
+        //this.spritePath = spritePath;
+        //this.texture = texture;
+        this.sprite = new Sprite(texture);
     }
+
     @Override
     public void act(float delta) {
-
     }
 
     @Override
@@ -26,4 +30,5 @@ public class Sign implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
 }
