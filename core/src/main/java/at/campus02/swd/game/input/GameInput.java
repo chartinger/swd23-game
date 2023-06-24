@@ -44,7 +44,7 @@ public class GameInput extends InputAdapter {
         switch (keycode) {
             case Input.Keys.UP:
                 isMovingUp = true;
-                moveUpCommand.execute(player); //Anstelle von null gehören konkrete Instanzen eingefügt
+                moveUpCommand.execute(player);
                 return true;
             case Input.Keys.DOWN:
                 isMovingDown = true;
