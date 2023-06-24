@@ -1,4 +1,5 @@
 package at.campus02.swd.game.logic;
+import at.campus02.swd.game.gameobjects.EnemyObjects.Enemy;
 import at.campus02.swd.game.gameobjects.interactiveObjects.InteractiveObject;
 import at.campus02.swd.game.gameobjects.interactiveObjects.InteractiveObjectsObserver;
 import at.campus02.swd.game.playerobjects.Background;
@@ -18,8 +19,7 @@ public class Control {
     private SpriteBatch batch;
 
     public Boolean LockPosition = false;
-
-    private final float stepSize = 10.0F;
+    public boolean addEnemy = true;
 
     public Control(Player player, SpriteBatch batch)  {
         pObserver = new PlayerObserver();
@@ -34,47 +34,73 @@ public class Control {
     }
 
     public void alterLeft(){
-        player.setPosition(player.X() - stepSize , player.Y()  );
+        AlterLeft.execute(player);
         WriteLog(pObserver, player.getPositionX(), player.getPositionY());
     }
 
     public void alterRight(){
-        player.setPosition(player.X() + stepSize , player.Y() );
+        AlterRight.execute(player);
         WriteLog(pObserver, player.getPositionX(), player.getPositionY());
     }
 
     public void alterDown(){
-        player.setPosition(player.X(), player.Y()  - stepSize);
+        AlterDown.execute(player);
         WriteLog(pObserver, player.getPositionX(), player.getPositionY());
     }
 
     public void alterUp(){
-        player.setPosition(player.X(), player.Y()  + stepSize);
+        AlterUp.execute(player);
         WriteLog(pObserver, player.getPositionX(), player.getPositionY());
     }
 
     public void CheckPlayerAgainstInteractiveObject(){
-//        System.out.println(InteractiveObjects._listOfObjects.get(1).getPositionX() + " XO :: XP " + player.X() + " :: "
-//                          + InteractiveObjects._listOfObjects.get(1).getPositionY() + " YO :: YP" + player.Y());
 
+        EnemyControl.instance(this).MoveEnemies();
         for (InteractiveObject iO: InteractiveObjects._listOfObjects) {
             interactiveOObserver.PushAction("InteractiveObject: ", iO.getPositionX(), iO.getPositionY());
             if (iO.getPositionX() == player.getPositionX() && iO.getPositionY() == player.getPositionY()
                 || player.getPositionX() == Background.collisionPositionRight || player.getPositionX() == Background.collisionPositionLeft) {
-                player.ChangeTexture();
-                LockPosition = true;
-                batch.begin();
-                font.draw(batch, "Game Over", -110, -220);
-                batch.end();
-                System.out.println("----");
-                System.out.println("ouch");
-                System.out.println("----");
-                pObserver.Print();
-                interactiveOObserver.Print();
-                UsedTextures.instance().Unload();
+                GameOver();
                 break;
             }
         }
+    }
+
+    public void CheckPlayerAgainstEnemy(Enemy enemy){
+
+        float enemyRange = 10;
+        boolean xInrange = false;
+        boolean yInfrange = false;
+        for(float i = enemy.getPositionX() - enemyRange; i < enemy.getPositionX() + enemyRange; i++ )
+        {
+            if(i == player.getPositionX())
+                xInrange = true;
+
+            for(float j = enemy.getPositionX() - enemyRange; j < enemy.getPositionX() + enemyRange; j++ )
+            {
+                if (j == player.getPositionX()) {
+                    yInfrange = true;
+                    break;
+                }
+            }
+        }
+        if(xInrange && yInfrange)
+            GameOver();
+    }
+
+    private void GameOver(){
+        player.ChangeTexture();
+        LockPosition = true;
+        batch.begin();
+        font.draw(batch, "Game Over", -110, -220);
+        batch.end();
+        System.out.println("----");
+        System.out.println("ouch");
+        System.out.println("----");
+        pObserver.Print();
+        EnemyControl.instance(this).eObserver.Print();
+        interactiveOObserver.Print();
+        UsedTextures.instance().Unload();
     }
 
     private void WriteLog(Observer observer, float x, float y){

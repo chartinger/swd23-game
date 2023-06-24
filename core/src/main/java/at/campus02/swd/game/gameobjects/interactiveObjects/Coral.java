@@ -1,15 +1,10 @@
 package at.campus02.swd.game.gameobjects.interactiveObjects;
-
-import at.campus02.swd.game.gameobjects.interactiveObjects.InteractiveObject;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import org.w3c.dom.Text;
 
 public class Coral extends InteractiveObject {
 
-    private float x;
-    private float y;
+    private final float x;
+    private final float y;
 
     public Coral(float x, float y) {
         super(x, y, "Coral");

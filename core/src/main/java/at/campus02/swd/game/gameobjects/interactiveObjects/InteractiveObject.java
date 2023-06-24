@@ -46,4 +46,5 @@ public class InteractiveObject implements GameObject{
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
 }

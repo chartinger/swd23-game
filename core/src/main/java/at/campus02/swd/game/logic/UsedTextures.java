@@ -22,6 +22,8 @@ public class UsedTextures {
         Textures.put("Sign", new Texture("sign.png" ));
         Textures.put("Tile", new Texture("tiles/mapTile_188.png" ));
 
+        Textures.put("Enemy", new Texture("sprites/Ships/ship (9).png" ));
+
         Textures.put("Player", new Texture("sprites/Ships/ship (6).png" ));
         Textures.put("Explosion", new Texture("sprites/Effects/explosion2.png" ));
 

@@ -1,8 +1,4 @@
 package at.campus02.swd.game.gameobjects.interactiveObjects;
-
-import at.campus02.swd.game.gameobjects.interactiveObjects.InteractiveObject;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Rock extends InteractiveObject {

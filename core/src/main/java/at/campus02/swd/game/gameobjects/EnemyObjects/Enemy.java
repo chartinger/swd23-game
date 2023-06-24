@@ -1,4 +1,4 @@
-package at.campus02.swd.game.playerobjects;
+package at.campus02.swd.game.gameobjects.EnemyObjects;
 
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.logic.UsedTextures;
@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Player implements GameObject {
-
-    public String name;
+public class Enemy implements GameObject {
 
     private Texture image;
     private Sprite sprite;
@@ -18,9 +16,8 @@ public class Player implements GameObject {
 
     private final UsedTextures textures = UsedTextures.instance();
 
-    public Player(String name) {
-        this.name = name;
-        this.image = textures.Textures.get("Player");
+    public Enemy() {
+        this.image = textures.Textures.get("Enemy");
         this.sprite = new Sprite(image);
         this.setPosition(0,0);
     }

@@ -1,7 +1,9 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.gameobjects.EnemyObjects.Enemy;
 import at.campus02.swd.game.logic.Control;
+import at.campus02.swd.game.logic.EnemyControl;
 import at.campus02.swd.game.logic.Observer;
 import at.campus02.swd.game.logic.UsedTextures;
 import at.campus02.swd.game.playerobjects.Background;
@@ -35,6 +37,7 @@ public class Main extends ApplicationAdapter {
     public Player playerOne;
 
 
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
@@ -45,6 +48,7 @@ public class Main extends ApplicationAdapter {
         gameObjects = interactiveObjects.Create(gameObjects);
 
         playerOne = new Player("Player One");
+
         gameInput.control = new Control(playerOne, batch);
 
         gameObjects.add(playerOne);
@@ -73,17 +77,26 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		float delta = Gdx.graphics.getDeltaTime();
-		deltaAccumulator += delta;
-		while(deltaAccumulator > logicFrameTime) {
-			deltaAccumulator -= logicFrameTime;
-			act(logicFrameTime);
-		}
-		draw();
+        float delta = Gdx.graphics.getDeltaTime();
+        deltaAccumulator += delta;
+        while (deltaAccumulator > logicFrameTime) {
+            deltaAccumulator -= logicFrameTime;
+            act(logicFrameTime);
+        }
+        draw();
+        AreThereEnemies();
 	}
+
+    private void AreThereEnemies(){
+        if (gameInput.control.addEnemy) {
+            if(EnemyControl.instance(gameInput.control)._enemies.size() < 2 && gameInput.control.addEnemy)  {
+                newOpponent();
+            }
+        }
+    }
 
 	@Override
 	public void dispose() {
@@ -94,4 +107,12 @@ public class Main extends ApplicationAdapter {
 	public void resize(int width, int height){
 		viewport.update(width,height);
 	}
+
+    public void newOpponent(){
+        if (playerOne.getPositionX() == 30){
+            Enemy enemy = new Enemy();
+            gameObjects.add(EnemyControl.instance(gameInput.control).AddEnemy());
+            gameInput.control.addEnemy = false;
+        }
+    }
 }
