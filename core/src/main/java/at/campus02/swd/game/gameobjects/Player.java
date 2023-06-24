@@ -3,6 +3,7 @@ package at.campus02.swd.game.gameobjects;
 import at.campus02.swd.game.factory.Type;
 import at.campus02.swd.game.observer.Movement;
 import at.campus02.swd.game.observer.PositionObserver;
+import at.campus02.swd.game.strategy.Strategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,12 +12,14 @@ public class Player implements GameObject {
     private final Movement movement;
     private Texture image;
     private Sprite sprite;
+    private int health;
 
-    public Player(Type type, PositionObserver observer) {
+    public Player(Type type, PositionObserver observer, int health) {
         this.image = AssetRepository.INSTANCE.getTexture(type);
         sprite = new Sprite(image);
         movement = new Movement();
         movement.registerObserver(observer);
+        this.health = health;
     }
 
     public Sprite getSprite() {
@@ -26,6 +29,14 @@ public class Player implements GameObject {
     @Override
     public void act(float delta) {
 
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public boolean isBorderCollision(float x, float y) {
