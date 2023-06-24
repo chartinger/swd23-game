@@ -27,7 +27,7 @@ public class Player implements GameObject {
         this.sprite = new Sprite(image);
         this.x = 0;
         this.y = 0;
-        this.speed = 40;
+        this.speed = 60;
         this.observers = new ArrayList<>();
     }
 
@@ -64,6 +64,18 @@ public class Player implements GameObject {
             }
             if (movingRight) {
                 newX += speed * delta;
+            }
+            if(newX >= 380){
+                movingRight = false;
+            }
+            if(newX <= 75){
+                movingLeft = false;
+            }
+            if(newY >= 385){
+                movingUp = false;
+            }
+            if(newY <= 100){
+                movingDown = false;
             }
 
             setPosition(newX, newY);
