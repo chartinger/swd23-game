@@ -44,6 +44,12 @@ public class Controller implements GameObservable{
 
     }
 
+    public void kill(Entity e) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            e.setPosition(e.getX() + 999999999, e.getY());
+        }
+    }
+
 
     @Override
     public void registerObserver(GameObserver gameObserver){
