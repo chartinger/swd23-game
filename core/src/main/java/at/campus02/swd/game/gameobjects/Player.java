@@ -1,5 +1,6 @@
 package at.campus02.swd.game.gameobjects;
 
+import at.campus02.swd.game.strategy.MovementStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,6 +12,10 @@ public class Player implements GameObject, Observable{
 
     private Texture image;
     private Sprite sprite;
+
+    /** Movement TEST **/
+
+    private MovementStrategy movementStrategy;
 
     private List<PositionObserver> oberservers = new ArrayList<PositionObserver>();
 

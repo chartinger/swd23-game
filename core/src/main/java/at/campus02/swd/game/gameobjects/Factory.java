@@ -1,8 +1,10 @@
 package at.campus02.swd.game.gameobjects;
 
+import java.lang.reflect.Type;
+
 public abstract class Factory {
 
-    private String type;
+    protected String type;
 
     public abstract GameObject create();
 

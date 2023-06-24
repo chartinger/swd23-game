@@ -1,6 +1,7 @@
 package at.campus02.swd.game.gameobjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.sun.org.apache.xerces.internal.util.TeeXMLDocumentFilterImpl;
 
 import java.lang.reflect.Array;
 import java.nio.file.Path;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class AssetRepository  {
 
     private Texture player;
+    private Texture enemy;
     private Texture grass;
     private Texture water;
 
@@ -57,6 +59,10 @@ public class AssetRepository  {
         return player;
     }
 
+    public Texture getTextureEnemy() {
+        return enemy;
+    }
+
     public Texture getTextureGrass() {
         return grass;
     }
@@ -74,7 +80,8 @@ public class AssetRepository  {
      */
     public void preloadAssets(){
 
-        player = new Texture("sprites/Ship parts/hullLarge (1).png");
+        player = new Texture("sprites/Ships/ship (3).png");
+        enemy = new Texture("sprites/Ships/ship (2).png");
         grass = new Texture("tiles/mapTile_022.png");
         water = new Texture("tiles/mapTile_188.png");
 
@@ -89,6 +96,7 @@ public class AssetRepository  {
     public void dispose(){
 
         player.dispose();
+        enemy.dispose();
         grass.dispose();
         water.dispose();
 

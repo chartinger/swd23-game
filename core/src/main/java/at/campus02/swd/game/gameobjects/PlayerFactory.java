@@ -10,13 +10,20 @@ public class PlayerFactory extends Factory{
      * @return: Returns created Player
      */
 
+    private String type;
+
     @Override
     public Player create() {
 
-        Player player = new Player(AssetRepository.getInstance().getTexturePlayer());
+      Player player = new Player(AssetRepository.getInstance().getTexturePlayer());
 
-        return player;
+       return player;
+
     }
+
+
+
+
 
 
 }

@@ -1,4 +1,4 @@
-package at.campus02.swd.game;
+package at.campus02.swd.game.movement;
 
 import at.campus02.swd.game.gameobjects.Player;
 

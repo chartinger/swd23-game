@@ -1,6 +1,8 @@
 package at.campus02.swd.game;
 
 import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.strategy.AttackStrategy;
+import at.campus02.swd.game.strategy.MovementStrategy;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -31,8 +33,13 @@ public class Main extends ApplicationAdapter {
 
     /** Player **/
     private PlayerFactory playerFactory = new PlayerFactory();
-    private Player player;
 
+    /** Enemy **/
+    private EnemyFactory enemyFactory = new EnemyFactory();
+    private Player player;
+    private Enemy enemy;
+    /** Attack Strategy sout TEST **/
+    MovementStrategy attackStrategy = new AttackStrategy();
     /** Für render() **/
     private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
@@ -52,20 +59,33 @@ public class Main extends ApplicationAdapter {
         Background background = new Background();
         background.fillBackground(gameObjects);
 
-        /**  Hier wird ein Spieler von einer Factory erzeugt und platziert**/
+        /**  Hier wird ein Player von einer Factory erzeugt und platziert**/
         player = playerFactory.create();
         gameObjects.add(player);
         player.setPosition(100,130);
 
+        /**  Hier wird ein Enemy von einer Factory erzeugt und platziert**/
+
+        enemy = enemyFactory.create();
+        gameObjects.add(enemy);
+        enemy.setPosition(-150,-100);
+
+        /** Attack Strategy sout TEST **/
+
+        attackStrategy.execute();
 
         /** Übung 2: Observer **/
         // Log Observer
             player.addObserver(consoleLogObserver);
             consoleLogObserver.update(player);
 
+            enemy.addObserver(consoleLogObserver);
+            consoleLogObserver.update(enemy);
+
         // CurrentPosition Observer UI
             player.addObserver(positionObserver);
                 // dass die aktelle Position gedruckt wird, passiert im render()
+        enemy.addObserver(positionObserver);
 
 
         gameInput = new GameInput(player);

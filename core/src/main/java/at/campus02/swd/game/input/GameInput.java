@@ -1,11 +1,8 @@
 package at.campus02.swd.game.input;
 
-import at.campus02.swd.game.*;
 import at.campus02.swd.game.gameobjects.Player;
-import at.campus02.swd.game.gameobjects.Tile;
+import at.campus02.swd.game.movement.*;
 import com.badlogic.gdx.InputAdapter;
-
-import javax.management.MBeanRegistration;
 
 public class GameInput extends InputAdapter {
 
