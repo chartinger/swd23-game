@@ -20,6 +20,8 @@ public class GameMap{
     private EntityFactory entityFactory;
 
     private Entity player1;
+    private Entity enemy1;
+    private Entity enemy2;
 
     private int width;
     private int height;
@@ -282,15 +284,16 @@ public class GameMap{
     }
 
     private void spawnEnemies(){
-        Entity enemy1 = entityFactory.create("enemy-black");
-        Entity enemy2 = entityFactory.create("enemy-black");
-        Entity enemy3 = entityFactory.create("enemy-black");
-        enemy1.setPosition(300,-200);
-        enemy2.setPosition(300, 0);
-        enemy3.setPosition(300, 200);
+
+        /*Entity enemy1 = entityFactory.create("enemy-black");
+        Entity enemy2 = entityFactory.create("player-black");
+        Entity enemy3 = entityFactory.create("player-black");*/
+        enemy1 = entityFactory.create("enemy-black");
+        enemy2 = entityFactory.create("enemy-black");
+        enemy1.setPosition(300,-300);
+        enemy2.setPosition(100, 250);
         entityObjects.add(enemy1);
         entityObjects.add(enemy2);
-        entityObjects.add(enemy3);
     }
 
     public ArrayList<GameObject> getTerrainObjects(){
@@ -308,10 +311,17 @@ public class GameMap{
         return player1;
     }
 
+
     public void entityDetector(){
         enemyProximtyDetector.detect();
     }
+    
+    public Entity getEnemy1() {
+        return enemy1;
+    }
 
-
+    public Entity getEnemy2() {
+        return enemy2;
+    }
 
 }
