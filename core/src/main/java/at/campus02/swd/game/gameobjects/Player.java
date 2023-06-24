@@ -65,16 +65,16 @@ public class Player implements GameObject {
             if (movingRight) {
                 newX += speed * delta;
             }
-            if(newX >= 380){
+            if(newX >= 375){
                 movingRight = false;
             }
-            if(newX <= 75){
+            if(newX <= 85){
                 movingLeft = false;
             }
-            if(newY >= 380){
+            if(newY >= 385){
                 movingUp = false;
             }
-            if(newY <= 100){
+            if(newY <= 105){
                 movingDown = false;
             }
 

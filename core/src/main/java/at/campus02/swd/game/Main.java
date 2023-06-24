@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import at.campus02.swd.game.input.GameInput;
 
+import java.util.Random;
+
 public class Main extends ApplicationAdapter implements InputProcessor {
     private SpriteBatch batch;
     private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
@@ -28,6 +30,8 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private float deltaAccumulator = 0;
     private BitmapFont font;
     private Player player;
+    private Enemy enemy1;
+    private Enemy enemy2;
     private Table uiTable;
     private Label positionLabel;
 
@@ -39,6 +43,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         batch = new SpriteBatch();
 
         PlayerFactory playerFactory = new PlayerFactory();
+        EnemyFactory enemyFactory = new EnemyFactory();
 
         MeadowBuilder mb = new MeadowBuilder();
         for (GameObject o : mb.placeTile(80, 80, 5, 5)) {
@@ -47,6 +52,27 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
         player = (Player) playerFactory.create(Type.PLAYER, 235, 235);
         gameObjects.add(player);
+
+
+        //Enemy spawn at random position
+        int max = 370;
+        int min = 100;
+        int range = max - min + 1;
+        int randX = 0;
+        int randY = 0;
+
+        randX = (int) (Math.random() * range) + min;
+        randY = (int) (Math.random() * range) + min;
+
+        enemy1 = (Enemy) enemyFactory.create(Type.ENEMY1, randX, randY);
+        gameObjects.add(enemy1);
+
+        randX = (int) (Math.random() * range) + min;
+        randY = (int) (Math.random() * range) + min;
+
+        enemy2 = (Enemy) enemyFactory.create(Type.ENEMY2, randX, randY);
+        gameObjects.add(enemy2);
+
 
         gameInput = new GameInput(player);
 
@@ -107,6 +133,8 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         }
 
         player.act(delta);
+        enemy1.act(delta);
+        enemy2.act(delta);
 
         draw();
 

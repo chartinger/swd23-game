@@ -13,10 +13,6 @@ public class GameInput extends InputAdapter {
         Gdx.input.setInputProcessor(this);
     }
 
-    public GameInput() {
-
-    }
-
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {

@@ -9,7 +9,7 @@ public class PlayerFactory extends Factory{
             GameObject player;
             switch (type){
                 case PLAYER:
-                    player = new Player("sprites/ship parts/crew (6).png");
+                    player = new Player("sprites/Ship parts/crew (1).png");
                     break;
                 default:
                     throw  new IllegalArgumentException("Kein PlayerObject gefunden");
