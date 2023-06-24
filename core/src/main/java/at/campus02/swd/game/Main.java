@@ -50,7 +50,7 @@ public class Main extends ApplicationAdapter {
     /**
      * Attack Strategy sout TEST
      **/
-    private MovementStrategy attackStrategy = new AttackStrategy();
+    //private MovementStrategy attackStrategy = new AttackStrategy();
     /**
      * Für render()
      **/
@@ -80,7 +80,7 @@ public class Main extends ApplicationAdapter {
         createEnemies();
 
         /** Attack Strategy sout TEST **/
-        attackStrategy.execute();
+       // attackStrategy.execute();
 
         /** Übung 2: Observer **/
         // Log Observer
@@ -96,7 +96,7 @@ public class Main extends ApplicationAdapter {
         enemy.addObserver(positionObserver);
 
 
-        gameInput = new GameInput(player);
+        gameInput = new GameInput(player, enemy);
 
         sign = new Sign();
         gameObjects.add(sign);

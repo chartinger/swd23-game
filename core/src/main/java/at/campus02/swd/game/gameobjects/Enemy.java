@@ -12,6 +12,8 @@ public class Enemy implements GameObject, Observable {
     private Texture image;
     private Sprite sprite;
 
+    private boolean isliving = true; // Für die Angirffsfunktion die man dann in der Player Klasse finden wird
+
     private List<PositionObserver> oberservers = new ArrayList<PositionObserver>();
 
 
@@ -57,5 +59,11 @@ public class Enemy implements GameObject, Observable {
         sprite.draw(batch);
     }
 
+    public boolean getIsliving() {
+        return isliving;
+    }
 
+    public void setIsliving(boolean isliving) {
+        this.isliving = isliving;
+    }
 }
