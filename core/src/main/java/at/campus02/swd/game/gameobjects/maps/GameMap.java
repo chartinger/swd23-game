@@ -1,7 +1,9 @@
 package at.campus02.swd.game.gameobjects.maps;
 
 import at.campus02.swd.game.EnemyProximtyDetector;
+import at.campus02.swd.game.StrategyDetector;
 import at.campus02.swd.game.gameobjects.GameObject;
+import at.campus02.swd.game.gameobjects.entities.Enemy;
 import at.campus02.swd.game.gameobjects.entities.Entity;
 import at.campus02.swd.game.gameobjects.entities.Player;
 import at.campus02.swd.game.gameobjects.factories.EntityFactory;
@@ -27,6 +29,7 @@ public class GameMap{
     private int height;
 
     private EnemyProximtyDetector enemyProximtyDetector;
+    private StrategyDetector strategyDetector;
 
     public GameMap(){
         terrainObjects = new ArrayList<>();
@@ -48,6 +51,7 @@ public class GameMap{
         spawnEnemies();
 
         enemyProximtyDetector = new EnemyProximtyDetector(entityObjects,(Player) player1);
+        strategyDetector = new StrategyDetector(entityObjects,(Player)player1);
     }
 
     private void water(){
@@ -315,7 +319,10 @@ public class GameMap{
     public void entityDetector(){
         enemyProximtyDetector.detect();
     }
-    
+    public void strategyDetector(){
+        strategyDetector.detect();
+    }
+
     public Entity getEnemy1() {
         return enemy1;
     }

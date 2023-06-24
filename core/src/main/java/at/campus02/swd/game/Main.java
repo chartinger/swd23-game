@@ -83,6 +83,7 @@ public class Main extends ApplicationAdapter {
 		}
         gameMap.getPlayer1().update();
         gameMap.entityDetector();
+        gameMap.strategyDetector();
         gameMap.getEnemy1().update();
         gameMap.getEnemy2().update();
 		draw();

@@ -20,6 +20,7 @@ public class Player extends Entity{
     @Override
     public void update(){
         controller.readKeyPress();
+        controller.kill(enemyDetected);
     }
 
     public void setBoolEnemyDetected(boolean enemyDetected){

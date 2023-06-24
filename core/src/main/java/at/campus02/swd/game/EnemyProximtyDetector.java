@@ -32,11 +32,12 @@ public class EnemyProximtyDetector{
                     System.out.println("proximity detected!");
                     player.setBoolEnemyDetected(true);
                     player.setEnemyDetected(e);
-                    e.setSpriteColor();
+                    e.setSpriteColorRed();
                 }
             }
             else{
                 player.setBoolEnemyDetected(false);
+                e.setSpriteColorOrig();
             }
 
 

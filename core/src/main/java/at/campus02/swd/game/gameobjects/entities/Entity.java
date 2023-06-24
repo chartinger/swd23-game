@@ -14,10 +14,11 @@ import java.util.ArrayList;
 public abstract class Entity implements GameObject, GameObservable{
     private Sprite sprite;
 
-    protected int health;
     protected int speed;
 
     public String entityType;
+
+    private Color defaultColor;
 
     public EntityPositionGameObserver entityPositionGameObserver;
 
@@ -28,12 +29,14 @@ public abstract class Entity implements GameObject, GameObservable{
         gameObservers = new ArrayList<>();
         entityPositionGameObserver = new EntityPositionGameObserver(this);
         registerObserver(entityPositionGameObserver);
+        defaultColor = sprite.getColor();
     }
     public Entity(String spritePath, int x, int y) {
         this.sprite = new Sprite(new Texture(spritePath));
         gameObservers = new ArrayList<>();
         entityPositionGameObserver = new EntityPositionGameObserver(this);
         registerObserver(entityPositionGameObserver);
+        defaultColor = sprite.getColor();
     }
 
     @Override
@@ -72,8 +75,12 @@ public abstract class Entity implements GameObject, GameObservable{
 
     }
 
-    public void setSpriteColor(){
+    public void setSpriteColorRed(){
         sprite.setColor(Color.RED);
     }
+    public void setSpriteColorOrig(){
+        sprite.setColor(Color.LIGHT_GRAY);
+    }
+
 
 }
