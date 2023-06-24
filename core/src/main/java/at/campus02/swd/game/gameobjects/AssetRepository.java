@@ -30,31 +30,6 @@ public class AssetRepository  {
         return instance;
     }
 
-
-   /* public void preloadAssets(){
-
-        ArrayList<Texture> textures = new ArrayList<>();
-        ArrayList<String> paths = new ArrayList<>();
-
-        for ( Path path : Paths.get("/assets")) {
-
-            String texturePath = path.toString();
-            paths.add(texturePath);
-        }
-
-        for (String path : paths) {
-
-            Texture texture = new Texture(path);
-            textures.add(texture);
-
-        }
-
-        if (textures.size() == 0){
-            // System.setErr("Keine Texturen gefunden");
-        }
-
-    } */ // alte public void preloadAssets() --> was soll hier passieren?
-
     public Texture getTexturePlayer() {
         return player;
     }

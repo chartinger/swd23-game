@@ -10,7 +10,10 @@ public interface PositionObserver {
 
     // diese Methoden eigentlich nicht mehr notwendig
     float updateX(Observable observable);
+
     float updateX(float x);
+
     float updateY(Observable observable);
+
     float updateY(float y);
 }

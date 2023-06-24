@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemy implements GameObject, Observable{
+public class Enemy implements GameObject, Observable {
 
     private Texture image;
     private Sprite sprite;
@@ -39,15 +39,15 @@ public class Enemy implements GameObject, Observable{
         sprite.setPosition(x, y);
 
         for (PositionObserver oberserver : oberservers) {
-            oberserver.update(getPositionX(),getPositionY());
+            oberserver.update(getPositionX(), getPositionY());
         }
     }
 
-    public float getPositionX(){
-       return sprite.getX();
+    public float getPositionX() {
+        return sprite.getX();
     }
 
-    public float getPositionY(){
+    public float getPositionY() {
         return sprite.getY();
     }
 

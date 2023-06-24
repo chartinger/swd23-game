@@ -6,14 +6,14 @@ public class MoveLeftCommand implements Command {
 
     private Player player;
 
-    public void MoveLeftCommand(Player player){
+    public void MoveLeftCommand(Player player) {
         this.player = player;
     }
 
     @Override
     public void execute() {
         float move = 20.0f;
-        player.setPosition(player.getPositionX()- move, player.getPositionY());
+        player.setPosition(player.getPositionX() - move, player.getPositionY());
     }
 
 

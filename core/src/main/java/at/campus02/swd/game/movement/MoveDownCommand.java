@@ -2,13 +2,14 @@ package at.campus02.swd.game.movement;
 
 import at.campus02.swd.game.gameobjects.Player;
 
-public class MoveDownCommand implements Command{
+public class MoveDownCommand implements Command {
 
-    public void MoveDownCommand(Player player){};
+    public void MoveDownCommand(Player player) {
+    }
 
     private Player player;
 
-    public void MoveUpCommand(Player player){
+    public void MoveUpCommand(Player player) {
         this.player = player;
     }
 
@@ -18,10 +19,8 @@ public class MoveDownCommand implements Command{
         player.setPosition(player.getPositionX(), player.getPositionY() - move);
     }
 
-
     public MoveDownCommand(Player player) {
         this.player = player;
     }
-
 
 }

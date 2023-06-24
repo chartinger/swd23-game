@@ -42,7 +42,7 @@ public class UIPositionObserver implements PositionObserver {
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
-        fontPlayerPosition.draw(batch, "Spieler Position: " + positions, -220, -220);
+        fontPlayerPosition.draw(batch, "Spielerposition: " + positions, -220, -220);
         batch.end();
     }
 

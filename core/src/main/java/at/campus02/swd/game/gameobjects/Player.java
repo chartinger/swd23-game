@@ -8,16 +8,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements GameObject, Observable{
+public class Player implements GameObject, Observable {
 
     private Texture image;
     private Sprite sprite;
 
-    /** Movement TEST **/
+    /**
+     * Movement TEST
+     **/
 
     private MovementStrategy movementStrategy;
 
-    private List<PositionObserver> oberservers = new ArrayList<PositionObserver>();
+    private List<PositionObserver> observers = new ArrayList<PositionObserver>();
 
 
     public Player(Texture image) {
@@ -27,11 +29,11 @@ public class Player implements GameObject, Observable{
 
 
     public void addObserver(PositionObserver obs) {
-        this.oberservers.add(obs);
+        this.observers.add(obs);
     }
 
     public void removeObserver(PositionObserver obs) {
-        this.oberservers.remove(obs);
+        this.observers.remove(obs);
     }
 
 
@@ -43,16 +45,16 @@ public class Player implements GameObject, Observable{
     public void setPosition(float x, float y) {
         sprite.setPosition(x, y);
 
-        for (PositionObserver oberserver : oberservers) {
-            oberserver.update(getPositionX(),getPositionY());
+        for (PositionObserver observer : observers) {
+            observer.update(getPositionX(), getPositionY());
         }
     }
 
-    public float getPositionX(){
-       return sprite.getX();
+    public float getPositionX() {
+        return sprite.getX();
     }
 
-    public float getPositionY(){
+    public float getPositionY() {
         return sprite.getY();
     }
 

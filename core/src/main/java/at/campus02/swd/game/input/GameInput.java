@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputAdapter;
 
 public class GameInput extends InputAdapter {
 
-
     private Player player;
     private Command moveUpCommand;
     private Command moveDownCommand;
@@ -23,32 +22,29 @@ public class GameInput extends InputAdapter {
 
 
     @Override
-        public boolean keyDown(int keycode) {
-            switch (keycode) {
-                case 19:
-                    System.out.println(keycode);
-                    moveUpCommand.execute();
-                    break;
-                case 20:
-                    System.out.println(keycode);
-                    moveDownCommand.execute();
-                    break;
-                case 21:
-                    System.out.println(keycode);
-                    moveLeftCommand.execute();
-                    break;
-                case 22:
-                    System.out.println(keycode);
-                    moveRightCommand.execute();
-                    break;
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case 19:
+                System.out.println(keycode);
+                moveUpCommand.execute();
+                break;
+            case 20:
+                System.out.println(keycode);
+                moveDownCommand.execute();
+                break;
+            case 21:
+                System.out.println(keycode);
+                moveLeftCommand.execute();
+                break;
+            case 22:
+                System.out.println(keycode);
+                moveRightCommand.execute();
+                break;
 
-                default:
-                    break;
+            default:
+                break;
 
-            }
-            return true;
         }
-
-
-
+        return true;
+    }
 }

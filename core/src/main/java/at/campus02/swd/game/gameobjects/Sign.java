@@ -12,6 +12,7 @@ public class Sign implements GameObject {
         image = new Texture("sign.png");
         sprite = new Sprite(image);
     }
+
     @Override
     public void act(float delta) {
 

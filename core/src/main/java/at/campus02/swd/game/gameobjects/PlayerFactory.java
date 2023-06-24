@@ -3,7 +3,7 @@ package at.campus02.swd.game.gameobjects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 
-public class PlayerFactory extends Factory{
+public class PlayerFactory extends Factory {
     /**
      * Creates and Initializes a Player
      *
@@ -15,15 +15,8 @@ public class PlayerFactory extends Factory{
     @Override
     public Player create() {
 
-      Player player = new Player(AssetRepository.getInstance().getTexturePlayer());
+        Player player = new Player(AssetRepository.getInstance().getTexturePlayer());
 
-       return player;
-
+        return player;
     }
-
-
-
-
-
-
 }
