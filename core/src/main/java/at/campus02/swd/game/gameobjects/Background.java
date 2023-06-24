@@ -24,7 +24,7 @@ public class Background {
         for (int xAxis = X_START; xAxis < X_LENGTH; xAxis += PICTURE_SIZE) {
             for (int yAxis = Y_START; yAxis > Y_LENGTH; yAxis -= PICTURE_SIZE) {
 
-                if (yAxis > 50){
+                if (yAxis > -150){
 
                     Tile tile = factory.createWasser();
                     tile.setPosition(xAxis,yAxis);

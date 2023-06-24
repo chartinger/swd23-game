@@ -92,7 +92,7 @@ public class Main extends ApplicationAdapter {
 
         sign = new Sign();
         gameObjects.add(sign);
-        sign.setPosition(100,100);
+        sign.setPosition(100,-160);
 
 
         Gdx.input.setInputProcessor(this.gameInput);
