@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Observable;
+
 
 public class RandomTile implements GameObject {
     private Texture image;
@@ -60,4 +62,9 @@ public class RandomTile implements GameObject {
     public void moveRight() {
 
     }
+
+
+
+
+
 }

@@ -44,19 +44,19 @@ public class GameInput extends InputAdapter {
         switch (keycode) {
             case Input.Keys.UP:
                 isMovingUp = true;
-                moveUpCommand.execute(player);
+               // moveUpCommand.execute(player);
                 return true;
             case Input.Keys.DOWN:
                 isMovingDown = true;
-                moveDownCommand.execute(player);
+               // moveDownCommand.execute(player);
                 return true;
             case Input.Keys.LEFT:
                 isMovingLeft = true;
-                moveLeftCommand.execute(player);
+                //moveLeftCommand.execute(player);
                 return true;
             case Input.Keys.RIGHT:
                 isMovingRight = true;
-                moveRightCommand.execute(player);
+               // moveRightCommand.execute(player);
                 return true;
             default:
                 return false;

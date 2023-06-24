@@ -5,17 +5,18 @@ import at.campus02.swd.game.gameobjects.FactoryMethod;
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.PlayerBoy;
 import at.campus02.swd.game.input.*;
+import at.campus02.swd.game.observer.ConsoleObserver;
+import at.campus02.swd.game.observer.UIObserver;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import java.util.Observer;
+import java.util.Observable;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -30,6 +31,8 @@ public class Main extends ApplicationAdapter {
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
+    private UIObserver uiObserver;
+
 
     private AssetRepository repository = AssetRepository.getInstance();
 
@@ -91,8 +94,16 @@ public class Main extends ApplicationAdapter {
         gameInput.setMoveRightCommand(moveRightCommand);
 
 
-    InputObservable inputObservable = InputObservable.getInstance();
-    InputObserver inputObserver = new InputObserver(pb);
+        //Observer:
+        ConsoleObserver consoleObserver = new ConsoleObserver();
+        ((Observable) pb).addObserver(consoleObserver);
+
+        //UI Observer
+        BitmapFont font = new BitmapFont();
+        font.setColor(Color.WHITE);
+        UIObserver uiObserver = new UIObserver(font);
+        ((Observable) pb).addObserver(uiObserver);
+
 
 
 	}
@@ -111,6 +122,7 @@ public class Main extends ApplicationAdapter {
 		}
 		font.draw(batch, "Hello Game", -220, -220);
 		batch.end();
+       // uiObserver.drawPlayerPosition(uiObserver.getX(), uiObserver.getY());
 	}
 
 	@Override

@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Tile implements GameObject{
+import java.util.Observable;
+
+public class Tile  implements GameObject{
 
     private Texture image;
     private Sprite sprite;
@@ -31,7 +33,6 @@ public class Tile implements GameObject{
 
     @Override
     public void moveUp() {
-
     }
 
     @Override
@@ -42,10 +43,13 @@ public class Tile implements GameObject{
     @Override
     public void moveLeft() {
 
+
     }
 
     @Override
     public void moveRight() {
 
     }
+
+
 }
