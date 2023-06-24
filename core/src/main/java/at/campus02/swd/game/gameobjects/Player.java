@@ -71,7 +71,7 @@ public class Player implements GameObject {
             if(newX <= 75){
                 movingLeft = false;
             }
-            if(newY >= 385){
+            if(newY >= 380){
                 movingUp = false;
             }
             if(newY <= 100){
