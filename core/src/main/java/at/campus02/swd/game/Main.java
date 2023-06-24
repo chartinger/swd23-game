@@ -82,6 +82,8 @@ public class Main extends ApplicationAdapter {
 			act(logicFrameTime);
 		}
         gameMap.getPlayer1().update();
+        gameMap.getEnemy1().update();
+        gameMap.getEnemy2().update();
 		draw();
 
 	}

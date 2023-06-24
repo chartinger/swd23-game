@@ -284,8 +284,8 @@ public class GameMap{
         Entity enemy3 = entityFactory.create("player-black");*/
         enemy1 = entityFactory.create("enemy-black");
         enemy2 = entityFactory.create("enemy-black");
-        enemy1.setPosition(300,-200);
-        enemy2.setPosition(300, 0);
+        enemy1.setPosition(300,-300);
+        enemy2.setPosition(100, 250);
         entityObjects.add(enemy1);
         entityObjects.add(enemy2);
     }
