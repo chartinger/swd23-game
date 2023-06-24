@@ -5,6 +5,5 @@ public class AttackStrategy implements MovementStrategy {
     public void execute() {
 
         System.out.println("Attack Enemy");
-        enemy = enemyFactory.create();
     }
 }
