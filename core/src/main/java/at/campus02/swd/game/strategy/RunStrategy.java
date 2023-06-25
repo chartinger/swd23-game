@@ -1,8 +1,6 @@
 package at.campus02.swd.game.strategy;
 
-import at.campus02.swd.game.gameobjects.Enemy;
 import at.campus02.swd.game.gameobjects.Entity;
-import at.campus02.swd.game.gameobjects.Player;
 
 public class RunStrategy implements Strategy {
 
@@ -16,6 +14,16 @@ public class RunStrategy implements Strategy {
     public void execute(Entity target) {
         float enemyPosX = entity.getSprite().getX();
         float enemyPosY = entity.getSprite().getY();
-        this.entity.move(5f, 0);
+        float targetPosX = target.getSprite().getX();
+        float targetPosY = target.getSprite().getY();
+
+        if (enemyPosY == targetPosY) {
+            float dy = targetPosY > enemyPosY ? -1f : 1f;
+            entity.move(0, dy);
+            return;
+        }
+
+        float dx = targetPosX > enemyPosX ? -1f : 1f;
+        entity.move(dx, 0);
     }
 }

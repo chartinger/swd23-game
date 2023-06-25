@@ -5,7 +5,7 @@ import at.campus02.swd.game.gameobjects.AssetRepository;
 import at.campus02.swd.game.gameobjects.Enemy;
 import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.Player;
-import at.campus02.swd.game.input.GameInput;
+import at.campus02.swd.game.strategy.input.GameInput;
 import at.campus02.swd.game.observer.UIPositionObserver;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -65,9 +65,11 @@ public class Main extends ApplicationAdapter {
         Enemy enemy = (Enemy) entityFactory.create(Type.ENEMY, 30, 40, 90);
         enemy.setTarget(player);
         gameObjects.add(enemy);
+        player.addEnemy(enemy);
         enemy = (Enemy) entityFactory.create(Type.ENEMY, 30, 400, 90);
         enemy.setTarget(player);
         gameObjects.add(enemy);
+        player.addEnemy(enemy);
         gameInput = new GameInput(player);
 
 

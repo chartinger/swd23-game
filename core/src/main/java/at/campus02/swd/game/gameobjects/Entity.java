@@ -9,9 +9,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Entity implements GameObject {
     private final Movement movement;
-    private Texture image;
-    private Sprite sprite;
+    private final Texture image;
+    private final Sprite sprite;
     private int health;
+
+    public abstract void act(float delta);
+
+    public abstract void attack();
+
+    public abstract int getDamage();
 
     public Entity(Type type, PositionObserver observer, int health) {
         this.image = AssetRepository.INSTANCE.getTexture(type);
@@ -25,14 +31,16 @@ public abstract class Entity implements GameObject {
         return sprite;
     }
 
-    public abstract void act(float delta);
-
     public int getHealth() {
         return health;
     }
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public void getAttacked(int damage) {
+        this.health -= damage;
     }
 
     public static boolean isBorderCollision(float x, float y) {
