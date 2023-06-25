@@ -1,11 +1,8 @@
 package at.campus02.swd.game.input;
 
-import at.campus02.swd.game.factory.PlayerFactory;
-import at.campus02.swd.game.gameobjects.IslandTile;
 import at.campus02.swd.game.gameobjects.Player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameInput extends InputAdapter {
 

@@ -1,7 +1,7 @@
 package at.campus02.swd.game.strategy;
 
-import at.campus02.swd.game.gameobjects.Player;
+import at.campus02.swd.game.gameobjects.Entity;
 
 public interface Strategy {
-    void execute(Player player);
+    void execute(Entity entity);
 }

@@ -2,7 +2,10 @@ package at.campus02.swd.game;
 
 import at.campus02.swd.game.factory.*;
 import at.campus02.swd.game.gameobjects.AssetRepository;
+import at.campus02.swd.game.gameobjects.Enemy;
+import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.Player;
+import at.campus02.swd.game.input.GameInput;
 import at.campus02.swd.game.observer.UIPositionObserver;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -14,9 +17,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.input.GameInput;
 
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
@@ -45,29 +45,30 @@ public class Main extends ApplicationAdapter {
         camera.position.set(viewport.getWorldWidth() / 2, viewport.getWorldHeight() / 2, 0);
         camera.update();
         Factory tileFactory = new TileFactory();
-        PlayerFactory playerFactory = new PlayerFactory();
+        EntityFactory entityFactory = new EntityFactory();
         int tileSize = 48;
         for (int i = 0; i < (viewport.getMinWorldHeight() / tileSize); i++) {
             for (int j = 0; j < (viewport.getMinWorldHeight() / tileSize); j++) {
                 int tileX = i * tileSize;
                 int tileY = j * tileSize;
-                gameObjects.add(tileFactory.create(Type.WATER,tileX,tileY,0));
+                gameObjects.add(tileFactory.create(Type.WATER, tileX, tileY, 0));
             }
         }
 
         IslandBuilder ib = new IslandBuilder();
-        for (GameObject o:ib.placeIsland(200,200,6,4)
-             ) {
+        for (GameObject o : ib.placeIsland(200, 200, 6, 4)) {
             gameObjects.add(o);
         }
-        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240,0));
-        gameObjects.add(playerFactory.create(Type.ENEMY,30,40,90));
-        gameObjects.add(playerFactory.create(Type.ENEMY,30,400,90));
-        player = (Player) playerFactory.create(Type.HUMAN,540,100,270);
+        gameObjects.add(tileFactory.create(Type.SIGN, 250, 240, 0));
+        player = (Player) entityFactory.create(Type.HUMAN, 540, 100, 270);
         gameObjects.add(player);
+        Enemy enemy = (Enemy) entityFactory.create(Type.ENEMY, 30, 40, 90);
+        enemy.setTarget(player);
+        gameObjects.add(enemy);
+        enemy = (Enemy) entityFactory.create(Type.ENEMY, 30, 400, 90);
+        enemy.setTarget(player);
+        gameObjects.add(enemy);
         gameInput = new GameInput(player);
-
-
 
 
         font = new BitmapFont();
@@ -99,15 +100,15 @@ public class Main extends ApplicationAdapter {
             gameObject.draw(batch);
         }
         UIPositionObserver uiPositionObserver = new UIPositionObserver();
-        uiPositionObserver.updatePosition(player.getSprite().getX(),player.getSprite().getY(),player.getSprite().getRotation());
+        uiPositionObserver.updatePosition(player.getSprite().getX(), player.getSprite().getY(), player.getSprite().getRotation());
         onScreenPos = uiPositionObserver.getPos();
 
-       GlyphLayout layout = new GlyphLayout();
-       layout.setText(font, onScreenPos);
-       float textWidth = layout.width;
-       float textX = 0;
-       float textY = viewport.getWorldHeight();
-       font.draw(batch, onScreenPos, textX, textY);
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(font, onScreenPos);
+        float textWidth = layout.width;
+        float textX = 0;
+        float textY = viewport.getWorldHeight();
+        font.draw(batch, onScreenPos, textX, textY);
         batch.end();
     }
 

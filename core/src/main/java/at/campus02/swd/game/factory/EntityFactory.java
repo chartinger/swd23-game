@@ -5,10 +5,9 @@ import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.Player;
 import at.campus02.swd.game.observer.EnemyPositionObserver;
 import at.campus02.swd.game.observer.HumanPositionObserver;
-import com.badlogic.gdx.graphics.Texture;
 
 
-public class PlayerFactory extends Factory {
+public class EntityFactory extends Factory {
 
 
     @Override
@@ -16,10 +15,10 @@ public class PlayerFactory extends Factory {
         GameObject player;
         switch (type) {
             case HUMAN:
-                player = new Player(Type.HUMAN, new HumanPositionObserver(),100);
+                player = new Player(Type.HUMAN, new HumanPositionObserver(), 100);
                 break;
             case ENEMY:
-                player = new Enemy(Type.ENEMY, new EnemyPositionObserver(),50);
+                player = new Enemy(Type.ENEMY, new EnemyPositionObserver(), 50);
                 break;
             default:
                 throw new IllegalArgumentException("Value is invalid: " + type);
