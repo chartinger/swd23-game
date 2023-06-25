@@ -94,6 +94,7 @@ public class Main extends ApplicationAdapter {
         gameInput.setMoveRightCommand(moveRightCommand);
 
 
+
         //Observer:
         ConsoleObserver consoleObserver = new ConsoleObserver();
         ((Observable) pb).addObserver(consoleObserver);
@@ -101,7 +102,7 @@ public class Main extends ApplicationAdapter {
         //UI Observer
         BitmapFont font = new BitmapFont();
         font.setColor(Color.WHITE);
-        UIObserver uiObserver = new UIObserver(font);
+       this.uiObserver = new UIObserver(font);
         ((Observable) pb).addObserver(uiObserver);
 
 
@@ -122,7 +123,7 @@ public class Main extends ApplicationAdapter {
 		}
 		font.draw(batch, "Hello Game", -220, -220);
 		batch.end();
-       // uiObserver.drawPlayerPosition(uiObserver.getX(), uiObserver.getY());
+       uiObserver.drawPlayerPosition(uiObserver.getX(), uiObserver.getY());
 	}
 
 	@Override
