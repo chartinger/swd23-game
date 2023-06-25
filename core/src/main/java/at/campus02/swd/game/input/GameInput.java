@@ -18,7 +18,6 @@ public class GameInput extends InputAdapter {
     private Command moveLeftCommand;
     private Command moveRightCommand;
 
-    private MovementStrategy attackStrategy;
 
     public GameInput(Player player, Enemy enemy) {
         this.player = player;
@@ -27,7 +26,6 @@ public class GameInput extends InputAdapter {
         this.moveDownCommand = new MoveDownCommand(player);
         this.moveLeftCommand = new MoveLeftCommand(player);
         this.moveRightCommand = new MoveRightCommand(player);
-        this.attackStrategy = new AttackStrategy(enemy,player);
 
     }
 
@@ -38,22 +36,18 @@ public class GameInput extends InputAdapter {
             case 19:
                 System.out.println(keycode);
                 moveUpCommand.execute();
-                attackStrategy.execute();
                 break;
             case 20:
                 System.out.println(keycode);
                 moveDownCommand.execute();
-                attackStrategy.execute();
                 break;
             case 21:
                 System.out.println(keycode);
                 moveLeftCommand.execute();
-                attackStrategy.execute();
                 break;
             case 22:
                 System.out.println(keycode);
                 moveRightCommand.execute();
-                attackStrategy.execute();
                 break;
 
             default:

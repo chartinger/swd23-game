@@ -1,5 +1,6 @@
 package at.campus02.swd.game.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,9 +12,8 @@ public class UIPositionObserver implements PositionObserver {
     private final SpriteBatch batch;
     private final ExtendViewport viewport;
     private String positions;
+    private final BitmapFont fontPlayerPosition;
 
-
-    // Geändert zu Observable --> Vorbereitung Übung 3 --> Gegner
     @Override
     public void update(Observable observable) {
         currentX = observable.getPositionX();
@@ -34,23 +34,24 @@ public class UIPositionObserver implements PositionObserver {
         draw();
     }
 
-
     public void draw() {
-        BitmapFont fontPlayerPosition;
-        fontPlayerPosition = new BitmapFont();
-        fontPlayerPosition.setColor(Color.WHITE);
-
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.begin();
-        fontPlayerPosition.draw(batch, "Spielerposition: " + positions, -220, -220);
-        batch.end();
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                batch.setProjectionMatrix(viewport.getCamera().combined);
+                batch.begin();
+                fontPlayerPosition.draw(batch, "Spielerposition: " + positions, -220, -220);
+                batch.end();
+            }
+        });
     }
-
 
     public UIPositionObserver(SpriteBatch batch, ExtendViewport viewport) {
         this.batch = batch;
         this.viewport = viewport;
         this.positions = "";
+        this.fontPlayerPosition = new BitmapFont();
+        this.fontPlayerPosition.setColor(Color.WHITE);
     }
 
 
@@ -82,6 +83,14 @@ public class UIPositionObserver implements PositionObserver {
 
     public String getPositions() {
         return positions;
+    }
+
+    public float getCurrentX() {
+        return currentX;
+    }
+
+    public float getCurrentY() {
+        return currentY;
     }
 }
 

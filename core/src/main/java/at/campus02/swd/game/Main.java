@@ -50,7 +50,8 @@ public class Main extends ApplicationAdapter {
     /**
      * Attack Strategy sout TEST
      **/
-    //private MovementStrategy attackStrategy = new AttackStrategy();
+    private MovementStrategy attackStrategy = new AttackStrategy();
+
     /**
      * Für render()
      **/
@@ -80,8 +81,7 @@ public class Main extends ApplicationAdapter {
         createEnemies();
 
         /** Attack Strategy sout TEST **/
-       // attackStrategy.execute();
-
+        // attackStrategy.execute();
         /** Übung 2: Observer **/
         // Log Observer
         player.addObserver(consoleLogObserver);
@@ -104,6 +104,10 @@ public class Main extends ApplicationAdapter {
 
 
         Gdx.input.setInputProcessor(this.gameInput);
+
+        // ÜBUNG3: MovementStrategy
+        enemy.setStrategy(attackStrategy);
+        enemy.executeStrategy(positionObserver);
 
     }
 
