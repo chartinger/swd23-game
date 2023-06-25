@@ -13,8 +13,7 @@ public class Game {
     private final Set<BudgetObserver> budgetObservers = new HashSet<>();
     private final Set<MovementObserver> movementObservers = new HashSet<>();
     private final Set<FloorObserver> floorObservers = new HashSet<>();
-    private final List<ThreatStrategy> threatStrategies = new ArrayList<>();
-    private ThreatStrategy activeStrategy = null;
+    private ThreatStrategy threat;
     private final Map<DefenceType, DefenceStrategy> defenceStrategies = new HashMap<>();
 
     private final Board board;
@@ -100,25 +99,12 @@ public class Game {
     }
 
 
-    public void addThreat(ThreatStrategy.Builder damageProvider) {
-        threatStrategies.add(damageProvider.forBoard(board));
-    }
-
-    public void setActiveThreat(int strategyIndex) {
-        if (strategyIndex >= threatStrategies.size())
-            return;
-        activeStrategy = threatStrategies.get(strategyIndex);
-    }
-
-    public void activateAllThreats() {
-        activeStrategy = null;
+    public void setThreat(ThreatStrategy.Builder damageProvider) {
+        this.threat = damageProvider.forBoard(board);
     }
 
     private void attackPlayer() {
-        if (activeStrategy != null)
-            examineDamage(activeStrategy);
-        else
-            threatStrategies.forEach(this::examineDamage);
+        examineDamage(threat);
     }
 
     private void examineDamage(ThreatStrategy damageProvider) {

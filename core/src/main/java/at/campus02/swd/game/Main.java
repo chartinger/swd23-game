@@ -8,11 +8,10 @@ import at.campus02.swd.game.game.FloorObserver.Action;
 import at.campus02.swd.game.defences.Direction;
 import at.campus02.swd.game.defences.RepairBomb;
 import at.campus02.swd.game.defences.RepairGun;
+import at.campus02.swd.game.game.ThreatStrategy;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.reporting.ScoreBoard;
-import at.campus02.swd.game.threats.AmplifiedEdgeDamage;
-import at.campus02.swd.game.threats.NoDamage;
-import at.campus02.swd.game.threats.RandomFloorDestroyer;
+import at.campus02.swd.game.threats.*;
 import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -26,7 +25,13 @@ import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-    public static final int BUDGET = 3;
+    private static final int BUDGET = 3;
+    private static final ThreatStrategy.Builder EMPTY_THREAT = NoDamage.builder();
+    private static final ThreatStrategy.Builder RANDOM_THREAT = RandomFloorDestroyer.withTilesPerRound(3);
+    private static final ThreatStrategy.Builder ORGANIC_THREAT = AmplifiedEdgeDamage.withTilesPerRound(11);
+    private static final ThreatStrategy.Builder CARNAGE = ThreatPackage
+        .withThreat(RANDOM_THREAT)
+        .andThreat(ORGANIC_THREAT);
 
     private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
     private SpriteBatch batch;
@@ -74,10 +79,10 @@ public class Main extends ApplicationAdapter {
         gameInput.addAction(Keys.RIGHT, game::moveEast);
         gameInput.addAction(Keys.ESCAPE, this::startNewGame);
         gameInput.addAction(Keys.Q, Gdx.app::exit);
-        gameInput.addAction(Keys.NUM_0, () -> game.setActiveThreat(0));
-        gameInput.addAction(Keys.NUM_1, () -> game.setActiveThreat(1));
-        gameInput.addAction(Keys.NUM_2, () -> game.setActiveThreat(2));
-        gameInput.addAction(Keys.X, game::activateAllThreats);
+        gameInput.addAction(Keys.NUM_0, () -> game.setThreat(EMPTY_THREAT));
+        gameInput.addAction(Keys.NUM_1, () -> game.setThreat(RANDOM_THREAT));
+        gameInput.addAction(Keys.NUM_2, () -> game.setThreat(ORGANIC_THREAT));
+        gameInput.addAction(Keys.X, () -> game.setThreat(CARNAGE));
         gameInput.addAction(Keys.SPACE, () -> game.defend(DefenceType.DETONATE));
         gameInput.addAction(Keys.W, () -> game.defend(DefenceType.AIM_NORTH));
         gameInput.addAction(Keys.A, () -> game.defend(DefenceType.AIM_WEST));
@@ -95,9 +100,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private static void setupThreats(Game game) {
-        game.addThreat(NoDamage.builder());
-        game.addThreat(RandomFloorDestroyer.withTilesPerRound(3));
-        game.addThreat(AmplifiedEdgeDamage.withTilesPerRound(11));
+        game.setThreat(CARNAGE);
     }
 
     private static void setupDefences(Game game) {
