@@ -12,6 +12,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -31,7 +32,10 @@ public class Main extends ApplicationAdapter {
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
 	private BitmapFont font;
+    private ConsoleObserver consoleObserver;
     private UIObserver uiObserver;
+
+
 
 
     private AssetRepository repository = AssetRepository.getInstance();
@@ -96,15 +100,12 @@ public class Main extends ApplicationAdapter {
 
 
         //Observer:
-        ConsoleObserver consoleObserver = new ConsoleObserver();
+        consoleObserver = new ConsoleObserver();
         ((Observable) pb).addObserver(consoleObserver);
 
         //UI Observer
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.WHITE);
-       this.uiObserver = new UIObserver(font);
+        uiObserver = new UIObserver();
         ((Observable) pb).addObserver(uiObserver);
-
 
 
 	}
@@ -122,8 +123,11 @@ public class Main extends ApplicationAdapter {
 			gameObject.draw(batch);
 		}
 		font.draw(batch, "Hello Game", -220, -220);
+		//font.draw(batch, uiObserver.getAusgabeAction(),-220,-180);
+		//font.draw(batch, uiObserver.getAusgabePosition(),-220,-180);
 		batch.end();
-       uiObserver.drawPlayerPosition(uiObserver.getX(), uiObserver.getY());
+
+
 	}
 
 	@Override
