@@ -3,6 +3,7 @@ package at.campus02.swd.game;
 import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.strategy.AttackStrategy;
 import at.campus02.swd.game.strategy.MovementStrategy;
+import at.campus02.swd.game.strategy.RunStrategy;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -51,6 +52,7 @@ public class Main extends ApplicationAdapter {
      * Attack Strategy sout TEST
      **/
     private MovementStrategy attackStrategy = new AttackStrategy();
+    private MovementStrategy runStrategy = new RunStrategy();
 
     /**
      * Für render()
@@ -96,7 +98,7 @@ public class Main extends ApplicationAdapter {
         enemy.addObserver(positionObserver);
 
 
-        gameInput = new GameInput(player, enemy);
+        gameInput = new GameInput(player);
 
         sign = new Sign();
         gameObjects.add(sign);
@@ -108,6 +110,8 @@ public class Main extends ApplicationAdapter {
         // ÜBUNG3: MovementStrategy
         enemy.setStrategy(attackStrategy);
         enemy.executeStrategy(positionObserver);
+
+
 
     }
 

@@ -19,9 +19,8 @@ public class GameInput extends InputAdapter {
     private Command moveRightCommand;
 
 
-    public GameInput(Player player, Enemy enemy) {
+    public GameInput(Player player) {
         this.player = player;
-        this.enemy = enemy;
         this.moveUpCommand = new MoveUpCommand(player);
         this.moveDownCommand = new MoveDownCommand(player);
         this.moveLeftCommand = new MoveLeftCommand(player);
