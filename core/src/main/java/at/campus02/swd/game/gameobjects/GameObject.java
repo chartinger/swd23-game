@@ -7,6 +7,8 @@ import java.util.Observable;
 public interface GameObject {
     void act(float delta);
     void setPosition(float x, float y);
+    float getPositionX();
+    float getPositionY();
     void draw(SpriteBatch batch);
 
     void moveUp();

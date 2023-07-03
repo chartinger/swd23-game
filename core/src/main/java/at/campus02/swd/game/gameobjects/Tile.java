@@ -27,6 +27,16 @@ public class Tile  implements GameObject{
     }
 
     @Override
+    public float getPositionX() {
+        return 0;
+    }
+
+    @Override
+    public float getPositionY() {
+        return 0;
+    }
+
+    @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }

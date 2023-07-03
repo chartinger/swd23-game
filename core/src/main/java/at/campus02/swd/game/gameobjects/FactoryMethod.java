@@ -10,6 +10,14 @@ public class FactoryMethod{
             };
         } else if (type.equalsIgnoreCase("tile")) {
             return new Tile(texture);
+        } else if (type.equalsIgnoreCase("enemy")) {
+            return new EnemyBoy(-20,-30,100,50) {
+
+            };
+        } else if (type.equalsIgnoreCase("enemy2")) {
+            return new EnemyBoy2(-20,-30,200, 50) {
+
+            };
         }
         return null;
     }

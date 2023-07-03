@@ -27,8 +27,6 @@ public class PlayerBoy extends Observable implements GameObject {
         return positionY;
     }
 
-
-
     @Override
     public void act(float delta) {
     }

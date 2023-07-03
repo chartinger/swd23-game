@@ -5,6 +5,9 @@ import at.campus02.swd.game.gameobjects.GameObject;
 import at.campus02.swd.game.gameobjects.PlayerBoy;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.utils.Array;
+
+import java.util.ArrayList;
 
 public class GameInput extends InputAdapter {
 
@@ -13,10 +16,13 @@ public class GameInput extends InputAdapter {
     private Command moveLeftCommand;
     private Command moveRightCommand;
     private GameObject player;
+    private Command deleteCommand;
+    private Array<GameObject> gameObjects;
     private boolean isMovingUp;
     private boolean isMovingDown;
     private boolean isMovingLeft;
     private boolean isMovingRight;
+    private boolean isPressedE;
 
 
     public void setPlayer(GameObject player) {
@@ -39,6 +45,11 @@ public class GameInput extends InputAdapter {
         this.moveRightCommand = moveRightCommand;
     }
 
+    public void setDeleteCommand(Command deleteCommand) { this.deleteCommand = deleteCommand; }
+
+    public void setGameObjects(Array<GameObject> gameObjects) { this.gameObjects = gameObjects;}
+
+
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
@@ -57,6 +68,9 @@ public class GameInput extends InputAdapter {
             case Input.Keys.RIGHT:
                 isMovingRight = true;
                // moveRightCommand.execute(player);
+                return true;
+            case Input.Keys.E:
+                isPressedE = true;
                 return true;
             default:
                 return false;
@@ -77,6 +91,9 @@ public class GameInput extends InputAdapter {
             case Input.Keys.RIGHT:
                 isMovingRight = false;
                 return true;
+            case Input.Keys.E:
+                isPressedE = false;
+                return true;
             default:
                 return false;
         }
@@ -93,6 +110,9 @@ public class GameInput extends InputAdapter {
         }
         if (isMovingRight) {
             moveRightCommand.execute(player);
+        }
+        if (isPressedE) {
+            deleteCommand.execute(player);
         }
     }
 

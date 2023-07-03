@@ -1,9 +1,6 @@
 package at.campus02.swd.game;
 
-import at.campus02.swd.game.gameobjects.AssetRepository;
-import at.campus02.swd.game.gameobjects.FactoryMethod;
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.PlayerBoy;
+import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.input.*;
 import at.campus02.swd.game.observer.ConsoleObserver;
 import at.campus02.swd.game.observer.UIObserver;
@@ -34,6 +31,10 @@ public class Main extends ApplicationAdapter {
 	private BitmapFont font;
     private ConsoleObserver consoleObserver;
     private UIObserver uiObserver;
+
+    private float elapsedTime = 0;
+
+    private boolean isEnemySpeedIncreased = false;
 
 
 
@@ -92,12 +93,21 @@ public class Main extends ApplicationAdapter {
         Command moveDownCommand = new MoveDownCommand();
         Command moveLeftCommand = new MoveLeftCommand();
         Command moveRightCommand = new MoveRightCommand();
+        Command deleteCommand = new DeleteCommand(gameObjects, pb);
         gameInput.setMoveUpCommand(moveUpCommand);
         gameInput.setMoveDownCommand(moveDownCommand);
         gameInput.setMoveLeftCommand(moveLeftCommand);
         gameInput.setMoveRightCommand(moveRightCommand);
+        gameInput.setDeleteCommand(deleteCommand);
+        gameInput.setGameObjects(gameObjects);
 
+        GameObject eb = factory.createObject("enemy", repository.getTexture("Sand_Links_Mitte"));
+        eb.setPosition(0,0);
+        gameObjects.add(eb);
 
+        GameObject eb2 = factory.createObject("enemy2", repository.getTexture("Sand_Links_Mitte"));
+        eb2.setPosition(0,0);
+        gameObjects.add(eb2);
 
         //Observer:
         consoleObserver = new ConsoleObserver();
@@ -107,8 +117,20 @@ public class Main extends ApplicationAdapter {
         uiObserver = new UIObserver();
         ((Observable) pb).addObserver(uiObserver);
 
+    }
 
-	}
+    private void increaseEnemySpeed() {
+        // Iterate over the gameObjects and find the enemy object
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject instanceof EnemyBoy2) {
+                EnemyBoy2 enemy2 = (EnemyBoy2) gameObject;
+                enemy2.increaseSpeed(100);
+            } else if (gameObject instanceof EnemyBoy) {
+                EnemyBoy enemy = (EnemyBoy) gameObject;
+                enemy.increaseSpeed(100);
+            }
+        }
+    }
 
 	private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
@@ -123,8 +145,23 @@ public class Main extends ApplicationAdapter {
 			gameObject.draw(batch);
 		}
 		font.draw(batch, "Hello Game", -220, -220);
-		//font.draw(batch, uiObserver.getAusgabeAction(),-220,-180);
-		//font.draw(batch, uiObserver.getAusgabePosition(),-220,-180);
+
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(font, "Hello");
+        float textWidth = layout.width;
+        float textX = -20;
+        //float textY = viewport.getWorldHeight();
+        float textY = -220;
+
+        String ausgabePosition;
+
+        if (uiObserver.getAusgabePosition() != null) {
+            ausgabePosition = uiObserver.getAusgabePosition() + " " + uiObserver.getAusgabeAction();
+        } else {
+            ausgabePosition = "Waiting for Position..";
+        }
+
+        font.draw(batch, ausgabePosition, textX, textY);
 		batch.end();
 
 
@@ -137,15 +174,18 @@ public class Main extends ApplicationAdapter {
 
 		float delta = Gdx.graphics.getDeltaTime();
 		deltaAccumulator += delta;
+        elapsedTime += delta;
 		while(deltaAccumulator > logicFrameTime) {
 			deltaAccumulator -= logicFrameTime;
             gameInput.update(logicFrameTime);
 			act(logicFrameTime);
+
+            if (!isEnemySpeedIncreased && elapsedTime >= 10f) {
+                increaseEnemySpeed();
+                isEnemySpeedIncreased = true;
+            }
 		}
 		draw();
-
-
-
 
 	}
 
