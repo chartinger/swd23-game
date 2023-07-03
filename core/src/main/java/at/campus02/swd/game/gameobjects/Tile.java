@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
+
 public class Tile implements GameObject {
     private Texture image; // Die Textur des Tiles.
     private Sprite sprite; // Der Sprite des Tiles.

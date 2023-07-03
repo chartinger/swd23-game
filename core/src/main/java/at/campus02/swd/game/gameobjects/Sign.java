@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
+
 public class Sign implements GameObject {
     private Texture image;
     private Sprite sprite;
@@ -26,4 +28,5 @@ public class Sign implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
 }

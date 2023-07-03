@@ -131,7 +131,6 @@ public class Main extends ApplicationAdapter implements InputProcessor {
             deltaAccumulator -= logicFrameTime;
             act(logicFrameTime);
         }
-
         player.act(delta);
         enemy1.act(delta);
         enemy2.act(delta);

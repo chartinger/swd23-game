@@ -4,19 +4,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Enemy implements GameObject{
+public class Enemy implements GameObject {
 
     private List<PositionObserver> observers;
-    private Texture image; // Die Textur des Spielers.
-    private Sprite sprite; // Der Sprite des Spielers.
-    private String imagePath;
+    private final Texture image; // Die Textur des Spielers.
+    private final Sprite sprite; // Der Sprite des Spielers.
+    private final String imagePath;
     private float x; // X-Koordinate des Spielers
     private float y; // Y-Koordinate des Spielers
-    private float speed; // Geschwindigkeit des Spielers
+    private final float speed; // Geschwindigkeit des Spielers
 
     public Enemy(String imagePath) {
         this.imagePath = imagePath;
@@ -25,20 +26,21 @@ public class Enemy implements GameObject{
         this.x = 0;
         this.y = 0;
         this.speed = 40;
+
     }
 
+    int velX = 2;
+    int velY = 2;
 
     @Override
     public void act(float delta) {
-        int max = 370;
-        int min = 100;
-        int range = max - min + 1;
-        int randX = 0;
-        int randY = 0;
+        y += velY;
+        x += velX;
 
-        randX = (int) (Math.random() * range) + min;
-        randY = (int) (Math.random() * range) + min;
-        setPosition(randX,randY);
+        if (y <= 105 || y >= 385) velY *= -1;
+        if (x <= 85 || x >= 375) velX *= -1;
+
+        setPosition(x, y);
     }
 
     @Override
@@ -52,4 +54,5 @@ public class Enemy implements GameObject{
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
+
 }
