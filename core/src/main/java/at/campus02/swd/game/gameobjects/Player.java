@@ -22,6 +22,8 @@ public class Player implements GameObject, Observable {
     private List<PositionObserver> observers = new ArrayList<PositionObserver>();
 
 
+
+
     public Player(Texture image) {
         this.image = image;
         this.sprite = new Sprite(image);
@@ -48,6 +50,7 @@ public class Player implements GameObject, Observable {
         for (PositionObserver observer : observers) {
             observer.update(getPositionX(), getPositionY());
         }
+
     }
 
     public float getPositionX() {

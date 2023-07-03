@@ -1,16 +1,23 @@
 package at.campus02.swd.game.input;
 
+import at.campus02.swd.game.gameobjects.Enemy;
 import at.campus02.swd.game.gameobjects.Player;
 import at.campus02.swd.game.movement.*;
+import at.campus02.swd.game.strategy.AttackStrategy;
+import at.campus02.swd.game.strategy.MovementStrategy;
 import com.badlogic.gdx.InputAdapter;
 
 public class GameInput extends InputAdapter {
 
     private Player player;
+
+    private Enemy enemy;
+
     private Command moveUpCommand;
     private Command moveDownCommand;
     private Command moveLeftCommand;
     private Command moveRightCommand;
+
 
     public GameInput(Player player) {
         this.player = player;
@@ -18,6 +25,7 @@ public class GameInput extends InputAdapter {
         this.moveDownCommand = new MoveDownCommand(player);
         this.moveLeftCommand = new MoveLeftCommand(player);
         this.moveRightCommand = new MoveRightCommand(player);
+
     }
 
 
