@@ -75,6 +75,7 @@ public class RunStrategy implements MovementStrategy {
 
 
 
+    @Override
     public void stopExecution() {
         attackTimer.cancel();
     }

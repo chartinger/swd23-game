@@ -71,6 +71,10 @@ public class Enemy implements GameObject, Observable {
         this.isliving = isliving;
     }
 
+    public void died() {
+        stopStrategyexecution();
+    }
+
     public void setStrategy(MovementStrategy movementStrategy){
         this.movementStrategy = movementStrategy;
     }
@@ -78,6 +82,11 @@ public class Enemy implements GameObject, Observable {
     public MovementStrategy getStrategy(){
         return  movementStrategy;
     }
+
+    public void stopStrategyexecution(){
+        movementStrategy.stopExecution();
+    }
+
 
     public void executeStrategy (UIPositionObserver uiPositionObserver){
         movementStrategy.execute(this, uiPositionObserver);
