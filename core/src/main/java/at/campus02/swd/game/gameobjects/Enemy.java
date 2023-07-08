@@ -29,18 +29,33 @@ public class Enemy implements GameObject {
 
     }
 
-    int velX = 2;
-    int velY = 2;
+    int velX=2;
+    int velY=2;
+
+    public void act(float delta, float velocityMultiplier, String strategy) {
+        switch(strategy){
+            case "default":
+                y += velY*velocityMultiplier;
+                x += velX*velocityMultiplier;
+                if (y <= 105 || y >= 385) velY *= -1;
+                if (x <= 85 || x >= 375) velX *= -1;
+                break;
+            case "horizontal":
+                x += velX*velocityMultiplier;
+                if (x <= 85 || x >= 375) velX *= -1;
+                break;
+            case "vertical":
+                y += velY*velocityMultiplier;
+                if (y <= 105 || y >= 385) velY *= -1;
+                break;
+        }
+
+        setPosition(x, y);
+    }
 
     @Override
     public void act(float delta) {
-        y += velY;
-        x += velX;
-
-        if (y <= 105 || y >= 385) velY *= -1;
-        if (x <= 85 || x >= 375) velX *= -1;
-
-        setPosition(x, y);
+        act(delta,2,"default");
     }
 
     @Override
@@ -54,5 +69,4 @@ public class Enemy implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
-
 }

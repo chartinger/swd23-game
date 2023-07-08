@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
-public class Player implements GameObject {
+public class Player implements GameObject{
     private List<PositionObserver> observers;
     private Texture image; // Die Textur des Spielers.
     private Sprite sprite; // Der Sprite des Spielers.
@@ -16,7 +17,6 @@ public class Player implements GameObject {
     private float x; // X-Koordinate des Spielers
     private float y; // Y-Koordinate des Spielers
     private float speed; // Geschwindigkeit des Spielers
-
     private boolean movingUp;
     private boolean movingDown;
     private boolean movingLeft;

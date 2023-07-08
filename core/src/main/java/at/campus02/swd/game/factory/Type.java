@@ -12,5 +12,6 @@ public enum Type {
     MEADOW_BOTTOM_RIGHT,
     PLAYER,
     ENEMY1,
-    ENEMY2
+    ENEMY2,
+    ENEMY3
 }

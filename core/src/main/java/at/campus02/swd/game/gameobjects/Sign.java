@@ -28,5 +28,4 @@ public class Sign implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
-
 }

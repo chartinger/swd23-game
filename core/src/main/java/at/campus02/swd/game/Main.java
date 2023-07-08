@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import at.campus02.swd.game.input.GameInput;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 
 public class Main extends ApplicationAdapter implements InputProcessor {
@@ -32,9 +34,9 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private Player player;
     private Enemy enemy1;
     private Enemy enemy2;
+    private Enemy enemy3;
     private Table uiTable;
     private Label positionLabel;
-
     private Stage stage;
 
     @Override
@@ -73,6 +75,13 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         enemy2 = (Enemy) enemyFactory.create(Type.ENEMY2, randX, randY);
         gameObjects.add(enemy2);
 
+        randX = (int) (Math.random() * range) + min;
+        randY = (int) (Math.random() * range) + min;
+
+        enemy3 = (Enemy) enemyFactory.create(Type.ENEMY3, randX, randY);
+        gameObjects.add(enemy3);
+
+
 
         gameInput = new GameInput(player);
 
@@ -87,8 +96,9 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         uiTable.setFillParent(true);
         uiTable.top().left();
 
+        uiTable.add(positionLabel);
 
-        uiTable.add(positionLabel).left().top();
+
 
         stage = new Stage(viewport, batch);
         stage.addActor(uiTable);
@@ -106,6 +116,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
             gameObject.act(delta);
         }
         player.act(delta);
+
     }
 
     private void draw() {
@@ -117,6 +128,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         }
         font.draw(batch, "Hello Game", -220, -220);// Zeichnet den Text "Hello Game" an der angegebenen Position
         batch.end();
+
 
     }
 
@@ -132,14 +144,16 @@ public class Main extends ApplicationAdapter implements InputProcessor {
             act(logicFrameTime);
         }
         player.act(delta);
-        enemy1.act(delta);
-        enemy2.act(delta);
+        enemy1.act(delta, 2,"default");
+        enemy2.act(delta,1,"horizontal");
+        enemy3.act(delta, (float)0.5,"vertical");
 
         draw();
 
         stage.act();
         stage.draw();
     }
+
 
     @Override
     public void dispose() {
@@ -212,4 +226,5 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     public boolean scrolled(float amountX, float amountY) {
         return false;
     }
+
 }

@@ -15,6 +15,9 @@ public class EnemyFactory extends Factory{
             case ENEMY2:
                 enemy = new Enemy("sprites/ship parts/crew (1).png");
                 break;
+            case ENEMY3:
+                enemy = new Enemy("sprites/ship parts/crew (6).png");
+                break;
             default:
                 throw  new IllegalArgumentException("Kein EnemyObject gefunden");
         }

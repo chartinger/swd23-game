@@ -36,5 +36,4 @@ public class Tile implements GameObject {
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
     }
-
 }
