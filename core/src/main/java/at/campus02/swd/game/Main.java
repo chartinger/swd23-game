@@ -4,8 +4,6 @@ import at.campus02.swd.game.gameobjects.*;
 import at.campus02.swd.game.gameobjects.EnemyObjects.Enemy;
 import at.campus02.swd.game.logic.Control;
 import at.campus02.swd.game.logic.EnemyControl;
-import at.campus02.swd.game.logic.Observer;
-import at.campus02.swd.game.logic.UsedTextures;
 import at.campus02.swd.game.playerobjects.Background;
 import at.campus02.swd.game.playerobjects.InteractiveObjects;
 import at.campus02.swd.game.playerobjects.Player;
@@ -20,6 +18,9 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import at.campus02.swd.game.input.GameInput;
 
+import java.util.Arrays;
+import java.util.List;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 	private SpriteBatch batch;
@@ -27,7 +28,7 @@ public class Main extends ApplicationAdapter {
 	private final ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
 	private final GameInput gameInput = new GameInput();
 
-	private Array<GameObject> gameObjects = new Array<>();
+	public Array<GameObject> gameObjects = new Array<>();
 
 	private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
@@ -35,8 +36,6 @@ public class Main extends ApplicationAdapter {
 	private BitmapFont font;
 
     public Player playerOne;
-
-
 
 	@Override
 	public void create() {
@@ -50,7 +49,8 @@ public class Main extends ApplicationAdapter {
         playerOne = new Player("Player One");
 
         gameInput.control = new Control(playerOne, batch);
-
+        EnemyControl.instance(gameInput.control);
+        EnemyControl.instance(gameInput.control).run();
         gameObjects.add(playerOne);
 
 		font = new BitmapFont();
@@ -90,8 +90,21 @@ public class Main extends ApplicationAdapter {
         AreThereEnemies();
 	}
 
-    private void AreThereEnemies(){
-        if (gameInput.control.addEnemy) {
+    public void AreThereEnemies(){
+
+        try {
+            if (EnemyControl.instance(gameInput.control)._enemies.size() > 0) {
+                for (Enemy e : EnemyControl.instance(gameInput.control)._enemies) {
+                    if (e.killMe)
+                        killEnemy(e);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+
+        }
+        if (EnemyControl.spawnEnemy && EnemyControl._numberEnemies > 0) {
             if(EnemyControl.instance(gameInput.control)._enemies.size() < 2 && gameInput.control.addEnemy)  {
                 newOpponent();
             }
@@ -108,11 +121,18 @@ public class Main extends ApplicationAdapter {
 		viewport.update(width,height);
 	}
 
-    public void newOpponent(){
-        if (playerOne.getPositionX() == 30){
-            Enemy enemy = new Enemy();
-            gameObjects.add(EnemyControl.instance(gameInput.control).AddEnemy());
-            gameInput.control.addEnemy = false;
-        }
+    public void newOpponent() {
+        gameObjects.add(EnemyControl.instance(gameInput.control).AddEnemy());
+        EnemyControl._numberEnemies--;
+        EnemyControl.spawnEnemy = false;
+    }
+
+    private void killEnemy(Enemy enemy)
+    {
+        gameObjects.removeValue(enemy, true);
+        EnemyControl.instance(gameInput.control).deleteEnemyFromList(enemy);
+        EnemyControl._numberEnemies++;
+        enemy = null;
     }
 }
+

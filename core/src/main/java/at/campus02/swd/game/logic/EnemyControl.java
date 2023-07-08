@@ -1,3 +1,4 @@
+
 package at.campus02.swd.game.logic;
 import at.campus02.swd.game.gameobjects.EnemyObjects.Enemy;
 import at.campus02.swd.game.gameobjects.EnemyObjects.EnemyObserver;
@@ -8,7 +9,11 @@ import java.util.ArrayList;
 
 public class EnemyControl {
 
+    public static boolean killEnemySpawn = false;
+    public static boolean spawnEnemy = false;
     private static EnemyControl enemyControl = null;
+
+    public static int _numberEnemies = 2;
 
     private final Control control;
 
@@ -21,6 +26,37 @@ public class EnemyControl {
     private EnemyControl(Control control)  {
         this.control = control;
         eObserver = new EnemyObserver();
+    }
+
+    public void run(){
+        Runnable spawnTimer = new Runnable() {
+            public void run() {
+                enemySpawnTimer();
+            }
+        };
+
+        new Thread(spawnTimer).start();
+    }
+
+    public void deleteEnemyFromList(Enemy enemy){
+        if(_enemies.contains(enemy))
+            _enemies.remove(enemy);
+    }
+    private void enemySpawnTimer(){
+        while(!EnemyControl.killEnemySpawn) {
+            try {
+                Thread.sleep(2000);
+                Random rand = new Random();
+                int spawnChance = 0;
+                spawnChance = rand.ints(0,99).limit(100).findFirst().orElse(0);
+                //System.out.println("SpawnChance: " + spawnChance + "SpawnEnemy; " + spawnEnemy + "Number of Enemies" + _numberEnemies);
+                if(spawnChance > 50)
+                    EnemyControl.spawnEnemy = true;
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void alterLeft(Enemy enemy){
@@ -54,8 +90,8 @@ public class EnemyControl {
         Enemy newEnemy = new Enemy();
         _enemies.add(newEnemy);
         Random rand = new Random();
-        float x =  control.player.getPositionX() + (float)rand.ints(20,100).limit(10000).findFirst().getAsInt();
-        float y =  (control.player.getPositionX() + (float)rand.ints(20,100).limit(10000).findFirst().getAsInt());
+        float x =  control.player.getPositionX() + (float)rand.ints(-100,100).limit(10000).findFirst().getAsInt();
+        float y =  (control.player.getPositionX() + (float)rand.ints(-100,100).limit(10000).findFirst().getAsInt());
         newEnemy.setPosition(x,y);
         return newEnemy;
     }

@@ -18,6 +18,8 @@ public class Player implements GameObject {
 
     private final UsedTextures textures = UsedTextures.instance();
 
+    public static boolean playerShoot = false;
+
     public Player(String name) {
         this.name = name;
         this.image = textures.Textures.get("Player");

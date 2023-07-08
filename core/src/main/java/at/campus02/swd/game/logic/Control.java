@@ -53,6 +53,11 @@ public class Control {
         WriteLog(pObserver, player.getPositionX(), player.getPositionY());
     }
 
+    public void playerShoot(){
+        ActionShoot.execute(player);
+        WriteLog(pObserver, "boom");
+    }
+
     public void CheckPlayerAgainstInteractiveObject(){
 
         EnemyControl.instance(this).MoveEnemies();
@@ -67,6 +72,9 @@ public class Control {
     }
 
     public void CheckPlayerAgainstEnemy(Enemy enemy){
+
+        if(CheckPlayerFire(enemy))
+            return;
 
         float enemyRange = 10;
         boolean xInrange = false;
@@ -88,12 +96,44 @@ public class Control {
             GameOver();
     }
 
+    public boolean CheckPlayerFire(Enemy enemy) {
+
+        if(!Player.playerShoot)
+            return false;
+
+        float playerRange = 20;
+        boolean xInrange = false;
+        boolean yInfrange = false;
+        for(float i = enemy.getPositionX() - playerRange; i < enemy.getPositionX() + playerRange; i++ )
+        {
+            if(i == player.getPositionX())
+                xInrange = true;
+
+            for(float j = enemy.getPositionX() - playerRange; j < enemy.getPositionX() + playerRange; j++ )
+            {
+                if (j == player.getPositionX()) {
+                    Player.playerShoot = false;
+                    yInfrange = true;
+                    break;
+                }
+            }
+        }
+
+        if(xInrange && yInfrange)
+        {
+            enemy.ChangeTexture();
+            enemy.killEnemy();
+            return true;
+        }
+        return false;
+    }
     private void GameOver(){
         player.ChangeTexture();
         LockPosition = true;
         batch.begin();
         font.draw(batch, "Game Over", -110, -220);
         batch.end();
+        EnemyControl.killEnemySpawn = true;
         System.out.println("----");
         System.out.println("ouch");
         System.out.println("----");
@@ -105,6 +145,10 @@ public class Control {
 
     private void WriteLog(Observer observer, float x, float y){
         observer.PushAction(this.player.name, x,y);
+    }
+
+    private void WriteLog(Observer observer, String in){
+        observer.PushAction(this.player.name + " " + in);
     }
 }
 

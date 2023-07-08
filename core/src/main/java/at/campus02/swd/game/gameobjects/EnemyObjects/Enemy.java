@@ -10,6 +10,7 @@ public class Enemy implements GameObject {
 
     private Texture image;
     private Sprite sprite;
+    public boolean killMe = false;
 
     private float x = 0;
     private float y = 0;
@@ -52,5 +53,9 @@ public class Enemy implements GameObject {
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
+    }
+
+    public void killEnemy(){
+        killMe = true;
     }
 }

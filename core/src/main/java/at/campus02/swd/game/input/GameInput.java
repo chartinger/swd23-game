@@ -32,8 +32,12 @@ public class GameInput extends InputAdapter {
             System.exit(0);
         }
 
+        if(keycode == 62) {
+            control.playerShoot();
+        }
+
         control.CheckPlayerAgainstInteractiveObject();
-//        System.out.println(keycode);
+        //System.out.println(keycode);
         return true;
     }
 }

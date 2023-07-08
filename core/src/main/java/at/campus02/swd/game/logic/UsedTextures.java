@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class UsedTextures {
 
-    public Map<String, Texture> Textures = new HashMap<String, Texture>();
+    public Map<String, Texture> Textures = new HashMap<>();
 
     private static UsedTextures usedTextures = null;
 

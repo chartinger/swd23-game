@@ -19,6 +19,7 @@ public abstract class Observer
         this.ActionsList.add(type + " Position: [x: " + x + "] [y: " + y + "]." );;
     }
 
+
     public ArrayList<String> GetActionList(){
         return ActionsList;
     }
