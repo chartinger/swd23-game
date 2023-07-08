@@ -1,0 +1,66 @@
+lwjgl 3 --> nicht mehr angreifen
+assets --> für alle Bilder/Sounds
+
+MAIN:
+create() --> hier werden alle Objekte erzeugt
+render() --> nicht wichtig
+draw()   --> zeichnet immer wieder Objekte
+
+
+Sprite:
+nimmt Texture + Größe, Rotation, Position am Bildschirm
+
+___
+.setPosition(pixel, pixel)
+ --> ohne .setPosition => immer 0/0 in der Mitte des Fensters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
