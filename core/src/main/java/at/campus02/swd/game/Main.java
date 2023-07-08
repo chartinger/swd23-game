@@ -98,7 +98,7 @@ public class Main extends ApplicationAdapter {
         enemy.addObserver(positionObserver);
 
 
-        gameInput = new GameInput(player);
+        gameInput = new GameInput(player, enemy);
 
         sign = new Sign();
         gameObjects.add(sign);

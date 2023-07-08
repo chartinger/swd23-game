@@ -6,4 +6,5 @@ import at.campus02.swd.game.gameobjects.UIPositionObserver;
 public interface MovementStrategy {
     void execute(Enemy enemy, UIPositionObserver uiPositionObserver);
 
+    void stopExecution();
 }
