@@ -107,6 +107,7 @@ public class Main extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(this.gameInput);
 
+
         // ÜBUNG3: MovementStrategy
         enemy.setStrategy(attackStrategy);
         enemy.executeStrategy(positionObserver);
