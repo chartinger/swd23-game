@@ -27,6 +27,9 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
     private GameInput gameInput;
     private Array<GameObject> gameObjects = new Array<>();
+
+    private Array<Player> players = new Array<>();
+    private Array<Enemy> enemies = new Array<>();
     private final float updatesPerSecond = 60;
     private final float logicFrameTime = 1 / updatesPerSecond;
     private float deltaAccumulator = 0;
@@ -35,9 +38,12 @@ public class Main extends ApplicationAdapter implements InputProcessor {
     private Enemy enemy1;
     private Enemy enemy2;
     private Enemy enemy3;
-    private Table uiTable;
-    private Label positionLabel;
+    private Table uiTable, uiTable2;
+    private Label positionLabel, survivalTime, highScoreTime;
     private Stage stage;
+    private long startTime;
+
+    private float highscore = 0, elapsedTime;
 
     @Override
     public void create() {
@@ -54,6 +60,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
         player = (Player) playerFactory.create(Type.PLAYER, 235, 235);
         gameObjects.add(player);
+        players.add(player);
 
 
         //Enemy spawn at random position
@@ -68,20 +75,21 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
         enemy1 = (Enemy) enemyFactory.create(Type.ENEMY1, randX, randY);
         gameObjects.add(enemy1);
+        enemies.add(enemy1);
 
         randX = (int) (Math.random() * range) + min;
         randY = (int) (Math.random() * range) + min;
 
         enemy2 = (Enemy) enemyFactory.create(Type.ENEMY2, randX, randY);
         gameObjects.add(enemy2);
+        enemies.add(enemy2);
 
         randX = (int) (Math.random() * range) + min;
         randY = (int) (Math.random() * range) + min;
 
         enemy3 = (Enemy) enemyFactory.create(Type.ENEMY3, randX, randY);
         gameObjects.add(enemy3);
-
-
+        enemies.add(enemy3);
 
         gameInput = new GameInput(player);
 
@@ -99,16 +107,28 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         uiTable.add(positionLabel);
 
 
+        survivalTime = new Label("Current: ", new Label.LabelStyle(font, Color.WHITE));
+        highScoreTime = new Label("   Highscore: ", new Label.LabelStyle(font, Color.WHITE));
+        uiTable2 = new Table();
+        uiTable2.setFillParent(true);
+        uiTable2.top().right();
+        uiTable2.add(survivalTime,highScoreTime);
 
         stage = new Stage(viewport, batch);
         stage.addActor(uiTable);
+        stage.addActor(uiTable2);
 
         PositionObserver uiObserver = new UIPositionObserver(positionLabel);
-
 
         PositionObserver logObserver = new LogPositionObserver();
         player.addObserver(uiObserver);
         player.addObserver(logObserver);
+
+        enemy1.addObserver(logObserver);
+        enemy2.addObserver(logObserver);
+        enemy3.addObserver(logObserver);
+
+        startTime = System.currentTimeMillis();
     }
 
     private void act(float delta) {
@@ -117,6 +137,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
         }
         player.act(delta);
 
+        System.out.println("This is called");
     }
 
     private void draw() {
@@ -132,6 +153,7 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
     }
 
+    // game loop
     @Override
     public void render() {
         Gdx.gl.glClearColor(0.52f, 0.81f, 0.92f, 1f);
@@ -150,8 +172,35 @@ public class Main extends ApplicationAdapter implements InputProcessor {
 
         draw();
 
+
+
         stage.act();
         stage.draw();
+        elapsedTime = (System.currentTimeMillis() - startTime)/1000F;
+        if(highscore < elapsedTime){
+            highscore = elapsedTime;
+        }
+        highScoreTime.setText("   Highscore: " + highscore);
+        checkCollisions();
+
+    }
+
+    private void checkCollisions(){
+        survivalTime.setText("Current: " + elapsedTime);
+
+        for (Enemy e : enemies
+             ) {
+
+            int distanceX = Math.abs(player.getPosition()[0] - e.getPosition()[0]);
+            int distanceY = Math.abs(player.getPosition()[1] - e.getPosition()[1]);
+
+            if(distanceX < 16 && distanceY < 16){
+                System.out.println("##### COLLISION #####");
+                startTime = System.currentTimeMillis();
+            }
+
+
+        }
     }
 
 

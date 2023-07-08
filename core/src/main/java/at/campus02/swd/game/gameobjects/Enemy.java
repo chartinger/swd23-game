@@ -26,7 +26,7 @@ public class Enemy implements GameObject {
         this.x = 0;
         this.y = 0;
         this.speed = 40;
-
+        this.observers = new ArrayList<>();
     }
 
     int velX=2;
@@ -49,8 +49,21 @@ public class Enemy implements GameObject {
                 if (y <= 105 || y >= 385) velY *= -1;
                 break;
         }
-
         setPosition(x, y);
+        notifyObservers((int) x, (int) y);
+    }
+
+    public void addObserver(PositionObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(PositionObserver observer) { observers.remove(observer);
+    }
+
+    private void notifyObservers(int x, int y) {
+        for (PositionObserver observer : observers) {
+            observer.updatePosition(x, y, "Enemy");
+        }
     }
 
     @Override
@@ -68,5 +81,8 @@ public class Enemy implements GameObject {
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
+    }
+    public int[] getPosition() {
+        return new int[]{(int)x,(int)y};
     }
 }

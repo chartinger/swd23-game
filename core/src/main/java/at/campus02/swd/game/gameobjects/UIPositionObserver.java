@@ -12,8 +12,8 @@ public class UIPositionObserver implements PositionObserver {
     }
 
     @Override
-    public void updatePosition(int x, int y) {
-        String positionText = "UI-Position: x=" + x + ", y=" + y;
+    public void updatePosition(int x, int y, String identifier) {
+        String positionText = identifier + " UI-Position: x=" + x + ", y=" + y;
         positionLabel.setText(positionText);
     }
 }

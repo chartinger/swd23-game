@@ -42,7 +42,7 @@ public class Player implements GameObject{
 
     private void notifyObservers(int x, int y) {
         for (PositionObserver observer : observers) {
-            observer.updatePosition(x, y);
+            observer.updatePosition(x, y, "Player");
         }
     }
 
@@ -127,5 +127,9 @@ public class Player implements GameObject{
     @Override
     public void draw(SpriteBatch batch) {
         sprite.draw(batch);
+    }
+
+    public int[] getPosition() {
+        return new int[]{(int)x,(int)y};
     }
 }
