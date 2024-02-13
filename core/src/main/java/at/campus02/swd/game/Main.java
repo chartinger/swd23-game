@@ -1,42 +1,117 @@
 package at.campus02.swd.game;
 
+import at.campus02.swd.game.board.MultiDamageBoard;
+import at.campus02.swd.game.game.Board;
+import at.campus02.swd.game.game.DefenceType;
+import at.campus02.swd.game.game.Game;
+import at.campus02.swd.game.game.FloorObserver.Action;
+import at.campus02.swd.game.defences.Direction;
+import at.campus02.swd.game.defences.RepairBomb;
+import at.campus02.swd.game.defences.RepairGun;
+import at.campus02.swd.game.game.ThreatStrategy;
+import at.campus02.swd.game.gameobjects.*;
+import at.campus02.swd.game.reporting.ScoreBoard;
+import at.campus02.swd.game.threats.*;
+import at.campus02.swd.game.util.GameObjectPositioner;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import at.campus02.swd.game.gameobjects.GameObject;
-import at.campus02.swd.game.gameobjects.Sign;
 import at.campus02.swd.game.input.GameInput;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-	private SpriteBatch batch;
+    private static final int BUDGET = 3;
+    private static final ThreatStrategy.Builder EMPTY_THREAT = NoDamage.builder();
+    private static final ThreatStrategy.Builder RANDOM_THREAT = RandomFloorDestroyer.withTilesPerRound(3);
+    private static final ThreatStrategy.Builder ORGANIC_THREAT = AmplifiedEdgeDamage.withTilesPerRound(11);
+    private static final ThreatStrategy.Builder CARNAGE = ThreatPackage
+        .withThreat(RANDOM_THREAT)
+        .andThreat(ORGANIC_THREAT);
 
-	private ExtendViewport viewport = new ExtendViewport(480.0f, 480.0f, 480.0f, 480.0f);
-	private GameInput gameInput = new GameInput();
+    private final GameObjectPositioner gameObjectPositioner = new GameObjectPositioner(640, 640, 64);
+    private SpriteBatch batch;
+    private ScoreBoard scoreBoard;
 
-	private Array<GameObject> gameObjects = new Array<>();
+	private final ExtendViewport viewport = new ExtendViewport(640.0f, 640.0f, 640.0f, 640.0f);
+
+	private final Array<GameObject> gameObjects = new Array<>();
 
 	private final float updatesPerSecond = 60;
 	private final float logicFrameTime = 1 / updatesPerSecond;
 	private float deltaAccumulator = 0;
-	private BitmapFont font;
 
-	@Override
+
+    @Override
 	public void create() {
-		batch = new SpriteBatch();
-		gameObjects.add(new Sign());
-		font = new BitmapFont();
-		font.setColor(Color.WHITE);
-		Gdx.input.setInputProcessor(this.gameInput);
-	}
+        batch = new SpriteBatch();
+        startNewGame();
+    }
 
-	private void act(float delta) {
+    private void startNewGame() {
+        final Game game = createGame();
+        setupReporting(game);
+        setupKeybindings(game);
+        setupThreats(game);
+        setupDefences(game);
+        System.out.println("Game has been started - try to safe yourself!");
+    }
+
+    private Game createGame() {
+        final TileFactory tileFactory = new TileFactory(AssetRepository.INSTANCE);
+        final PlayerFactory playerFactory = new PlayerFactory(AssetRepository.INSTANCE);
+        final Board board = new MultiDamageBoard(gameObjectPositioner, playerFactory, tileFactory, PlayerType.READY_PLAYER_ONE, TileType.FINISH);
+        final Game game = new Game(board, BUDGET);
+        gameObjects.addAll(board.getGameObjects());
+        scoreBoard = new ScoreBoard(-300, -290);
+        return game;
+    }
+
+    private void setupKeybindings(Game game) {
+        final GameInput gameInput = new GameInput();
+        gameInput.addAction(Keys.UP, game::moveNorth);
+        gameInput.addAction(Keys.DOWN, game::moveSouth);
+        gameInput.addAction(Keys.LEFT, game::moveWest);
+        gameInput.addAction(Keys.RIGHT, game::moveEast);
+        gameInput.addAction(Keys.ESCAPE, this::startNewGame);
+        gameInput.addAction(Keys.Q, Gdx.app::exit);
+        gameInput.addAction(Keys.NUM_0, () -> game.setThreat(EMPTY_THREAT));
+        gameInput.addAction(Keys.NUM_1, () -> game.setThreat(RANDOM_THREAT));
+        gameInput.addAction(Keys.NUM_2, () -> game.setThreat(ORGANIC_THREAT));
+        gameInput.addAction(Keys.X, () -> game.setThreat(CARNAGE));
+        gameInput.addAction(Keys.SPACE, () -> game.defend(DefenceType.DETONATE));
+        gameInput.addAction(Keys.W, () -> game.defend(DefenceType.AIM_NORTH));
+        gameInput.addAction(Keys.A, () -> game.defend(DefenceType.AIM_WEST));
+        gameInput.addAction(Keys.S, () -> game.defend(DefenceType.AIM_SOUTH));
+        gameInput.addAction(Keys.D, () -> game.defend(DefenceType.AIM_EAST));
+        Gdx.input.setInputProcessor(gameInput);
+    }
+
+    private void setupReporting(Game game) {
+        game.subscribeForBudget(scoreBoard);
+        game.subscribeForMovement(scoreBoard);
+        game.subscribeForFloorActions(scoreBoard);
+        game.subscribeForMovement(position -> System.out.println("You are at " + position));
+        game.subscribeForFloorActions((action, position) -> System.out.println("Floor at " + position + " just " + (Action.DESTROY.equals(action) ? "vanished" : "appeared")));
+    }
+
+    private static void setupThreats(Game game) {
+        game.setThreat(CARNAGE);
+    }
+
+    private static void setupDefences(Game game) {
+        game.setDefence(DefenceType.DETONATE, RepairBomb.builder());
+        game.setDefence(DefenceType.AIM_NORTH, RepairGun.pointing(Direction.NORTH));
+        game.setDefence(DefenceType.AIM_SOUTH, RepairGun.pointing(Direction.SOUTH));
+        game.setDefence(DefenceType.AIM_EAST, RepairGun.pointing(Direction.EAST));
+        game.setDefence(DefenceType.AIM_WEST, RepairGun.pointing(Direction.WEST));
+    }
+
+    private void act(float delta) {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.act(delta);
 		}
@@ -48,7 +123,7 @@ public class Main extends ApplicationAdapter {
 		for(GameObject gameObject : gameObjects) {
 			gameObject.draw(batch);
 		}
-		font.draw(batch, "Hello Game", -220, -220);
+		scoreBoard.draw(batch);
 		batch.end();
 	}
 
@@ -69,6 +144,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
+        AssetRepository.INSTANCE.dispose();
 	}
 
 	@Override
